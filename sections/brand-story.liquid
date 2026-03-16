@@ -2,70 +2,82 @@
   class="brand-story section-padding"
   data-section-id="{{ section.id }}"
   aria-labelledby="brand-story-heading-{{ section.id }}"
+  style="background-color: var(--warm-white);"
 >
   <div class="container">
+    <div class="brand-story__layout">
 
-    <div class="brand-story__intro reveal">
-      {%- if section.settings.section_label != blank -%}
-        <p class="section-label">{{ section.settings.section_label }}</p>
-      {%- endif -%}
+      {%- comment -%} LEFT COLUMN — intro text + pillar cards {%- endcomment -%}
+      <div class="brand-story__left">
 
-      <h2 id="brand-story-heading-{{ section.id }}" class="brand-story__heading">
-        {{- section.settings.heading | default: 'Built to last. Designed to display.' -}}
-        {%- if section.settings.heading_em != blank -%}
-          <em>{{ section.settings.heading_em }}</em>
-        {%- endif -%}
-      </h2>
+        <div class="brand-story__intro reveal">
+          {%- if section.settings.section_label != blank -%}
+            <p class="section-label">{{ section.settings.section_label }}</p>
+          {%- endif -%}
 
-      <div class="brand-story__body-text">
-        {%- if section.settings.body_1 != blank -%}
-          <p>{{ section.settings.body_1 }}</p>
-        {%- endif -%}
-        {%- if section.settings.body_2 != blank -%}
-          <p>{{ section.settings.body_2 }}</p>
-        {%- endif -%}
-        {%- if section.settings.body_3 != blank -%}
-          <p>{{ section.settings.body_3 }}</p>
-        {%- endif -%}
-      </div>
-    </div>
+          <h2 id="brand-story-heading-{{ section.id }}" class="brand-story__heading">
+            {{- section.settings.heading -}}
+            {%- if section.settings.heading_italic != blank -%}
+              <br><em>{{ section.settings.heading_italic }}</em>
+            {%- endif -%}
+          </h2>
 
-    <div class="brand-story__pillars reveal-stagger">
-      {%- for i in (1..4) -%}
-        {%- assign pillar_label_key = 'pillar_' | append: i | append: '_label' -%}
-        {%- assign pillar_desc_key = 'pillar_' | append: i | append: '_desc' -%}
-        {%- assign pillar_label = section.settings[pillar_label_key] -%}
-        {%- assign pillar_desc = section.settings[pillar_desc_key] -%}
-        {%- if pillar_label != blank -%}
-          <div class="brand-story__pillar">
-            <p class="brand-story__pillar-label section-label">{{ pillar_label }}</p>
-            {%- if pillar_desc != blank -%}
-              <p class="brand-story__pillar-desc">{{ pillar_desc }}</p>
+          <div class="brand-story__body-text">
+            {%- if section.settings.body_1 != blank -%}
+              <p>{{ section.settings.body_1 }}</p>
+            {%- endif -%}
+            {%- if section.settings.body_2 != blank -%}
+              <p>{{ section.settings.body_2 }}</p>
+            {%- endif -%}
+            {%- if section.settings.body_3 != blank -%}
+              <p>{{ section.settings.body_3 }}</p>
             {%- endif -%}
           </div>
-        {%- endif -%}
-      {%- endfor -%}
-    </div>
+        </div>
 
-    <div class="brand-story__numbers">
-      {%- for i in (1..2) -%}
-        {%- assign story_num_key = 'story_' | append: i | append: '_number' -%}
-        {%- assign story_text_key = 'story_' | append: i | append: '_text' -%}
-        {%- assign story_num = section.settings[story_num_key] -%}
-        {%- assign story_text = section.settings[story_text_key] -%}
-        {%- if story_text != blank -%}
-          <div class="brand-story__number-block reveal">
-            {%- if story_num != blank -%}
-              <span class="brand-story__num-label" aria-hidden="true">{{ story_num }}</span>
+        <div class="brand-story__pillars reveal-stagger">
+          {%- for i in (1..4) -%}
+            {%- assign pillar_label_key = 'pillar_' | append: i | append: '_label' -%}
+            {%- assign pillar_desc_key  = 'pillar_' | append: i | append: '_desc' -%}
+            {%- assign pillar_label = section.settings[pillar_label_key] -%}
+            {%- assign pillar_desc  = section.settings[pillar_desc_key] -%}
+            {%- if pillar_label != blank -%}
+              <div class="brand-story__pillar">
+                <p class="brand-story__pillar-label section-label">{{ pillar_label }}</p>
+                {%- if pillar_desc != blank -%}
+                  <p class="brand-story__pillar-desc">{{ pillar_desc }}</p>
+                {%- endif -%}
+              </div>
             {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+      </div>
+
+      {%- comment -%} RIGHT COLUMN — numbered story blocks {%- endcomment -%}
+      <div class="brand-story__right">
+
+        {%- if section.settings.story_block_1 != blank -%}
+          <div class="brand-story__number-block brand-story__number-block--walnut reveal">
+            <span class="brand-story__num-label" aria-hidden="true">01</span>
             <blockquote class="brand-story__pull-text">
-              <p>{{ story_text }}</p>
+              <p>{{ section.settings.story_block_1 }}</p>
             </blockquote>
           </div>
         {%- endif -%}
-      {%- endfor -%}
-    </div>
 
+        {%- if section.settings.story_block_2 != blank -%}
+          <div class="brand-story__number-block brand-story__number-block--night reveal">
+            <span class="brand-story__num-label" aria-hidden="true">02</span>
+            <blockquote class="brand-story__pull-text">
+              <p>{{ section.settings.story_block_2 }}</p>
+            </blockquote>
+          </div>
+        {%- endif -%}
+
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -83,37 +95,37 @@
       "type": "text",
       "id": "section_label",
       "label": "Section label (eyebrow)",
-      "default": "The Set"
+      "default": "The Story"
     },
     {
       "type": "textarea",
       "id": "heading",
-      "label": "Heading",
-      "default": "Built to last."
+      "label": "Heading (Futura)",
+      "default": "Some games pass time."
     },
     {
       "type": "text",
-      "id": "heading_em",
-      "label": "Heading italic emphasis (appended)",
-      "default": "Designed to display."
+      "id": "heading_italic",
+      "label": "Heading italic line (Cormorant, appended)",
+      "default": "Mahjong commands it."
     },
     {
       "type": "textarea",
       "id": "body_1",
       "label": "Body paragraph 1",
-      "default": "Otto began with a simple frustration: every Mahjong set we could find was either purely functional or purely decorative. None of them were both. So we made one."
+      "default": "The first time you sit at a Mahjong table, something shifts. The tiles demand your attention. The strategy requires your focus. The clack of the draw, the rhythm of the discard — it creates a container for presence that almost nothing else does."
     },
     {
       "type": "textarea",
       "id": "body_2",
       "label": "Body paragraph 2",
-      "default": "We spent two years prototyping tiles — testing materials, finishes, weight, and feel — until we found the combination that satisfied us on every level. The result is a set that plays as well as it looks."
+      "default": "Otto was built from that moment. Not to reinvent Mahjong — a game with deep Chinese roots and a century of American life doesn't need correcting — but to create objects worthy of how the game actually feels."
     },
     {
       "type": "textarea",
       "id": "body_3",
       "label": "Body paragraph 3",
-      "default": "Every detail has been considered: the heft of the tile, the depth of the engraving, the warmth of the copper base. Otto is not a prop. It is a set you play with, often."
+      "default": "A set that belongs in your home. One that everyone at the table wants to be near. Not just the person who bought it."
     },
     {
       "type": "header",
@@ -122,78 +134,66 @@
     {
       "type": "text",
       "id": "pillar_1_label",
-      "label": "Pillar 1 label",
-      "default": "Material"
+      "label": "Pillar 1 — Label",
+      "default": "One System"
     },
     {
       "type": "textarea",
       "id": "pillar_1_desc",
-      "label": "Pillar 1 description",
-      "default": "Resin-core tiles with recessed engraving and paint infill. Bone face, indigo suit marks, copper base."
+      "label": "Pillar 1 — Description",
+      "default": "Tiles, mat, racks, and accessories designed together. Not sourced separately and assembled. The visual language is consistent because the design process was unified from the start."
     },
     {
       "type": "text",
       "id": "pillar_2_label",
-      "label": "Pillar 2 label",
-      "default": "Weight"
+      "label": "Pillar 2 — Label",
+      "default": "Built to Play"
     },
     {
       "type": "textarea",
       "id": "pillar_2_desc",
-      "label": "Pillar 2 description",
-      "default": "Each tile is weighted for a satisfying shuffle. The sound of the wash is part of the ritual."
+      "label": "Pillar 2 — Description",
+      "default": "Not a collector's piece. An object that earns its place through use, not display. Designed to be handled dozens of times per game — and to feel like it."
     },
     {
       "type": "text",
       "id": "pillar_3_label",
-      "label": "Pillar 3 label",
-      "default": "Completeness"
+      "label": "Pillar 3 — Label",
+      "default": "For the Whole Table"
     },
     {
       "type": "textarea",
       "id": "pillar_3_desc",
-      "label": "Pillar 3 description",
-      "default": "160 tiles. Betting coins. Wind markers. Dice. Racks. Everything you need, nothing you don't."
+      "label": "Pillar 3 — Description",
+      "default": "Not feminine. Not masculine. Designed for households — including the partner who ends up most competitive."
     },
     {
       "type": "text",
       "id": "pillar_4_label",
-      "label": "Pillar 4 label",
-      "default": "Case"
+      "label": "Pillar 4 — Label",
+      "default": "Honest Materials"
     },
     {
       "type": "textarea",
       "id": "pillar_4_desc",
-      "label": "Pillar 4 description",
-      "default": "A walnut-finish hardshell case designed to display on a shelf. It's part of the set."
+      "label": "Pillar 4 — Description",
+      "default": "Walnut. Linen. Acrylic. Nothing pretending to be something it isn't."
     },
     {
       "type": "header",
-      "content": "Numbered Story Blocks"
-    },
-    {
-      "type": "text",
-      "id": "story_1_number",
-      "label": "Story block 1 — number",
-      "default": "01"
+      "content": "Numbered Story Blocks (Right Column)"
     },
     {
       "type": "textarea",
-      "id": "story_1_text",
-      "label": "Story block 1 — pull text",
-      "default": "We obsessed over the sound. The shuffle, the wall-build, the click of a winning tile. Sound is part of what makes Mahjong Mahjong."
-    },
-    {
-      "type": "text",
-      "id": "story_2_number",
-      "label": "Story block 2 — number",
-      "default": "02"
+      "id": "story_block_1",
+      "label": "Story block 01 (walnut background)",
+      "default": "Most sets are beautiful. But the tiles came from one place, the mat from another, the racks from a third. Otto was designed the other way: every component in the same conversation, so everything on the table looks like it belongs there."
     },
     {
       "type": "textarea",
-      "id": "story_2_text",
-      "label": "Story block 2 — pull text",
-      "default": "American Mahjong has 166 card variations. Otto ships with a custom Reference Card that makes the game learnable in an afternoon."
+      "id": "story_block_2",
+      "label": "Story block 02 (dark navy background)",
+      "default": "Mid-century modern isn't an aesthetic reference for Otto. It's a belief system: functional, democratic, built to last. Objects designed with the same intention as the room they live in — and the people around them."
     }
   ],
   "presets": [
