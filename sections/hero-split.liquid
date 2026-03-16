@@ -5,36 +5,60 @@
 >
   <div class="hero-split__grid">
 
-    <div class="hero-split__left" style="background-color: {{ section.settings.left_bg | default: 'var(--night)' }};">
+    {%- comment -%} LEFT PANEL — dark navy {%- endcomment -%}
+    <div class="hero-split__left" style="background-color: {{ section.settings.left_bg }};">
       <div class="hero-split__left-inner">
+
         {%- if section.settings.eyebrow != blank -%}
-          <p class="section-label hero-split__eyebrow" style="color: var(--walnut-on-dark);">
+          <p class="section-label hero-split__eyebrow">
             {{- section.settings.eyebrow -}}
           </p>
         {%- endif -%}
 
-        <h1 id="hero-heading-{{ section.id }}" class="hero-split__heading display-heading">
-          {{- section.settings.heading | default: 'Four people. One table. Nothing else.' -}}
+        <h1 id="hero-heading-{{ section.id }}" class="hero-split__heading">
+          {%- if section.settings.heading_line_1 != blank -%}
+            <span class="hero-split__heading-line">{{ section.settings.heading_line_1 }}</span>
+          {%- endif -%}
+          {%- if section.settings.heading_line_2 != blank -%}
+            <span class="hero-split__heading-line">{{ section.settings.heading_line_2 }}</span>
+          {%- endif -%}
+          {%- if section.settings.heading_line_3 != blank -%}
+            <em class="hero-split__heading-line hero-split__heading-line--serif">{{ section.settings.heading_line_3 }}</em>
+          {%- endif -%}
         </h1>
 
-        {%- if section.settings.subhead != blank -%}
+        {%- if section.settings.subheading != blank -%}
           <p class="hero-split__subhead">
-            {{- section.settings.subhead -}}
+            {{- section.settings.subheading -}}
+          </p>
+        {%- endif -%}
+
+        {%- if section.settings.brand_line != blank -%}
+          <p class="hero-split__brand-line">
+            {{- section.settings.brand_line -}}
+          </p>
+        {%- endif -%}
+
+        {%- if section.settings.waitlist_prompt != blank -%}
+          <p class="hero-split__waitlist-prompt">
+            {{- section.settings.waitlist_prompt -}}
           </p>
         {%- endif -%}
 
         {% render 'waitlist-form',
           section_id: section.id,
-          placeholder: section.settings.form_placeholder,
-          button_label: section.settings.form_button_label,
+          placeholder: section.settings.email_placeholder,
+          button_label: section.settings.button_label,
           dark: true
         %}
+
       </div>
     </div>
 
+    {%- comment -%} RIGHT PANEL — warm white with tile grid {%- endcomment -%}
     <div
       class="hero-split__right"
-      style="background-color: {{ section.settings.right_bg | default: 'var(--warm-white)' }};"
+      style="background-color: {{ section.settings.right_bg }};"
     >
       <div class="hero-split__tile-grid">
         {%- for i in (1..8) -%}
@@ -55,7 +79,22 @@
           </div>
         {%- endfor -%}
       </div>
+
+      <div class="hero-split__right-form">
+        {%- if section.settings.waitlist_prompt != blank -%}
+          <p class="hero-split__right-form-label">
+            {{- section.settings.waitlist_prompt | upcase -}}
+          </p>
+        {%- endif -%}
+        {% render 'waitlist-form',
+          section_id: section.id | append: '-right',
+          placeholder: section.settings.email_placeholder,
+          button_label: section.settings.button_label,
+          dark: false
+        %}
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -73,31 +112,55 @@
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow label",
-      "default": "American Mahjong, Redesigned"
+      "default": "American Mahjong · A Considered Set"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Heading line 1 (Futura, bold)",
+      "default": "Four people."
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Heading line 2 (Futura, bold)",
+      "default": "One table."
+    },
+    {
+      "type": "text",
+      "id": "heading_line_3",
+      "label": "Heading line 3 (Cormorant, italic)",
+      "default": "Nothing else."
     },
     {
       "type": "textarea",
-      "id": "heading",
-      "label": "Heading (H1)",
-      "default": "Four people. One table. Nothing else."
-    },
-    {
-      "type": "textarea",
-      "id": "subhead",
+      "id": "subheading",
       "label": "Subheading paragraph",
-      "default": "Otto is a design-forward American Mahjong set built for people who care about what sits on their shelves — and everyone at their table."
+      "default": "Otto is a design-forward American Mahjong set built for people who care about what sits on their shelves — and everyone at their table. Every component designed together, as one system."
     },
     {
       "type": "text",
-      "id": "form_placeholder",
+      "id": "brand_line",
+      "label": "Brand meaning line",
+      "default": "Otto — One Table. Three Others."
+    },
+    {
+      "type": "text",
+      "id": "waitlist_prompt",
+      "label": "Waitlist prompt",
+      "default": "Be first to the table."
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
       "label": "Email input placeholder",
-      "default": "Your email address"
+      "default": "your@email.com"
     },
     {
       "type": "text",
-      "id": "form_button_label",
+      "id": "button_label",
       "label": "Form button label",
-      "default": "Join the Waitlist"
+      "default": "Join Waitlist"
     },
     {
       "type": "color",
