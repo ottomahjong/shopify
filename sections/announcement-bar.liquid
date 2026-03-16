@@ -8,15 +8,21 @@
     {%- if section.settings.text_color != blank -%}color: {{ section.settings.text_color }};{%- endif -%}
   "
   role="region"
-  aria-label="Announcement"
-  aria-live="polite"
+  aria-label="{{ 'sections.announcement_bar.label' | t: default: 'Announcement' }}"
 >
   <div class="announcement-bar__inner container">
     {%- if section.settings.text != blank -%}
       <p class="announcement-bar__text">
         {{- section.settings.text -}}
         {%- if section.settings.link_url != blank and section.settings.link_text != blank -%}
-          <a href="{{ section.settings.link_url }}" class="announcement-bar__link">
+          <a
+            href="{{ section.settings.link_url }}"
+            class="announcement-bar__link"
+            {%- if section.settings.link_new_tab %}
+              target="_blank"
+              rel="noopener noreferrer"
+            {%- endif %}
+          >
             {{- section.settings.link_text -}}
           </a>
         {%- endif -%}
@@ -28,7 +34,7 @@
       aria-label="{{ 'general.close' | t }}"
       data-announcement-close
     >
-      <span aria-hidden="true">×</span>
+      {% render 'icon-sprite', icon: 'close' %}
     </button>
   </div>
 </div>
@@ -68,6 +74,12 @@
       "id": "link_url",
       "label": "Link URL",
       "info": "Tip: use /#waitlist to scroll to the waitlist section on the homepage."
+    },
+    {
+      "type": "checkbox",
+      "id": "link_new_tab",
+      "label": "Open link in new tab",
+      "default": false
     },
     {
       "type": "header",
