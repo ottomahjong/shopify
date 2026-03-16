@@ -2,7 +2,11 @@
   id="waitlist"
   class="waitlist section-padding"
   data-section-id="{{ section.id }}"
-  aria-labelledby="waitlist-heading-{{ section.id }}"
+  {%- if section.settings.heading != blank %}
+    aria-labelledby="waitlist-heading-{{ section.id }}"
+  {%- else %}
+    aria-label="{{ 'waitlist.section_label' | t: default: 'Waitlist signup' }}"
+  {%- endif %}
   style="background-color: {{ section.settings.bg_color | default: 'var(--forest)' }};"
 >
   <div class="container">
