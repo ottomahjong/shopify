@@ -41,9 +41,10 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
+          "enabled": true,
           "text": "Now taking pre-orders — ships Q3 2025.",
-          "link_url": "",
           "link_text": "Reserve yours →",
+          "link_url": "",
           "bg_color": "#163224",
           "text_color": "#d5a896"
         }
@@ -51,7 +52,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "logo": "shopify://shop_images/Otto_Mahjong_Logo_4x_2dfe3f94-7224-465d-bb49-9db700b3b562.png",
+          "logo_image": "shopify://shop_images/Otto_Mahjong_Wordmark.svg",
           "logo_width": 120,
           "logo_alt": "Otto Mahjong",
           "nav_label_1": "Our Story",
@@ -64,6 +65,8 @@
           "nav_url_4": "",
           "nav_label_5": "FAQ",
           "nav_url_5": "",
+          "nav_label_6": "Contact",
+          "nav_url_6": "",
           "cta_label": "Join Waitlist",
           "cta_url": "",
           "sticky": true,
@@ -73,6 +76,7 @@
       "footer": {
         "type": "footer",
         "settings": {
+          "tagline": "One table. Three others.",
           "newsletter_title": "Stay in the loop",
           "newsletter_placeholder": "Email address",
           "newsletter_submit": "Subscribe",
@@ -87,6 +91,8 @@
           "col_1_link_4_url": "",
           "col_1_link_5_label": "FAQ",
           "col_1_link_5_url": "",
+          "col_1_link_6_label": "Contact",
+          "col_1_link_6_url": "",
           "col_2_title": "Support",
           "col_2_link_1_label": "Contact Us",
           "col_2_link_1_url": "",
@@ -98,7 +104,8 @@
           "col_3_link_1_label": "Press",
           "col_3_link_1_url": "",
           "col_3_link_2_label": "Wholesale",
-          "col_3_link_2_url": ""
+          "col_3_link_2_url": "",
+          "copyright_text": "© 2026 Otto Mahjong. All rights reserved."
         }
       }
     },
