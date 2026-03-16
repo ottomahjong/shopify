@@ -1,5 +1,5 @@
 <section
-  class="founder section-padding"
+  class="founder"
   data-section-id="{{ section.id }}"
   aria-label="{{ section.settings.section_label | default: 'Founder' }}"
   {%- if section.settings.bg_color != blank %}
@@ -39,22 +39,6 @@
         {%- endif -%}
 
       </div>
-
-      {%- if section.settings.founder_image != blank -%}
-        <div class="founder__image-wrap">
-          {{- section.settings.founder_image
-            | image_url: width: 600
-            | image_tag:
-              loading: 'lazy',
-              class: 'founder__image',
-              widths: '300, 600',
-              sizes: '300px',
-              alt: section.settings.founder_image.alt | default: section.settings.attribution | default: ''
-          -}}
-        </div>
-      {%- else -%}
-        <div class="founder__image-wrap founder__image-wrap--placeholder" aria-hidden="true"></div>
-      {%- endif -%}
 
     </div>
   </div>
@@ -114,22 +98,13 @@
     },
     {
       "type": "header",
-      "content": "Founder Image"
-    },
-    {
-      "type": "image_picker",
-      "id": "founder_image",
-      "label": "Founder photo (optional, circular crop)"
-    },
-    {
-      "type": "header",
       "content": "Colors"
     },
     {
       "type": "color",
       "id": "bg_color",
       "label": "Background color",
-      "default": "#1A2137"
+      "default": "#e8e0d0"
     }
   ],
   "presets": [
