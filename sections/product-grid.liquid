@@ -2,6 +2,7 @@
   class="product-grid section-padding"
   data-section-id="{{ section.id }}"
   aria-labelledby="product-grid-heading-{{ section.id }}"
+  style="background-color: var(--warm-white);"
 >
   <div class="container">
 
@@ -10,11 +11,12 @@
         <p class="section-label">{{ section.settings.section_label }}</p>
       {%- endif -%}
 
-      {%- if section.settings.heading != blank -%}
-        <h2 id="product-grid-heading-{{ section.id }}" class="product-grid__heading">
-          {{- section.settings.heading -}}
-        </h2>
-      {%- endif -%}
+      <h2 id="product-grid-heading-{{ section.id }}" class="product-grid__heading">
+        {{- section.settings.heading -}}
+        {%- if section.settings.heading_italic != blank -%}
+          <br><em>{{ section.settings.heading_italic }}</em>
+        {%- endif -%}
+      </h2>
 
       {%- if section.settings.intro != blank -%}
         <p class="product-grid__intro">{{ section.settings.intro }}</p>
@@ -23,29 +25,29 @@
 
     <div class="product-grid__grid reveal-stagger">
       {%- for i in (1..4) -%}
-        {%- assign card_image_key = 'card_' | append: i | append: '_image' -%}
-        {%- assign card_title_key = 'card_' | append: i | append: '_title' -%}
-        {%- assign card_desc_key = 'card_' | append: i | append: '_desc' -%}
-        {%- assign card_price_key = 'card_' | append: i | append: '_price' -%}
-        {%- assign card_badge_key = 'card_' | append: i | append: '_badge' -%}
+        {%- assign card_image_key     = 'card_' | append: i | append: '_image' -%}
+        {%- assign card_name_key      = 'card_' | append: i | append: '_name' -%}
+        {%- assign card_desc_key      = 'card_' | append: i | append: '_desc' -%}
+        {%- assign card_price_key     = 'card_' | append: i | append: '_price' -%}
+        {%- assign card_badge_key     = 'card_' | append: i | append: '_badge' -%}
         {%- assign card_cta_label_key = 'card_' | append: i | append: '_cta_label' -%}
-        {%- assign card_cta_url_key = 'card_' | append: i | append: '_cta_url' -%}
+        {%- assign card_cta_url_key   = 'card_' | append: i | append: '_cta_url' -%}
 
-        {%- assign card_image = section.settings[card_image_key] -%}
-        {%- assign card_title = section.settings[card_title_key] -%}
-        {%- assign card_desc = section.settings[card_desc_key] -%}
-        {%- assign card_price = section.settings[card_price_key] -%}
-        {%- assign card_badge = section.settings[card_badge_key] -%}
+        {%- assign card_image     = section.settings[card_image_key] -%}
+        {%- assign card_name      = section.settings[card_name_key] -%}
+        {%- assign card_desc      = section.settings[card_desc_key] -%}
+        {%- assign card_price     = section.settings[card_price_key] -%}
+        {%- assign card_badge     = section.settings[card_badge_key] -%}
         {%- assign card_cta_label = section.settings[card_cta_label_key] -%}
-        {%- assign card_cta_url = section.settings[card_cta_url_key] -%}
+        {%- assign card_cta_url   = section.settings[card_cta_url_key] -%}
 
-        {%- if card_title != blank -%}
+        {%- if card_name != blank -%}
           <article class="product-card">
             <div class="product-card__image-wrap">
               {%- if card_image != blank -%}
                 <img
                   src="{{ card_image | image_url: width: 600 }}"
-                  alt="{{ card_image.alt | default: card_title }}"
+                  alt="{{ card_image.alt | default: card_name }}"
                   width="600"
                   loading="lazy"
                   class="product-card__image"
@@ -60,7 +62,7 @@
             </div>
 
             <div class="product-card__body">
-              <h3 class="product-card__title">{{ card_title }}</h3>
+              <h3 class="product-card__title">{{ card_name }}</h3>
               {%- if card_desc != blank -%}
                 <p class="product-card__desc">{{ card_desc }}</p>
               {%- endif -%}
@@ -75,7 +77,7 @@
 
             {%- if card_cta_label != blank -%}
               <a
-                href="{{ card_cta_url | default: '#' }}"
+                href="{{ card_cta_url | default: '/#waitlist' }}"
                 class="product-card__cta btn btn--outline"
               >
                 {{- card_cta_label -}}
@@ -102,20 +104,26 @@
     {
       "type": "text",
       "id": "section_label",
-      "label": "Section label",
+      "label": "Section label (eyebrow)",
       "default": "The Collection"
     },
     {
       "type": "textarea",
       "id": "heading",
-      "label": "Heading",
-      "default": "Every piece, considered."
+      "label": "Heading (Futura)",
+      "default": "Everything at the table."
+    },
+    {
+      "type": "text",
+      "id": "heading_italic",
+      "label": "Heading italic line (Cormorant, appended)",
+      "default": "Nothing out of place."
     },
     {
       "type": "textarea",
       "id": "intro",
       "label": "Intro paragraph",
-      "default": "Four products. One system. Everything you need to play beautifully."
+      "default": "Every Otto component is designed as part of a single system. The tile palette matches the mat. The racks complement the tiles. The whole set speaks one visual language — because it was designed in one conversation, not assembled from separate sources."
     },
     {
       "type": "header",
@@ -128,21 +136,21 @@
     },
     {
       "type": "text",
-      "id": "card_1_title",
-      "label": "Card 1 — Title",
+      "id": "card_1_name",
+      "label": "Card 1 — Name",
       "default": "Vignette"
     },
     {
       "type": "textarea",
       "id": "card_1_desc",
       "label": "Card 1 — Description",
-      "default": "160-Piece American Mahjong Set. Recessed engraving with paint infill. Bone and indigo on a copper base."
+      "default": "Bone and indigo bodies. Copper base. Recessed engraving with paint infill — not flat UV printing. Designed to be picked up dozens of times per game. Built to feel like it."
     },
     {
       "type": "text",
       "id": "card_1_price",
       "label": "Card 1 — Price",
-      "default": "Pricing TBD"
+      "default": "$300 – $400"
     },
     {
       "type": "text",
@@ -154,7 +162,7 @@
       "type": "text",
       "id": "card_1_cta_label",
       "label": "Card 1 — CTA label",
-      "default": "View Details"
+      "default": "Join Waitlist"
     },
     {
       "type": "url",
@@ -172,21 +180,21 @@
     },
     {
       "type": "text",
-      "id": "card_2_title",
-      "label": "Card 2 — Title",
-      "default": "Lacquer"
+      "id": "card_2_name",
+      "label": "Card 2 — Name",
+      "default": "The Mat"
     },
     {
       "type": "textarea",
       "id": "card_2_desc",
       "label": "Card 2 — Description",
-      "default": "160-Piece American Mahjong Set. High-gloss finish with deep-relief engraving. Midnight and brass."
+      "default": "Cushioned, non-slip, sized for four. Designed in the same palette as the tile set — not sourced to match, but designed alongside. Rolled and stored in a mat sleeve."
     },
     {
       "type": "text",
       "id": "card_2_price",
       "label": "Card 2 — Price",
-      "default": "Pricing TBD"
+      "default": "$60 – $70"
     },
     {
       "type": "text",
@@ -198,7 +206,7 @@
       "type": "text",
       "id": "card_2_cta_label",
       "label": "Card 2 — CTA label",
-      "default": "View Details"
+      "default": "Join Waitlist"
     },
     {
       "type": "url",
@@ -216,15 +224,15 @@
     },
     {
       "type": "text",
-      "id": "card_3_title",
-      "label": "Card 3 — Title",
-      "default": "Little Table"
+      "id": "card_3_name",
+      "label": "Card 3 — Name",
+      "default": "The Racks"
     },
     {
       "type": "textarea",
       "id": "card_3_desc",
       "label": "Card 3 — Description",
-      "default": "Introductory Mahjong set. Simplified rules, full play experience. For ages 8 and up."
+      "default": "Designed as furniture, not accessories. Solid walnut, satin oil finish. The rack is the object you touch every single turn. It should feel like it belongs in the room."
     },
     {
       "type": "text",
@@ -242,7 +250,7 @@
       "type": "text",
       "id": "card_3_cta_label",
       "label": "Card 3 — CTA label",
-      "default": "Explore Little Table"
+      "default": "Join Waitlist"
     },
     {
       "type": "url",
@@ -260,15 +268,15 @@
     },
     {
       "type": "text",
-      "id": "card_4_title",
-      "label": "Card 4 — Title",
+      "id": "card_4_name",
+      "label": "Card 4 — Name",
       "default": "Reference Cards"
     },
     {
       "type": "textarea",
       "id": "card_4_desc",
       "label": "Card 4 — Description",
-      "default": "Double-sided reference cards for American Mahjong. All 2025 card hands, clearly organized."
+      "default": "One per player. Double-sided: in-game rules on one side, NMJL card decoder on the other. Designed to answer the question mid-game — not after it."
     },
     {
       "type": "text",
@@ -280,13 +288,13 @@
       "type": "text",
       "id": "card_4_badge",
       "label": "Card 4 — Badge",
-      "default": "Available"
+      "default": "Coming Soon"
     },
     {
       "type": "text",
       "id": "card_4_cta_label",
       "label": "Card 4 — CTA label",
-      "default": "View Cards"
+      "default": "Join Waitlist"
     },
     {
       "type": "url",
