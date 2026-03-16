@@ -12,8 +12,9 @@
       aria-label="{{ section.settings.logo_alt | default: shop.name }}"
     >
       {%- if section.settings.logo_image != blank -%}
+        {%- assign logo_2x = section.settings.logo_width | times: 2 -%}
         {{- section.settings.logo_image
-          | image_url: width: section.settings.logo_width
+          | image_url: width: logo_2x
           | image_tag:
             loading: 'eager',
             class: 'site-header__logo-img',
@@ -26,21 +27,20 @@
     </a>
 
     {%- comment -%} DESKTOP NAV {%- endcomment -%}
-    {%- if section.blocks.size > 0 -%}
-      <nav class="site-header__nav" aria-label="{{ 'navigation.menu' | t }}">
+    {%- assign nav_links = linklists[section.settings.nav_menu].links -%}
+    {%- if nav_links.size > 0 -%}
+      <nav class="site-header__nav" aria-label="{{ 'navigation.main' | t: default: 'Main navigation' }}">
         <ul class="site-header__nav-list" role="list">
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'nav_link' -%}
-              <li class="site-header__nav-item" {{ block.shopify_attributes }}>
-                <a
-                  href="{{ block.settings.url | default: '#' }}"
-                  class="site-header__nav-link"
-                  {%- if block.settings.url != blank and request.path == block.settings.url %} aria-current="page"{% endif -%}
-                >
-                  {{- block.settings.label -}}
-                </a>
-              </li>
-            {%- endif -%}
+          {%- for link in nav_links -%}
+            <li class="site-header__nav-item">
+              <a
+                href="{{ link.url }}"
+                class="site-header__nav-link"
+                {%- if link.active %} aria-current="page"{% endif -%}
+              >
+                {{- link.title -}}
+              </a>
+            </li>
           {%- endfor -%}
         </ul>
       </nav>
@@ -89,22 +89,20 @@
   <nav
     id="mobile-nav"
     class="mobile-nav"
-    aria-label="{{ 'navigation.menu' | t }}"
+    aria-label="{{ 'navigation.mobile' | t: default: 'Mobile navigation' }}"
     hidden
   >
     <ul class="mobile-nav__list" role="list">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'nav_link' -%}
-          <li class="mobile-nav__item" {{ block.shopify_attributes }}>
-            <a
-              href="{{ block.settings.url | default: '#' }}"
-              class="mobile-nav__link"
-              {%- if block.settings.url != blank and request.path == block.settings.url %} aria-current="page"{% endif -%}
-            >
-              {{- block.settings.label -}}
-            </a>
-          </li>
-        {%- endif -%}
+      {%- for link in nav_links -%}
+        <li class="mobile-nav__item">
+          <a
+            href="{{ link.url }}"
+            class="mobile-nav__link"
+            {%- if link.active %} aria-current="page"{% endif -%}
+          >
+            {{- link.title -}}
+          </a>
+        </li>
       {%- endfor -%}
       {%- if section.settings.cta_label != blank -%}
         <li class="mobile-nav__item mobile-nav__item--cta">
@@ -154,6 +152,17 @@
     },
     {
       "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "nav_menu",
+      "label": "Navigation menu",
+      "default": "main-menu",
+      "info": "Manage links in the Shopify Navigation admin."
+    },
+    {
+      "type": "header",
       "content": "CTA Button"
     },
     {
@@ -188,26 +197,6 @@
       "default": 95,
       "unit": "%"
     }
-  ],
-  "blocks": [
-    {
-      "type": "nav_link",
-      "name": "Nav link",
-      "settings": [
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Label",
-          "default": "Page"
-        },
-        {
-          "type": "url",
-          "id": "url",
-          "label": "URL"
-        }
-      ]
-    }
-  ],
-  "max_blocks": 8
+  ]
 }
 {% endschema %}
