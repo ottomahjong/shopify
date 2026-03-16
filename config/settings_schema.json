@@ -1,1 +1,83 @@
-[]
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Otto",
+    "theme_version": "1.1.0",
+    "theme_author": "Otto Mahjong",
+    "theme_documentation_url": "https://ottomahjong.com",
+    "theme_support_url": "https://ottomahjong.com/pages/contact"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      { "type": "header", "content": "Brand Colors" },
+      { "type": "color", "id": "color_ink",            "label": "Ink (primary text)",          "default": "#1A1A1C" },
+      { "type": "color", "id": "color_bone",           "label": "Bone (borders, dividers)",    "default": "#E7E7E7" },
+      { "type": "color", "id": "color_warm_white",     "label": "Warm White (light bg)",       "default": "#E8EEF2" },
+      { "type": "color", "id": "color_walnut",         "label": "Walnut (accent)",             "default": "#AF6B4F" },
+      { "type": "color", "id": "color_walnut_light",   "label": "Walnut Light",                "default": "#C9937D" },
+      { "type": "color", "id": "color_walnut_on_light","label": "Walnut on Light (7.5:1 ✓)",   "default": "#694131" },
+      { "type": "color", "id": "color_walnut_on_dark", "label": "Walnut on Dark (7.5:1 ✓)",   "default": "#D5A896" },
+      { "type": "color", "id": "color_stone",          "label": "Stone (4.9:1 on light ✓)",   "default": "#5e574f" },
+      { "type": "color", "id": "color_stone_on_dark",  "label": "Stone on Dark (7.4:1 ✓)",    "default": "#AAB1C2" },
+      { "type": "color", "id": "color_label_ink",      "label": "Label Ink (4.7:1 ✓)",        "default": "#6b4e2a" },
+      { "type": "color", "id": "color_night",          "label": "Night (dark bg)",             "default": "#1A2137" },
+      { "type": "color", "id": "color_forest",         "label": "Forest (waitlist bg)",        "default": "#163224" },
+      { "type": "color", "id": "color_accent",         "label": "Accent",                      "default": "#8B5640" },
+      { "type": "color", "id": "color_linen",          "label": "Linen",                       "default": "#6F7893" }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      { "type": "header", "content": "Fonts" },
+      { "type": "font_picker", "id": "font_display", "label": "Display / Headline Font", "default": "helvetica_neue_n4" },
+      { "type": "range", "id": "font_base_size", "label": "Base font size (px)", "min": 14, "max": 20, "step": 1, "default": 16 }
+    ]
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      { "type": "image_picker", "id": "logo",        "label": "Logo image" },
+      { "type": "range",        "id": "logo_width",  "label": "Logo width (px)", "min": 60, "max": 300, "step": 10, "default": 120 },
+      { "type": "text",         "id": "logo_alt",    "label": "Logo alt text", "default": "Otto Mahjong" },
+      { "type": "image_picker", "id": "favicon",     "label": "Favicon" }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      { "type": "header", "content": "Social Links" },
+      { "type": "url", "id": "social_instagram", "label": "Instagram URL" },
+      { "type": "url", "id": "social_facebook",  "label": "Facebook URL" },
+      { "type": "url", "id": "social_pinterest", "label": "Pinterest URL" },
+      { "type": "url", "id": "social_tiktok",    "label": "TikTok URL" }
+    ]
+  },
+  {
+    "name": "Announcement Bar",
+    "settings": [
+      { "type": "checkbox", "id": "announcement_enable",     "label": "Show announcement bar", "default": true },
+      { "type": "text",     "id": "announcement_text",       "label": "Announcement text", "default": "Otto is currently in development — join the waitlist for early access and presale pricing." },
+      { "type": "url",      "id": "announcement_url",        "label": "Announcement link URL" },
+      { "type": "text",     "id": "announcement_link_text",  "label": "Announcement link text", "default": "Join the waitlist \u2192" },
+      { "type": "color",    "id": "announcement_bg",         "label": "Background", "default": "#163224" },
+      { "type": "color",    "id": "announcement_text_color", "label": "Text color",  "default": "#D5A896" }
+    ]
+  },
+  {
+    "name": "Footer",
+    "settings": [
+      { "type": "richtext", "id": "footer_tagline",  "label": "Footer tagline",  "default": "<p>ONE TABLE. THREE OTHERS.</p>" },
+      { "type": "text",     "id": "footer_copyright","label": "Copyright text",  "default": "\u00a9 2026 Otto Mahjong. All rights reserved." }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      { "type": "checkbox", "id": "cart_show_vendor",      "label": "Show vendor in cart", "default": false },
+      { "type": "text",     "id": "cart_empty_message",    "label": "Empty cart message",  "default": "Your cart is empty \u2014 for now." },
+      { "type": "text",     "id": "cart_continue_label",   "label": "Continue shopping label", "default": "Continue Shopping" }
+    ]
+  }
+]

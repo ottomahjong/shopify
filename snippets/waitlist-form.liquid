@@ -1,0 +1,59 @@
+{%- comment -%}
+  Snippet: waitlist-form.liquid
+  Renders the email capture / waitlist signup form.
+
+  Parameters:
+    section_id    — section.id (used for unique element IDs)
+    placeholder   — email input placeholder text
+    button_label  — submit button label
+    dark          — boolean; if true applies dark-mode modifier class
+{%- endcomment -%}
+
+{%- assign form_id = 'waitlist-' | append: section_id -%}
+
+<div class="waitlist-form{% if dark %} waitlist-form--dark{% endif %}"
+     id="waitlist-{{ section_id }}"
+     data-waitlist-form>
+
+  {%- form 'customer', id: form_id -%}
+    <input type="hidden" name="contact[tags]" value="newsletter,waitlist">
+
+    {%- if form.posted_successfully? -%}
+      <p class="waitlist-form__success" role="status" data-waitlist-success>
+        You&rsquo;re on the list. We&rsquo;ll be in touch first.
+      </p>
+    {%- else -%}
+      <div class="waitlist-form__fields" data-waitlist-fields>
+        <label for="waitlist-email-{{ section_id }}" class="sr-only">
+          {{- placeholder | default: 'Your email address' -}}
+        </label>
+        <input
+          type="email"
+          id="waitlist-email-{{ section_id }}"
+          name="contact[email]"
+          class="waitlist-form__input"
+          placeholder="{{ placeholder | default: 'your@email.com' }}"
+          required
+          autocomplete="email"
+          {%- if form.errors contains 'email' %} aria-invalid="true" aria-describedby="waitlist-error-{{ section_id }}"{% endif -%}
+        >
+        <button
+          type="submit"
+          class="waitlist-form__btn btn btn--walnut"
+          data-waitlist-btn
+        >
+          {{- button_label | default: 'Join Waitlist' -}}
+        </button>
+      </div>
+
+      {%- if form.errors -%}
+        <p id="waitlist-error-{{ section_id }}"
+           class="waitlist-form__error"
+           role="alert"
+           data-waitlist-error>
+          Please enter a valid email address.
+        </p>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endform -%}
+</div>

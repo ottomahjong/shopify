@@ -9,42 +9,149 @@
  */
 {
   "sections": {
-    "announcement-bar": {
+    "announcement": {
       "type": "announcement-bar",
-      "settings": {}
+      "settings": {
+        "text": "Otto is currently in development — join the waitlist for early access and presale pricing.",
+        "link_text": "Join the waitlist →",
+        "bg_color": "#163224",
+        "text_color": "#D5A896"
+      }
     },
     "hero": {
       "type": "hero-split",
-      "settings": {}
+      "settings": {
+        "eyebrow": "American Mahjong · A Considered Set",
+        "heading": "Four people. One table. Nothing else.",
+        "subhead": "Otto is a design-forward American Mahjong set built for people who care about what sits on their shelves — and everyone at their table. Every component designed together, as one system.",
+        "form_button_label": "Join Waitlist",
+        "form_placeholder": "your@email.com"
+      }
     },
-    "brand-story": {
+    "brand_story": {
       "type": "brand-story",
-      "settings": {}
+      "settings": {
+        "section_label": "The Story",
+        "heading": "Some games pass time.",
+        "heading_em": "Mahjong commands it.",
+        "body_1": "The first time you sit at a Mahjong table, something shifts. The tiles demand your attention. The strategy requires your focus. The clack of the draw, the rhythm of the discard — it creates a container for presence that almost nothing else does.",
+        "body_2": "Otto was built from that moment. Not to reinvent Mahjong — a game with deep Chinese roots and a century of American life doesn't need correcting — but to create objects worthy of how the game actually feels.",
+        "body_3": "A set that belongs in your home. One that everyone at the table wants to be near. Not just the person who bought it.",
+        "pillar_1_label": "One System",
+        "pillar_1_desc": "Tiles, mat, racks, and accessories designed together. Not sourced separately and assembled. The visual language is consistent because the design process was unified from the start.",
+        "pillar_2_label": "Built to Play",
+        "pillar_2_desc": "Not a collector's piece. An object that earns its place through use, not display. Designed to be handled dozens of times per game — and to feel like it.",
+        "pillar_3_label": "For the Whole Table",
+        "pillar_3_desc": "Not feminine. Not masculine. Designed for households — including the partner who ends up most competitive.",
+        "pillar_4_label": "Honest Materials",
+        "pillar_4_desc": "Walnut. Linen. Acrylic. Nothing pretending to be something it isn't.",
+        "story_block_1": "Most sets are beautiful. But the tiles came from one place, the mat from another, the racks from a third. Otto was designed the other way: every component in the same conversation, so everything on the table looks like it belongs there.",
+        "story_block_2": "Mid-century modern isn't an aesthetic reference for Otto. It's a belief system: functional, democratic, built to last. Objects designed with the same intention as the room they live in — and the people around them."
+      }
     },
     "founder": {
       "type": "founder",
-      "settings": {}
+      "settings": {
+        "section_label": "Why Otto Exists",
+        "quote": "Mahjong does what almost nothing else does — it blocks the outside world. Not by demanding you ignore it, but by requiring so much of you that there's simply no room left for it.",
+        "body_1": "I came to Mahjong late. My sister taught me, sitting across a table that had been in her house for years. Within twenty minutes I understood why. The game is cognitively demanding in the best way — pattern recognition, flexible strategy, constrained creativity. It mirrors how I think when I'm designing.",
+        "body_2": "What I couldn't find was a set that matched that feeling. Or the room. Or the people in it. The sets that existed were beautiful, but they weren't built for my home, my partner, or the way I actually wanted to use them. Otto is the set I wanted to buy and couldn't: every component designed together, as one object. Calm. Considered. Built to stay on the table.",
+        "attribution": "Kelly Phillips · Founder, Otto Mahjong"
+      }
     },
     "products": {
       "type": "product-grid",
-      "settings": {}
+      "settings": {
+        "section_label": "The Collection",
+        "heading": "Everything at the table.",
+        "heading_em": "Nothing out of place.",
+        "intro": "Every Otto component is designed as part of a single system. The tile palette matches the mat. The racks complement the tiles. The whole set speaks one visual language — because it was designed in one conversation, not assembled from separate sources.",
+        "card_1_name": "Vignette",
+        "card_1_desc": "Bone and indigo bodies. Copper base. Recessed engraving with paint infill — not flat UV printing. Designed to be picked up dozens of times per game. Built to feel like it.",
+        "card_1_price": "$300 – $400",
+        "card_1_badge": "Coming Soon",
+        "card_1_cta_label": "Join Waitlist",
+        "card_2_name": "The Mat",
+        "card_2_desc": "Cushioned, non-slip, sized for four. Designed in the same palette as the tile set — not sourced to match, but designed alongside. Rolled and stored in a mat sleeve.",
+        "card_2_price": "$60 – $70",
+        "card_2_badge": "Coming Soon",
+        "card_2_cta_label": "Join Waitlist",
+        "card_3_name": "The Racks",
+        "card_3_desc": "Designed as furniture, not accessories. Solid walnut, satin oil finish. The rack is the object you touch every single turn. It should feel like it belongs in the room.",
+        "card_3_price": "Pricing TBD",
+        "card_3_badge": "Coming Soon",
+        "card_3_cta_label": "Join Waitlist",
+        "card_4_name": "Reference Cards",
+        "card_4_desc": "One per player. Double-sided: in-game rules on one side, NMJL card decoder on the other. Designed to answer the question mid-game — not after it.",
+        "card_4_price": "Pricing TBD",
+        "card_4_badge": "Coming Soon",
+        "card_4_cta_label": "Join Waitlist"
+      }
     },
-    "presale-banner": {
+    "presale": {
       "type": "presale-banner",
-      "settings": {}
+      "settings": {
+        "section_label": "Reserve Your Place",
+        "heading": "Be first to the table.",
+        "body": "Otto is currently in development. Join the waitlist for early access, presale pricing, and updates as the collection takes shape.",
+        "button_label": "Join Waitlist",
+        "email_placeholder": "your@email.com",
+        "note": "No spam. No noise. Just Otto updates when they matter.",
+        "bg_color": "#163224"
+      }
     },
     "faq": {
       "type": "faq-accordion",
-      "settings": {}
+      "blocks": {
+        "faq_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "When will Otto be available?",
+            "answer": "Otto is in development now. Presale opens to the waitlist first — you'll receive timing and pricing before anyone else."
+          }
+        },
+        "faq_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What makes Otto different from other American Mahjong sets?",
+            "answer": "Every Otto component was designed in the same conversation. Tiles, mat, racks, accessories — one palette, one material logic, one visual language. Most sets are assembled from separate sources. Otto wasn't."
+          }
+        },
+        "faq_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Does Otto follow standard NMJL rules?",
+            "answer": "Yes. Otto is a standard 160-piece American Mahjong set, fully compatible with the NMJL card and rules. The design is original. The game is exactly the same one you know."
+          }
+        },
+        "faq_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is Little Table?",
+            "answer": "A children's tile game designed as a stepping stone toward Mahjong. Four suits, three levels, ages 4–12. Not simplified Mahjong — its own complete game, designed by Otto."
+          }
+        },
+        "faq_5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What does Otto mean?",
+            "answer": "One Table. Three Others. The four seats at a Mahjong table — and the reason the game works."
+          }
+        }
+      },
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5"],
+      "settings": {
+        "heading": "What people ask before they join."
+      }
     }
   },
   "order": [
-    "announcement-bar",
+    "announcement",
     "hero",
-    "brand-story",
+    "brand_story",
     "founder",
     "products",
-    "presale-banner",
+    "presale",
     "faq"
   ]
 }
