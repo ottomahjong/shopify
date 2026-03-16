@@ -2,7 +2,9 @@
   class="brand-story section-padding"
   data-section-id="{{ section.id }}"
   aria-labelledby="brand-story-heading-{{ section.id }}"
-  style="background-color: var(--warm-white);"
+  {%- if section.settings.bg_color != blank %}
+    style="background-color: {{ section.settings.bg_color }};"
+  {%- endif %}
 >
   <div class="container">
     <div class="brand-story__layout">
@@ -36,18 +38,16 @@
         </div>
 
         <div class="brand-story__pillars reveal-stagger">
-          {%- for i in (1..4) -%}
-            {%- assign pillar_label_key = 'pillar_' | append: i | append: '_label' -%}
-            {%- assign pillar_desc_key  = 'pillar_' | append: i | append: '_desc' -%}
-            {%- assign pillar_label = section.settings[pillar_label_key] -%}
-            {%- assign pillar_desc  = section.settings[pillar_desc_key] -%}
-            {%- if pillar_label != blank -%}
-              <div class="brand-story__pillar">
-                <p class="brand-story__pillar-label section-label">{{ pillar_label }}</p>
-                {%- if pillar_desc != blank -%}
-                  <p class="brand-story__pillar-desc">{{ pillar_desc }}</p>
-                {%- endif -%}
-              </div>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'pillar' -%}
+              {%- if block.settings.label != blank -%}
+                <div class="brand-story__pillar" {{ block.shopify_attributes }}>
+                  <p class="brand-story__pillar-label section-label">{{ block.settings.label }}</p>
+                  {%- if block.settings.description != blank -%}
+                    <p class="brand-story__pillar-desc">{{ block.settings.description }}</p>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
             {%- endif -%}
           {%- endfor -%}
         </div>
@@ -56,25 +56,23 @@
 
       {%- comment -%} RIGHT COLUMN — numbered story blocks {%- endcomment -%}
       <div class="brand-story__right">
-
-        {%- if section.settings.story_block_1 != blank -%}
-          <div class="brand-story__number-block brand-story__number-block--walnut reveal">
-            <span class="brand-story__num-label" aria-hidden="true">01</span>
-            <blockquote class="brand-story__pull-text">
-              <p>{{ section.settings.story_block_1 }}</p>
-            </blockquote>
-          </div>
-        {%- endif -%}
-
-        {%- if section.settings.story_block_2 != blank -%}
-          <div class="brand-story__number-block brand-story__number-block--night reveal">
-            <span class="brand-story__num-label" aria-hidden="true">02</span>
-            <blockquote class="brand-story__pull-text">
-              <p>{{ section.settings.story_block_2 }}</p>
-            </blockquote>
-          </div>
-        {%- endif -%}
-
+        {%- assign story_index = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'story_block' and block.settings.text != blank -%}
+            {%- assign story_index = story_index | plus: 1 -%}
+            <div
+              class="brand-story__number-block brand-story__number-block--{{ block.settings.theme }} reveal"
+              {{ block.shopify_attributes }}
+            >
+              <span class="brand-story__num-label" aria-hidden="true">
+                {%- if story_index < 10 %}0{%- endif %}{{ story_index }}
+              </span>
+              <div class="brand-story__pull-text">
+                <p>{{ block.settings.text }}</p>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
       </div>
 
     </div>
@@ -129,76 +127,101 @@
     },
     {
       "type": "header",
-      "content": "Pillar Cards"
+      "content": "Colors"
     },
     {
-      "type": "text",
-      "id": "pillar_1_label",
-      "label": "Pillar 1 — Label",
-      "default": "One System"
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "info": "Leave blank to use the theme default (warm white)."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "Pillar card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
     },
     {
-      "type": "textarea",
-      "id": "pillar_1_desc",
-      "label": "Pillar 1 — Description",
-      "default": "Tiles, mat, racks, and accessories designed together. Not sourced separately and assembled. The visual language is consistent because the design process was unified from the start."
-    },
-    {
-      "type": "text",
-      "id": "pillar_2_label",
-      "label": "Pillar 2 — Label",
-      "default": "Built to Play"
-    },
-    {
-      "type": "textarea",
-      "id": "pillar_2_desc",
-      "label": "Pillar 2 — Description",
-      "default": "Not a collector's piece. An object that earns its place through use, not display. Designed to be handled dozens of times per game — and to feel like it."
-    },
-    {
-      "type": "text",
-      "id": "pillar_3_label",
-      "label": "Pillar 3 — Label",
-      "default": "For the Whole Table"
-    },
-    {
-      "type": "textarea",
-      "id": "pillar_3_desc",
-      "label": "Pillar 3 — Description",
-      "default": "Not feminine. Not masculine. Designed for households — including the partner who ends up most competitive."
-    },
-    {
-      "type": "text",
-      "id": "pillar_4_label",
-      "label": "Pillar 4 — Label",
-      "default": "Honest Materials"
-    },
-    {
-      "type": "textarea",
-      "id": "pillar_4_desc",
-      "label": "Pillar 4 — Description",
-      "default": "Walnut. Linen. Acrylic. Nothing pretending to be something it isn't."
-    },
-    {
-      "type": "header",
-      "content": "Numbered Story Blocks (Right Column)"
-    },
-    {
-      "type": "textarea",
-      "id": "story_block_1",
-      "label": "Story block 01 (walnut background)",
-      "default": "Most sets are beautiful. But the tiles came from one place, the mat from another, the racks from a third. Otto was designed the other way: every component in the same conversation, so everything on the table looks like it belongs there."
-    },
-    {
-      "type": "textarea",
-      "id": "story_block_2",
-      "label": "Story block 02 (dark navy background)",
-      "default": "Mid-century modern isn't an aesthetic reference for Otto. It's a belief system: functional, democratic, built to last. Objects designed with the same intention as the room they live in — and the people around them."
+      "type": "story_block",
+      "name": "Story block",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "theme",
+          "label": "Color theme",
+          "options": [
+            { "value": "walnut", "label": "Walnut" },
+            { "value": "night",  "label": "Night Navy" }
+          ],
+          "default": "walnut"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Brand Story"
+      "name": "Brand Story",
+      "blocks": [
+        {
+          "type": "pillar",
+          "settings": {
+            "label": "One System",
+            "description": "Tiles, mat, racks, and accessories designed together. Not sourced separately and assembled. The visual language is consistent because the design process was unified from the start."
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "label": "Built to Play",
+            "description": "Not a collector's piece. An object that earns its place through use, not display. Designed to be handled dozens of times per game — and to feel like it."
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "label": "For the Whole Table",
+            "description": "Not feminine. Not masculine. Designed for households — including the partner who ends up most competitive."
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "label": "Honest Materials",
+            "description": "Walnut. Linen. Acrylic. Nothing pretending to be something it isn't."
+          }
+        },
+        {
+          "type": "story_block",
+          "settings": {
+            "text": "Most sets are beautiful. But the tiles came from one place, the mat from another, the racks from a third. Otto was designed the other way: every component in the same conversation, so everything on the table looks like it belongs there.",
+            "theme": "walnut"
+          }
+        },
+        {
+          "type": "story_block",
+          "settings": {
+            "text": "Mid-century modern isn't an aesthetic reference for Otto. It's a belief system: functional, democratic, built to last. Objects designed with the same intention as the room they live in — and the people around them.",
+            "theme": "night"
+          }
+        }
+      ]
     }
   ]
 }
