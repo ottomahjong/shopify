@@ -2,7 +2,7 @@
   class="product-grid section-padding"
   data-section-id="{{ section.id }}"
   aria-labelledby="product-grid-heading-{{ section.id }}"
-  style="background-color: var(--warm-white);"
+  style="background-color: {{ section.settings.bg_color | default: 'var(--warm-white)' }};"
 >
   <div class="container">
 
@@ -24,50 +24,40 @@
     </div>
 
     <div class="product-grid__grid reveal-stagger">
-      {%- for i in (1..4) -%}
-        {%- assign card_image_key     = 'card_' | append: i | append: '_image' -%}
-        {%- assign card_name_key      = 'card_' | append: i | append: '_name' -%}
-        {%- assign card_desc_key      = 'card_' | append: i | append: '_desc' -%}
-        {%- assign card_price_key     = 'card_' | append: i | append: '_price' -%}
-        {%- assign card_badge_key     = 'card_' | append: i | append: '_badge' -%}
-        {%- assign card_cta_label_key = 'card_' | append: i | append: '_cta_label' -%}
-        {%- assign card_cta_url_key   = 'card_' | append: i | append: '_cta_url' -%}
-
-        {%- assign card_image     = section.settings[card_image_key] -%}
-        {%- assign card_name      = section.settings[card_name_key] -%}
-        {%- assign card_desc      = section.settings[card_desc_key] -%}
-        {%- assign card_price     = section.settings[card_price_key] -%}
-        {%- assign card_badge     = section.settings[card_badge_key] -%}
-        {%- assign card_cta_label = section.settings[card_cta_label_key] -%}
-        {%- assign card_cta_url   = section.settings[card_cta_url_key] -%}
-
-        {%- if card_name != blank -%}
-          <article class="product-card">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.name != blank -%}
+          <article
+            class="product-card"
+            aria-label="{{ block.settings.name }}"
+            {{ block.shopify_attributes }}
+          >
             <div class="product-card__image-wrap">
-              {%- if card_image != blank -%}
-                <img
-                  src="{{ card_image | image_url: width: 600 }}"
-                  alt="{{ card_image.alt | default: card_name }}"
-                  width="600"
-                  loading="lazy"
-                  class="product-card__image"
-                >
+              {%- if block.settings.image != blank -%}
+                {{- block.settings.image
+                  | image_url: width: 800
+                  | image_tag:
+                    loading: 'lazy',
+                    class: 'product-card__image',
+                    widths: '400, 600, 800',
+                    sizes: '(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw',
+                    alt: block.settings.image.alt | default: block.settings.name | default: ''
+                -}}
               {%- else -%}
                 <div class="product-card__image-placeholder" aria-hidden="true"></div>
               {%- endif -%}
 
-              {%- if card_badge != blank -%}
-                <span class="product-card__badge">{{ card_badge }}</span>
+              {%- if block.settings.badge != blank -%}
+                <span class="product-card__badge">{{ block.settings.badge }}</span>
               {%- endif -%}
             </div>
 
             <div class="product-card__body">
-              <h3 class="product-card__title">{{ card_name }}</h3>
-              {%- if card_desc != blank -%}
-                <p class="product-card__desc">{{ card_desc }}</p>
+              <h3 class="product-card__title">{{ block.settings.name }}</h3>
+              {%- if block.settings.desc != blank -%}
+                <p class="product-card__desc">{{ block.settings.desc }}</p>
               {%- endif -%}
-              {%- if card_price != blank -%}
-                <p class="product-card__price">{{ card_price }}</p>
+              {%- if block.settings.price != blank -%}
+                <p class="product-card__price">{{ block.settings.price }}</p>
               {%- else -%}
                 <p class="product-card__price product-card__price--tbd">
                   {{- 'product.pricing_tbd' | t -}}
@@ -75,12 +65,12 @@
               {%- endif -%}
             </div>
 
-            {%- if card_cta_label != blank -%}
+            {%- if block.settings.cta_label != blank -%}
               <a
-                href="{{ card_cta_url | default: '/#waitlist' }}"
+                href="{{ block.settings.cta_url | default: '/#waitlist' }}"
                 class="product-card__cta btn btn--outline"
               >
-                {{- card_cta_label -}}
+                {{- block.settings.cta_label -}}
               </a>
             {%- endif -%}
           </article>
@@ -127,184 +117,103 @@
     },
     {
       "type": "header",
-      "content": "Product Card 1"
+      "content": "Colors"
     },
     {
-      "type": "image_picker",
-      "id": "card_1_image",
-      "label": "Card 1 — Image"
-    },
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#F5F0EA"
+    }
+  ],
+  "blocks": [
     {
-      "type": "text",
-      "id": "card_1_name",
-      "label": "Card 1 — Name",
-      "default": "Vignette"
-    },
-    {
-      "type": "textarea",
-      "id": "card_1_desc",
-      "label": "Card 1 — Description",
-      "default": "Bone and indigo bodies. Copper base. Recessed engraving with paint infill — not flat UV printing. Designed to be picked up dozens of times per game. Built to feel like it."
-    },
-    {
-      "type": "text",
-      "id": "card_1_price",
-      "label": "Card 1 — Price",
-      "default": "$300 – $400"
-    },
-    {
-      "type": "text",
-      "id": "card_1_badge",
-      "label": "Card 1 — Badge",
-      "default": "Coming Soon"
-    },
-    {
-      "type": "text",
-      "id": "card_1_cta_label",
-      "label": "Card 1 — CTA label",
-      "default": "Join Waitlist"
-    },
-    {
-      "type": "url",
-      "id": "card_1_cta_url",
-      "label": "Card 1 — CTA URL"
-    },
-    {
-      "type": "header",
-      "content": "Product Card 2"
-    },
-    {
-      "type": "image_picker",
-      "id": "card_2_image",
-      "label": "Card 2 — Image"
-    },
-    {
-      "type": "text",
-      "id": "card_2_name",
-      "label": "Card 2 — Name",
-      "default": "The Mat"
-    },
-    {
-      "type": "textarea",
-      "id": "card_2_desc",
-      "label": "Card 2 — Description",
-      "default": "Cushioned, non-slip, sized for four. Designed in the same palette as the tile set — not sourced to match, but designed alongside. Rolled and stored in a mat sleeve."
-    },
-    {
-      "type": "text",
-      "id": "card_2_price",
-      "label": "Card 2 — Price",
-      "default": "$60 – $70"
-    },
-    {
-      "type": "text",
-      "id": "card_2_badge",
-      "label": "Card 2 — Badge",
-      "default": "Coming Soon"
-    },
-    {
-      "type": "text",
-      "id": "card_2_cta_label",
-      "label": "Card 2 — CTA label",
-      "default": "Join Waitlist"
-    },
-    {
-      "type": "url",
-      "id": "card_2_cta_url",
-      "label": "Card 2 — CTA URL"
-    },
-    {
-      "type": "header",
-      "content": "Product Card 3"
-    },
-    {
-      "type": "image_picker",
-      "id": "card_3_image",
-      "label": "Card 3 — Image"
-    },
-    {
-      "type": "text",
-      "id": "card_3_name",
-      "label": "Card 3 — Name",
-      "default": "The Racks"
-    },
-    {
-      "type": "textarea",
-      "id": "card_3_desc",
-      "label": "Card 3 — Description",
-      "default": "Designed as furniture, not accessories. Solid walnut, satin oil finish. The rack is the object you touch every single turn. It should feel like it belongs in the room."
-    },
-    {
-      "type": "text",
-      "id": "card_3_price",
-      "label": "Card 3 — Price",
-      "default": "Pricing TBD"
-    },
-    {
-      "type": "text",
-      "id": "card_3_badge",
-      "label": "Card 3 — Badge",
-      "default": "Coming Soon"
-    },
-    {
-      "type": "text",
-      "id": "card_3_cta_label",
-      "label": "Card 3 — CTA label",
-      "default": "Join Waitlist"
-    },
-    {
-      "type": "url",
-      "id": "card_3_cta_url",
-      "label": "Card 3 — CTA URL"
-    },
-    {
-      "type": "header",
-      "content": "Product Card 4"
-    },
-    {
-      "type": "image_picker",
-      "id": "card_4_image",
-      "label": "Card 4 — Image"
-    },
-    {
-      "type": "text",
-      "id": "card_4_name",
-      "label": "Card 4 — Name",
-      "default": "Reference Cards"
-    },
-    {
-      "type": "textarea",
-      "id": "card_4_desc",
-      "label": "Card 4 — Description",
-      "default": "One per player. Double-sided: in-game rules on one side, NMJL card decoder on the other. Designed to answer the question mid-game — not after it."
-    },
-    {
-      "type": "text",
-      "id": "card_4_price",
-      "label": "Card 4 — Price",
-      "default": "Pricing TBD"
-    },
-    {
-      "type": "text",
-      "id": "card_4_badge",
-      "label": "Card 4 — Badge",
-      "default": "Coming Soon"
-    },
-    {
-      "type": "text",
-      "id": "card_4_cta_label",
-      "label": "Card 4 — CTA label",
-      "default": "Join Waitlist"
-    },
-    {
-      "type": "url",
-      "id": "card_4_cta_url",
-      "label": "Card 4 — CTA URL"
+      "type": "card",
+      "name": "Product Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Product name"
+        },
+        {
+          "type": "textarea",
+          "id": "desc",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price (leave blank for 'Pricing TBD')"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge",
+          "default": "Coming Soon"
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "CTA label",
+          "default": "Join Waitlist"
+        },
+        {
+          "type": "url",
+          "id": "cta_url",
+          "label": "CTA URL"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Product Grid"
+      "name": "Product Grid",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "name": "Vignette",
+            "desc": "Bone and indigo bodies. Copper base. Recessed engraving with paint infill — not flat UV printing. Designed to be picked up dozens of times per game. Built to feel like it.",
+            "price": "$300 – $400",
+            "badge": "Coming Soon",
+            "cta_label": "Join Waitlist"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "name": "The Mat",
+            "desc": "Cushioned, non-slip, sized for four. Designed in the same palette as the tile set — not sourced to match, but designed alongside. Rolled and stored in a mat sleeve.",
+            "price": "$60 – $70",
+            "badge": "Coming Soon",
+            "cta_label": "Join Waitlist"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "name": "The Racks",
+            "desc": "Designed as furniture, not accessories. Solid walnut, satin oil finish. The rack is the object you touch every single turn. It should feel like it belongs in the room.",
+            "badge": "Coming Soon",
+            "cta_label": "Join Waitlist"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "name": "Reference Cards",
+            "desc": "One per player. Double-sided: in-game rules on one side, NMJL card decoder on the other. Designed to answer the question mid-game — not after it.",
+            "badge": "Coming Soon",
+            "cta_label": "Join Waitlist"
+          }
+        }
+      ]
     }
   ]
 }
