@@ -6,20 +6,27 @@
 >
   {%- if section.settings.image != blank -%}
     <div class="collection-hero__image-wrap">
-      <img
-        src="{{ section.settings.image | image_url: width: 2000 }}"
-        alt="{{ section.settings.image.alt | default: collection.title }}"
-        width="2000"
-        loading="eager"
-        class="collection-hero__image"
-      >
-      <div class="collection-hero__overlay" style="opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"></div>
+      {{- section.settings.image
+        | image_url: width: 2400
+        | image_tag:
+          loading: 'eager',
+          class: 'collection-hero__image',
+          widths: '800, 1200, 1600, 2000, 2400',
+          sizes: '100vw',
+          alt: section.settings.image.alt | default: collection.title | default: ''
+      -}}
+      {%- if section.settings.overlay_opacity > 0 -%}
+        <div
+          class="collection-hero__overlay"
+          style="opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
+        ></div>
+      {%- endif -%}
     </div>
   {%- endif -%}
 
   <div class="collection-hero__content container">
     {%- if section.settings.eyebrow != blank -%}
-      <p class="section-label collection-hero__eyebrow" style="color: var(--walnut-on-dark);">
+      <p class="section-label collection-hero__eyebrow">
         {{- section.settings.eyebrow -}}
       </p>
     {%- endif -%}
@@ -31,7 +38,7 @@
     {%- if section.settings.subhead != blank -%}
       <p class="collection-hero__subhead">{{ section.settings.subhead }}</p>
     {%- elsif collection.description != blank -%}
-      <p class="collection-hero__subhead">{{ collection.description }}</p>
+      <div class="collection-hero__subhead">{{ collection.description }}</div>
     {%- endif -%}
   </div>
 </section>
