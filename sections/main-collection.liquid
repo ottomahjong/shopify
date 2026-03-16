@@ -1,0 +1,135 @@
+<div class="collection-page" data-section-id="{{ section.id }}">
+  <div class="container">
+
+    <div class="collection-page__header reveal">
+      <h1 class="collection-page__title">{{ collection.title }}</h1>
+      {%- if collection.description != blank -%}
+        <div class="collection-page__description">{{ collection.description }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="collection-page__toolbar">
+      <p class="collection-page__count">
+        {{ collection.products_count }}
+        {%- if collection.products_count == 1 %} product{%- else %} products{%- endif -%}
+      </p>
+      {%- if section.settings.show_sort -%}
+        <select
+          class="collection-page__sort"
+          aria-label="Sort products"
+          onchange="window.location.href='?sort_by=' + this.value"
+        >
+          {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+          <option value="manual"{% if sort_by == 'manual' %} selected{% endif %}>Featured</option>
+          <option value="price-ascending"{% if sort_by == 'price-ascending' %} selected{% endif %}>Price: Low to High</option>
+          <option value="price-descending"{% if sort_by == 'price-descending' %} selected{% endif %}>Price: High to Low</option>
+          <option value="title-ascending"{% if sort_by == 'title-ascending' %} selected{% endif %}>Alphabetically, A–Z</option>
+          <option value="title-descending"{% if sort_by == 'title-descending' %} selected{% endif %}>Alphabetically, Z–A</option>
+          <option value="created-descending"{% if sort_by == 'created-descending' %} selected{% endif %}>Date: New to Old</option>
+          <option value="best-selling"{% if sort_by == 'best-selling' %} selected{% endif %}>Best Selling</option>
+        </select>
+      {%- endif -%}
+    </div>
+
+    {%- paginate collection.products by section.settings.products_per_page -%}
+      {%- if collection.products.size == 0 -%}
+        <p class="collection-page__empty">No products found in this collection.</p>
+      {%- else -%}
+        <div class="product-grid__grid reveal-stagger">
+          {%- for product in collection.products -%}
+            <article class="product-card">
+              <a href="{{ product.url | within: collection }}" class="product-card__link" tabindex="-1" aria-hidden="true">
+                <div class="product-card__image-wrap">
+                  {%- if product.featured_image -%}
+                    <img
+                      src="{{ product.featured_image | image_url: width: 600 }}"
+                      alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                      width="600"
+                      height="600"
+                      loading="lazy"
+                    >
+                  {%- else -%}
+                    {{ 'product-1' | placeholder_svg_tag: 'product-card__placeholder' }}
+                  {%- endif -%}
+
+                  {%- if product.available == false -%}
+                    <span class="product-card__badge">Sold Out</span>
+                  {%- elsif product.compare_at_price > product.price -%}
+                    <span class="product-card__badge">Sale</span>
+                  {%- elsif product.tags contains 'new' or product.tags contains 'New' -%}
+                    <span class="product-card__badge">New</span>
+                  {%- endif -%}
+                </div>
+              </a>
+
+              <div class="product-card__meta">
+                {%- if product.vendor != blank -%}
+                  <p class="product-card__vendor">{{ product.vendor }}</p>
+                {%- endif -%}
+
+                <h2 class="product-card__title">
+                  <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+                </h2>
+
+                <div class="product-card__price">
+                  {%- if product.compare_at_price > product.price -%}
+                    <s class="product-card__price--compare">{{ product.compare_at_price | money }}</s>
+                    <span class="product-card__price--sale">{{ product.price | money }}</span>
+                  {%- else -%}
+                    <span>{{ product.price | money }}</span>
+                  {%- endif -%}
+                </div>
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <nav class="pagination" aria-label="Pagination">
+            {%- if paginate.previous -%}
+              <a href="{{ paginate.previous.url }}" class="pagination__btn pagination__btn--prev" aria-label="Previous page">&larr;</a>
+            {%- endif -%}
+
+            {%- for part in paginate.parts -%}
+              {%- if part.is_link -%}
+                <a href="{{ part.url }}" class="pagination__btn">{{ part.title }}</a>
+              {%- else -%}
+                <span class="pagination__btn is-active" aria-current="page">{{ part.title }}</span>
+              {%- endif -%}
+            {%- endfor -%}
+
+            {%- if paginate.next -%}
+              <a href="{{ paginate.next.url }}" class="pagination__btn pagination__btn--next" aria-label="Next page">&rarr;</a>
+            {%- endif -%}
+          </nav>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endpaginate -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection — Main",
+  "tag": "section",
+  "class": "section-main-collection",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sort",
+      "label": "Show sort selector",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

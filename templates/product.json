@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "show_quantity": true,
+        "show_share": false
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

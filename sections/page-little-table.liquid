@@ -1,0 +1,96 @@
+<div class="little-table" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="little-table__grid reveal-stagger">
+
+      <div class="little-table__image">
+        {%- if section.settings.image != blank -%}
+          <img
+            src="{{ section.settings.image | image_url: width: 800 }}"
+            alt="{{ section.settings.image.alt | default: 'Little Table by Otto' }}"
+            width="800"
+            loading="lazy"
+          >
+        {%- else -%}
+          {{ 'product-2' | placeholder_svg_tag: 'little-table__placeholder' }}
+        {%- endif -%}
+      </div>
+
+      <div class="little-table__content">
+        <p class="little-table__eyebrow">{{ section.settings.eyebrow | default: 'Little Table' }}</p>
+        <h1 class="little-table__heading">{{ section.settings.heading | default: 'Mahjong for everyone at the table.' }}</h1>
+        <p class="little-table__body">{{ section.settings.body | default: 'Little Table is Otto\'s introductory mahjong set — built for curious beginners, families, and anyone who\'s been meaning to learn. Same beautiful components, simplified rules.' }}</p>
+
+        <div class="little-table__features">
+          {%- for i in (1..4) -%}
+            {%- assign label_key = 'feature_' | append: i | append: '_label' -%}
+            {%- assign value_key = 'feature_' | append: i | append: '_value' -%}
+            {%- if section.settings[label_key] != blank -%}
+              <div>
+                <p class="little-table__feature-label">{{ section.settings[label_key] }}</p>
+                <p class="little-table__feature-value">{{ section.settings[value_key] }}</p>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if section.settings.cta_label != blank -%}
+          <a
+            href="{{ section.settings.cta_url | default: '#' }}"
+            class="btn btn--primary btn--lg"
+          >
+            {{ section.settings.cta_label }}
+          </a>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page — Little Table",
+  "tag": "section",
+  "class": "section-page-little-table",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product image"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Little Table"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Mahjong for everyone at the table."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Little Table is Otto's introductory mahjong set — built for curious beginners, families, and anyone who's been meaning to learn."
+    },
+    { "type": "header", "content": "Feature 1" },
+    { "type": "text", "id": "feature_1_label", "label": "Label", "default": "Players" },
+    { "type": "text", "id": "feature_1_value", "label": "Value", "default": "2–4" },
+    { "type": "header", "content": "Feature 2" },
+    { "type": "text", "id": "feature_2_label", "label": "Label", "default": "Age" },
+    { "type": "text", "id": "feature_2_value", "label": "Value", "default": "8 and up" },
+    { "type": "header", "content": "Feature 3" },
+    { "type": "text", "id": "feature_3_label", "label": "Label", "default": "Play time" },
+    { "type": "text", "id": "feature_3_value", "label": "Value", "default": "30–60 min" },
+    { "type": "header", "content": "Feature 4" },
+    { "type": "text", "id": "feature_4_label", "label": "Label", "default": "Tile count" },
+    { "type": "text", "id": "feature_4_value", "label": "Value", "default": "144 tiles" },
+    { "type": "header", "content": "Call to Action" },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Join the Waitlist" },
+    { "type": "url", "id": "cta_url", "label": "Button URL" }
+  ]
+}
+{% endschema %}

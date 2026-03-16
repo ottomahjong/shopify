@@ -1,0 +1,17 @@
+<div class="page-content" data-section-id="{{ section.id }}">
+  <div class="container" style="max-width: 720px; padding-top: 3rem; padding-bottom: 5rem;">
+    <h1 class="page-hero__heading" style="margin-bottom: 1.5rem;">{{ page.title }}</h1>
+    <div class="product-info__description">
+      {{ page.content }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page — Main",
+  "tag": "section",
+  "class": "section-main-page",
+  "settings": []
+}
+{% endschema %}

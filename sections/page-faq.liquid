@@ -1,0 +1,93 @@
+<div class="faq" data-section-id="{{ section.id }}">
+  <div class="container">
+
+    <div class="faq__header reveal">
+      <p class="faq__eyebrow">{{ section.settings.eyebrow | default: 'Help & FAQs' }}</p>
+      <h1 class="faq__heading">{{ section.settings.heading | default: 'Common Questions' }}</h1>
+    </div>
+
+    <ul class="faq__list" role="list">
+      {%- for i in (1..10) -%}
+        {%- assign q_key = 'faq_q_' | append: i -%}
+        {%- assign a_key = 'faq_a_' | append: i -%}
+        {%- if section.settings[q_key] != blank -%}
+          <li class="faq__item">
+            <button
+              class="faq__trigger"
+              type="button"
+              aria-expanded="false"
+              aria-controls="faq-panel-{{ section.id }}-{{ i }}"
+              id="faq-trigger-{{ section.id }}-{{ i }}"
+            >
+              {{ section.settings[q_key] }}
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div
+              class="faq__panel"
+              id="faq-panel-{{ section.id }}-{{ i }}"
+              role="region"
+              aria-labelledby="faq-trigger-{{ section.id }}-{{ i }}"
+            >
+              <div class="faq__panel-inner">
+                {{ section.settings[a_key] }}
+              </div>
+            </div>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page — FAQ",
+  "tag": "section",
+  "class": "section-page-faq",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "Help & FAQs"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "Common Questions"
+    },
+    { "type": "header", "content": "Question 1" },
+    { "type": "text", "id": "faq_q_1", "label": "Question", "default": "When will Otto ship?" },
+    { "type": "richtext", "id": "faq_a_1", "label": "Answer", "default": "<p>Otto is currently in pre-production. We expect to begin shipping to waitlist members in Q3 2025.</p>" },
+    { "type": "header", "content": "Question 2" },
+    { "type": "text", "id": "faq_q_2", "label": "Question", "default": "How many tiles are in a full set?" },
+    { "type": "richtext", "id": "faq_a_2", "label": "Answer", "default": "<p>Each Otto set includes 166 tiles — 152 playing tiles, 8 jokers, and 6 blank tiles — plus racks, dice, and a wind indicator.</p>" },
+    { "type": "header", "content": "Question 3" },
+    { "type": "text", "id": "faq_q_3", "label": "Question", "default": "What is the difference between American and Chinese Mahjong?" },
+    { "type": "richtext", "id": "faq_a_3", "label": "Answer", "default": "<p>American Mahjong uses jokers, a card of hands, and scoring rules based on the National Mah Jongg League. It is a distinct variation from Chinese styles of play.</p>" },
+    { "type": "header", "content": "Question 4" },
+    { "type": "text", "id": "faq_q_4", "label": "Question", "default": "Do you offer international shipping?" },
+    { "type": "richtext", "id": "faq_a_4", "label": "Answer", "default": "<p>We currently ship within the United States. International shipping is on our roadmap for 2026.</p>" },
+    { "type": "header", "content": "Question 5" },
+    { "type": "text", "id": "faq_q_5", "label": "Question", "default": "What is your return policy?" },
+    { "type": "richtext", "id": "faq_a_5", "label": "Answer", "default": "<p>We accept returns within 30 days of delivery for unused items in original packaging. Please contact us at hello@ottomahjong.com to initiate a return.</p>" },
+    { "type": "header", "content": "Question 6" },
+    { "type": "text", "id": "faq_q_6", "label": "Question", "default": "" },
+    { "type": "richtext", "id": "faq_a_6", "label": "Answer", "default": "" },
+    { "type": "header", "content": "Question 7" },
+    { "type": "text", "id": "faq_q_7", "label": "Question", "default": "" },
+    { "type": "richtext", "id": "faq_a_7", "label": "Answer", "default": "" },
+    { "type": "header", "content": "Question 8" },
+    { "type": "text", "id": "faq_q_8", "label": "Question", "default": "" },
+    { "type": "richtext", "id": "faq_a_8", "label": "Answer", "default": "" },
+    { "type": "header", "content": "Question 9" },
+    { "type": "text", "id": "faq_q_9", "label": "Question", "default": "" },
+    { "type": "richtext", "id": "faq_a_9", "label": "Answer", "default": "" },
+    { "type": "header", "content": "Question 10" },
+    { "type": "text", "id": "faq_q_10", "label": "Question", "default": "" },
+    { "type": "richtext", "id": "faq_a_10", "label": "Answer", "default": "" }
+  ]
+}
+{% endschema %}

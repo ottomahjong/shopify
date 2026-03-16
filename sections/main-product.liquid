@@ -1,0 +1,192 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+<div class="product-page" data-section-id="{{ section.id }}">
+  <div class="container">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">{{ 'general.home' | t | default: 'Home' }}</a>
+      <span class="breadcrumb__sep" aria-hidden="true">/</span>
+      {%- if collection -%}
+        <a href="{{ collection.url }}">{{ collection.title }}</a>
+        <span class="breadcrumb__sep" aria-hidden="true">/</span>
+      {%- endif -%}
+      <span aria-current="page">{{ product.title }}</span>
+    </nav>
+
+    <div class="product-page__grid" data-gallery>
+
+      <!-- Gallery -->
+      <div class="product-gallery">
+        <div class="product-gallery__main">
+          {%- if product.featured_image -%}
+            <img
+              id="product-featured-image-{{ section.id }}"
+              src="{{ product.featured_image | image_url: width: 900 }}"
+              alt="{{ product.featured_image.alt | default: product.title | escape }}"
+              width="900"
+              height="900"
+              loading="eager"
+            >
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'product-gallery__placeholder' }}
+          {%- endif -%}
+        </div>
+
+        {%- if product.images.size > 1 -%}
+          <div class="product-gallery__thumbs">
+            {%- for image in product.images -%}
+              <button
+                class="product-gallery__thumb{% if forloop.first %} is-active{% endif %}"
+                data-src="{{ image | image_url: width: 900 }}"
+                data-alt="{{ image.alt | default: product.title | escape }}"
+                aria-label="View image {{ forloop.index }}"
+              >
+                <img
+                  src="{{ image | image_url: width: 150 }}"
+                  alt="{{ image.alt | default: product.title | escape }}"
+                  width="150"
+                  height="150"
+                  loading="lazy"
+                >
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div><!-- /product-gallery -->
+
+      <!-- Product Info -->
+      <div class="product-info">
+
+        {%- if product.vendor != blank -%}
+          <p class="product-info__vendor">{{ product.vendor }}</p>
+        {%- endif -%}
+
+        <h1 class="product-info__title">{{ product.title }}</h1>
+
+        <div class="product-info__price-wrap" id="price-{{ section.id }}" aria-live="polite">
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <s class="product-info__price product-info__price--compare">
+              {{- current_variant.compare_at_price | money -}}
+            </s>
+            <span class="product-info__price product-info__price--sale">
+              {{- current_variant.price | money -}}
+            </span>
+          {%- else -%}
+            <span class="product-info__price">
+              {{- current_variant.price | money -}}
+            </span>
+          {%- endif -%}
+        </div>
+
+        <hr class="product-info__divider">
+
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <div class="product-info__option">
+              <p class="product-info__label">{{ option.name }}</p>
+              <div class="variant-selector" data-variant-group data-option-index="{{ forloop.index0 }}">
+                {%- for value in option.values -%}
+                  <button
+                    type="button"
+                    class="variant-selector__btn{% if option.selected_value == value %} is-active{% endif %}"
+                    data-value="{{ value | escape }}"
+                  >
+                    {{- value -}}
+                  </button>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endunless -%}
+
+        {% form 'product', product, data-atc-form: '' %}
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
+
+          {%- if section.settings.show_quantity -%}
+            <div class="product-info__qty">
+              <p class="product-info__label">Quantity</p>
+              <div class="qty-stepper">
+                <button type="button" class="qty-stepper__btn qty-stepper__btn--dec" aria-label="Decrease quantity">&#8722;</button>
+                <input class="qty-stepper__value" type="number" name="quantity" value="1" min="1" aria-label="Quantity">
+                <button type="button" class="qty-stepper__btn qty-stepper__btn--inc" aria-label="Increase quantity">&#43;</button>
+              </div>
+            </div>
+          {%- else -%}
+            <input type="hidden" name="quantity" value="1">
+          {%- endif -%}
+
+          <div class="product-info__atc-wrap">
+            <button
+              type="submit"
+              name="add"
+              class="btn btn--primary btn--lg btn--full"
+              data-atc-btn
+              data-label="{{ 'products.product.add_to_cart' | t | default: 'Add to Cart' }}"
+              {%- unless current_variant.available %} disabled aria-disabled="true"{% endunless -%}
+            >
+              {%- if current_variant.available -%}
+                {{ 'products.product.add_to_cart' | t | default: 'Add to Cart' }}
+              {%- else -%}
+                {{ 'products.product.sold_out' | t | default: 'Sold Out' }}
+              {%- endif -%}
+            </button>
+          </div>
+        {% endform %}
+
+        <hr class="product-info__divider">
+
+        {%- if product.description != blank -%}
+          <div class="product-info__description">
+            {{ product.description }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.show_share -%}
+          <div class="product-info__share">
+            <a
+              href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ product.url }}"
+              class="product-info__share-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Share on Facebook"
+            >Facebook</a>
+            <a
+              href="https://pinterest.com/pin/create/button/?url={{ shop.url }}{{ product.url }}&media={{ product.featured_image | image_url: width: 600 }}&description={{ product.title | url_encode }}"
+              class="product-info__share-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Share on Pinterest"
+            >Pinterest</a>
+          </div>
+        {%- endif -%}
+
+      </div><!-- /product-info -->
+    </div><!-- /product-page__grid -->
+  </div><!-- /container -->
+</div>
+
+<script type="application/json" id="product-variants-{{ section.id }}">
+  {{ product.variants | json }}
+</script>
+
+{% schema %}
+{
+  "name": "Product — Main",
+  "tag": "section",
+  "class": "section-main-product",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_quantity",
+      "label": "Show quantity selector",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_share",
+      "label": "Show share links",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

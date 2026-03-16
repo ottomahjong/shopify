@@ -1,0 +1,180 @@
+<div class="about-hero" data-section-id="{{ section.id }}">
+  <div class="container">
+    <p class="about-hero__eyebrow reveal">{{ section.settings.eyebrow | default: 'Our Story' }}</p>
+    <h1 class="about-hero__heading reveal">{{ section.settings.heading | default: 'Made for the table you care about.' }}</h1>
+    <p class="about-hero__lead reveal">{{ section.settings.lead | default: 'Otto was born at a kitchen table in San Francisco, from a simple question: why does every mahjong set look the same?' }}</p>
+  </div>
+</div>
+
+<section class="brand-story" aria-labelledby="about-story-heading-{{ section.id }}" style="padding: 5rem 0;">
+  <div class="container">
+    <div class="brand-story__grid reveal-stagger">
+      <div class="brand-story__image">
+        {%- if section.settings.image != blank -%}
+          <img
+            src="{{ section.settings.image | image_url: width: 800 }}"
+            alt="{{ section.settings.image.alt | default: 'Otto Mahjong story' }}"
+            width="800"
+            loading="lazy"
+          >
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'brand-story__placeholder' }}
+        {%- endif -%}
+      </div>
+
+      <div class="brand-story__content">
+        <p class="brand-story__eyebrow">{{ section.settings.story_eyebrow | default: 'The Making Of' }}</p>
+        <h2 id="about-story-heading-{{ section.id }}" class="brand-story__heading">
+          {{ section.settings.story_heading | default: 'Quality that earns its place on the shelf.' }}
+        </h2>
+        <div class="brand-story__body product-info__description">
+          {{ section.settings.story_body | default: 'Every component of Otto is considered. From the weight of each tile to the grain direction on the case — nothing is arbitrary.' }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about-values" aria-label="Our values" style="background-color: var(--warm-white);">
+  <div class="container">
+    <div class="about-values__grid reveal-stagger">
+      {%- for i in (1..3) -%}
+        {%- assign num_key   = 'value_' | append: i | append: '_num' -%}
+        {%- assign title_key = 'value_' | append: i | append: '_title' -%}
+        {%- assign body_key  = 'value_' | append: i | append: '_body' -%}
+        {%- if section.settings[title_key] != blank -%}
+          <div class="about-value">
+            <p class="about-value__number">{{ section.settings[num_key] | default: '0' | append: forloop.index }}</p>
+            <h3 class="about-value__title">{{ section.settings[title_key] }}</h3>
+            <p class="about-value__body">{{ section.settings[body_key] }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page — About",
+  "tag": "section",
+  "class": "section-page-about",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Our Story"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Hero heading",
+      "default": "Made for the table you care about."
+    },
+    {
+      "type": "textarea",
+      "id": "lead",
+      "label": "Lead paragraph",
+      "default": "Otto was born at a kitchen table in San Francisco, from a simple question: why does every mahjong set look the same?"
+    },
+    {
+      "type": "header",
+      "content": "Story Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Story image"
+    },
+    {
+      "type": "text",
+      "id": "story_eyebrow",
+      "label": "Story eyebrow",
+      "default": "The Making Of"
+    },
+    {
+      "type": "textarea",
+      "id": "story_heading",
+      "label": "Story heading",
+      "default": "Quality that earns its place on the shelf."
+    },
+    {
+      "type": "richtext",
+      "id": "story_body",
+      "label": "Story body",
+      "default": "<p>Every component of Otto is considered. From the weight of each tile to the grain direction on the case — nothing is arbitrary.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Values — Item 1"
+    },
+    {
+      "type": "text",
+      "id": "value_1_num",
+      "label": "Number",
+      "default": "01"
+    },
+    {
+      "type": "text",
+      "id": "value_1_title",
+      "label": "Title",
+      "default": "Design First"
+    },
+    {
+      "type": "textarea",
+      "id": "value_1_body",
+      "label": "Body",
+      "default": "We believe beautiful objects change how you interact with them. Otto starts with aesthetics and works backward."
+    },
+    {
+      "type": "header",
+      "content": "Values — Item 2"
+    },
+    {
+      "type": "text",
+      "id": "value_2_num",
+      "label": "Number",
+      "default": "02"
+    },
+    {
+      "type": "text",
+      "id": "value_2_title",
+      "label": "Title",
+      "default": "Made to Last"
+    },
+    {
+      "type": "textarea",
+      "id": "value_2_body",
+      "label": "Body",
+      "default": "We use materials rated for decades of play. Otto is meant to be passed down, not replaced."
+    },
+    {
+      "type": "header",
+      "content": "Values — Item 3"
+    },
+    {
+      "type": "text",
+      "id": "value_3_num",
+      "label": "Number",
+      "default": "03"
+    },
+    {
+      "type": "text",
+      "id": "value_3_title",
+      "label": "Title",
+      "default": "Community Rooted"
+    },
+    {
+      "type": "textarea",
+      "id": "value_3_body",
+      "label": "Body",
+      "default": "Mahjong is communal. Every design decision is made to honor the ritual of gathering around a table."
+    }
+  ]
+}
+{% endschema %}

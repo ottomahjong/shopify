@@ -1,0 +1,122 @@
+<div class="search-page" data-section-id="{{ section.id }}">
+  <div class="container">
+
+    <div class="page-hero" style="text-align: center; padding: 3rem 0 2rem;">
+      <h1 class="page-hero__heading">Search</h1>
+      {%- if search.performed and search.terms != blank -%}
+        <p class="page-hero__sub">
+          {%- if search.results_count == 0 -%}
+            No results for &ldquo;{{ search.terms | escape }}&rdquo;
+          {%- else -%}
+            {{ search.results_count }} result{{ search.results_count | pluralize: '', 's' }} for &ldquo;{{ search.terms | escape }}&rdquo;
+          {%- endif -%}
+        </p>
+      {%- endif -%}
+    </div>
+
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-page__form">
+      <div style="display: flex; gap: 0.75rem; max-width: 560px; margin: 0 auto 3rem;">
+        <input
+          type="search"
+          name="q"
+          value="{{ search.terms | escape }}"
+          placeholder="Search products…"
+          aria-label="Search"
+          class="form-field__input"
+          style="flex: 1;"
+          autocomplete="off"
+        >
+        <input type="hidden" name="type" value="product">
+        <button type="submit" class="btn btn--primary">Search</button>
+      </div>
+    </form>
+
+    {%- if search.performed -%}
+      {%- if search.results_count == 0 -%}
+        <div style="text-align: center; padding: 2rem 0 4rem;">
+          <p style="color: var(--stone); margin-bottom: 2rem;">Try a different search term or browse our collections.</p>
+          <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">View All Products</a>
+        </div>
+      {%- else -%}
+        {%- paginate search.results by section.settings.results_per_page -%}
+          <div class="product-grid__grid reveal-stagger">
+            {%- for result in search.results -%}
+              {%- if result.object_type == 'product' -%}
+                <article class="product-card">
+                  <a href="{{ result.url }}" class="product-card__link" tabindex="-1" aria-hidden="true">
+                    <div class="product-card__image-wrap">
+                      {%- if result.featured_image -%}
+                        <img
+                          src="{{ result.featured_image | image_url: width: 600 }}"
+                          alt="{{ result.featured_image.alt | default: result.title | escape }}"
+                          width="600"
+                          height="600"
+                          loading="lazy"
+                        >
+                      {%- else -%}
+                        {{ 'product-1' | placeholder_svg_tag: 'product-card__placeholder' }}
+                      {%- endif -%}
+                    </div>
+                  </a>
+                  <div class="product-card__meta">
+                    <h2 class="product-card__title">
+                      <a href="{{ result.url }}">{{ result.title }}</a>
+                    </h2>
+                    <div class="product-card__price">{{ result.price | money }}</div>
+                  </div>
+                </article>
+              {%- else -%}
+                <article class="feature-card">
+                  <h2 class="feature-card__title">
+                    <a href="{{ result.url }}">{{ result.title }}</a>
+                  </h2>
+                  {%- if result.content != blank -%}
+                    <p class="feature-card__body">{{ result.content | strip_html | truncate: 120 }}</p>
+                  {%- endif -%}
+                </article>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          {%- if paginate.pages > 1 -%}
+            <nav class="pagination" aria-label="Pagination">
+              {%- if paginate.previous -%}
+                <a href="{{ paginate.previous.url }}" class="pagination__btn pagination__btn--prev" aria-label="Previous page">&larr;</a>
+              {%- endif -%}
+              {%- for part in paginate.parts -%}
+                {%- if part.is_link -%}
+                  <a href="{{ part.url }}" class="pagination__btn">{{ part.title }}</a>
+                {%- else -%}
+                  <span class="pagination__btn is-active" aria-current="page">{{ part.title }}</span>
+                {%- endif -%}
+              {%- endfor -%}
+              {%- if paginate.next -%}
+                <a href="{{ paginate.next.url }}" class="pagination__btn pagination__btn--next" aria-label="Next page">&rarr;</a>
+              {%- endif -%}
+            </nav>
+          {%- endif -%}
+        {%- endpaginate -%}
+      {%- endif -%}
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Search — Main",
+  "tag": "section",
+  "class": "section-main-search",
+  "settings": [
+    {
+      "type": "range",
+      "id": "results_per_page",
+      "label": "Results per page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 24
+    }
+  ]
+}
+{% endschema %}

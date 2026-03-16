@@ -1,0 +1,101 @@
+<div class="customer-page" data-section-id="{{ section.id }}">
+  <div class="container" style="padding-top: 3rem; padding-bottom: 5rem;">
+
+    <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem;">
+      <div>
+        <h1 class="page-hero__heading" style="margin-bottom: 0.5rem;">
+          Hello, {{ customer.first_name }}
+        </h1>
+        <p style="color: var(--stone); font-size: 0.9rem;">{{ customer.email }}</p>
+      </div>
+      <a href="{{ routes.account_logout_url }}" class="btn btn--ghost" style="align-self: flex-start;">Sign Out</a>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr; gap: 3rem;">
+
+      <!-- Order History -->
+      <section aria-labelledby="orders-heading">
+        <h2 id="orders-heading" style="font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone); margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--bone);">
+          Order History
+        </h2>
+
+        {%- if customer.orders.size == 0 -%}
+          <p style="color: var(--stone);">You haven't placed any orders yet. <a href="{{ routes.all_products_collection_url }}" style="color: var(--walnut-on-light);">Start shopping &rarr;</a></p>
+        {%- else -%}
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.875rem;">
+              <thead>
+                <tr>
+                  {%- for heading in 'Order,Date,Status,Total' | split: ',' -%}
+                    <th style="text-align: left; padding: 0.5rem 1rem 0.5rem 0; color: var(--stone); font-weight: 400; border-bottom: 1px solid var(--bone); white-space: nowrap;">{{ heading }}</th>
+                  {%- endfor -%}
+                </tr>
+              </thead>
+              <tbody>
+                {%- for order in customer.orders -%}
+                  <tr>
+                    <td style="padding: 0.875rem 1rem 0.875rem 0; border-bottom: 1px solid var(--bone);">
+                      <a href="{{ order.customer_url }}" style="color: var(--walnut-on-light);">{{ order.name }}</a>
+                    </td>
+                    <td style="padding: 0.875rem 1rem 0.875rem 0; border-bottom: 1px solid var(--bone); color: var(--stone);">
+                      {{ order.created_at | date: "%b %d, %Y" }}
+                    </td>
+                    <td style="padding: 0.875rem 1rem 0.875rem 0; border-bottom: 1px solid var(--bone);">
+                      <span style="font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 2px; background: var(--bone); color: var(--ink);">
+                        {{ order.financial_status | capitalize }}
+                      </span>
+                    </td>
+                    <td style="padding: 0.875rem 0 0.875rem 0; border-bottom: 1px solid var(--bone);">
+                      {{ order.total_price | money }}
+                    </td>
+                  </tr>
+                {%- endfor -%}
+              </tbody>
+            </table>
+          </div>
+        {%- endif -%}
+      </section>
+
+      <!-- Account Details -->
+      <section aria-labelledby="account-details-heading">
+        <h2 id="account-details-heading" style="font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone); margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--bone);">
+          Account Details
+        </h2>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div>
+            <p style="font-family: var(--font-sans); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--label-ink); margin-bottom: 0.5rem;">Name</p>
+            <p style="color: var(--ink);">{{ customer.name }}</p>
+          </div>
+          <div>
+            <p style="font-family: var(--font-sans); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--label-ink); margin-bottom: 0.5rem;">Email</p>
+            <p style="color: var(--ink);">{{ customer.email }}</p>
+          </div>
+
+          {%- if customer.default_address -%}
+            <div style="grid-column: 1 / -1;">
+              <p style="font-family: var(--font-sans); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--label-ink); margin-bottom: 0.5rem;">Default Address</p>
+              <address style="font-style: normal; color: var(--ink); line-height: 1.6;">
+                {{ customer.default_address | format_address }}
+              </address>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div style="margin-top: 1.5rem;">
+          <a href="{{ routes.account_addresses_url }}" class="btn btn--ghost">Manage Addresses</a>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Account — Main",
+  "tag": "section",
+  "class": "section-main-account",
+  "settings": []
+}
+{% endschema %}

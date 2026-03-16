@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "presale_banner": {
+      "type": "presale-banner",
+      "settings": {}
+    },
+    "hero": {
+      "type": "hero-split",
+      "settings": {}
+    },
+    "brand_story": {
+      "type": "brand-story",
+      "settings": {}
+    },
+    "product_grid": {
+      "type": "product-grid",
+      "settings": {}
+    },
+    "founder": {
+      "type": "founder",
+      "settings": {}
+    },
+    "waitlist": {
+      "type": "waitlist",
+      "settings": {}
+    }
+  },
+  "order": [
+    "presale_banner",
+    "hero",
+    "brand_story",
+    "product_grid",
+    "founder",
+    "waitlist"
+  ]
+}

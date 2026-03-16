@@ -1,0 +1,81 @@
+<div class="customer-page" data-section-id="{{ section.id }}">
+  <div class="container" style="max-width: 480px; padding-top: 4rem; padding-bottom: 5rem;">
+
+    <h1 class="page-hero__heading" style="text-align: center; margin-bottom: 0.5rem;">
+      {{ section.settings.heading | default: 'Sign In' }}
+    </h1>
+    <p style="text-align: center; color: var(--stone); font-size: 0.9rem; margin-bottom: 2rem;">
+      {{ section.settings.subheading | default: 'Sign in to your Otto account.' }}
+    </p>
+
+    {%- if form.errors -%}
+      <div role="alert" style="background: #fef2f2; color: #991b1b; padding: 1rem; border-radius: 4px; margin-bottom: 1.5rem; font-size: 0.9rem;">
+        {{ form.errors | default_errors }}
+      </div>
+    {%- endif -%}
+
+    {%- form 'customer_login' -%}
+      <div class="contact-form">
+        <div class="form-field">
+          <label class="form-field__label" for="customer-email">Email</label>
+          <input
+            class="form-field__input"
+            type="email"
+            id="customer-email"
+            name="customer[email]"
+            autocomplete="email"
+            autocorrect="off"
+            autocapitalize="off"
+            required
+          >
+        </div>
+
+        <div class="form-field">
+          <label class="form-field__label" for="customer-password">Password</label>
+          <input
+            class="form-field__input"
+            type="password"
+            id="customer-password"
+            name="customer[password]"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem;">
+          <a href="{{ routes.account_recover_url }}" style="color: var(--walnut-on-light);">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--full btn--lg">Sign In</button>
+      </div>
+    {%- endform -%}
+
+    <p style="text-align: center; font-size: 0.875rem; color: var(--stone); margin-top: 1.5rem;">
+      New to Otto?
+      <a href="{{ routes.account_register_url }}" style="color: var(--walnut-on-light);">Create account</a>
+    </p>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Login — Main",
+  "tag": "section",
+  "class": "section-main-login",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Sign In"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Sign in to your Otto account."
+    }
+  ]
+}
+{% endschema %}

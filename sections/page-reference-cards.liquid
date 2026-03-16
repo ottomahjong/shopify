@@ -1,0 +1,111 @@
+<div class="cards-section" data-section-id="{{ section.id }}">
+  <div class="container">
+
+    <div class="cards-section__header reveal">
+      <p class="cards-section__eyebrow">{{ section.settings.eyebrow | default: 'Reference Cards' }}</p>
+      <h1 class="cards-section__heading">{{ section.settings.heading | default: 'Every hand. Both sides.' }}</h1>
+      <p class="cards-section__sub">{{ section.settings.sub | default: 'Otto Reference Cards feature all current NMJL hands, clearly organized across a double-sided 5×7 card. Laminated for table use.' }}</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-bottom: 4rem;" class="reveal-stagger">
+      <div style="aspect-ratio: 3/2; overflow: hidden; border-radius: 4px; background: var(--bone);">
+        {%- if section.settings.image_front != blank -%}
+          <img
+            src="{{ section.settings.image_front | image_url: width: 800 }}"
+            alt="{{ section.settings.image_front.alt | default: 'Reference Cards — Front' }}"
+            width="800"
+            loading="eager"
+            style="width: 100%; height: 100%; object-fit: cover;"
+          >
+        {%- else -%}
+          {{ 'product-2' | placeholder_svg_tag }}
+        {%- endif -%}
+      </div>
+      <div style="aspect-ratio: 3/2; overflow: hidden; border-radius: 4px; background: var(--bone);">
+        {%- if section.settings.image_back != blank -%}
+          <img
+            src="{{ section.settings.image_back | image_url: width: 800 }}"
+            alt="{{ section.settings.image_back.alt | default: 'Reference Cards — Back' }}"
+            width="800"
+            loading="lazy"
+            style="width: 100%; height: 100%; object-fit: cover;"
+          >
+        {%- else -%}
+          {{ 'product-3' | placeholder_svg_tag }}
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="cards-section__grid reveal-stagger">
+      {%- for i in (1..3) -%}
+        {%- assign title_key = 'card_' | append: i | append: '_title' -%}
+        {%- assign body_key  = 'card_' | append: i | append: '_body' -%}
+        {%- if section.settings[title_key] != blank -%}
+          <div class="feature-card">
+            <h3 class="feature-card__title">{{ section.settings[title_key] }}</h3>
+            <p class="feature-card__body">{{ section.settings[body_key] }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.cta_label != blank -%}
+      <div style="text-align: center; margin-top: 3rem;" class="reveal">
+        <a href="{{ section.settings.cta_url | default: '#' }}" class="btn btn--primary btn--lg">
+          {{ section.settings.cta_label }}
+        </a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page — Reference Cards",
+  "tag": "section",
+  "class": "section-page-reference-cards",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Reference Cards"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Every hand. Both sides."
+    },
+    {
+      "type": "textarea",
+      "id": "sub",
+      "label": "Subheading",
+      "default": "Otto Reference Cards feature all current NMJL hands, clearly organized across a double-sided 5×7 card. Laminated for table use."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_front",
+      "label": "Card front image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_back",
+      "label": "Card back image"
+    },
+    { "type": "header", "content": "Feature 1" },
+    { "type": "text", "id": "card_1_title", "label": "Title", "default": "Current Year Hands" },
+    { "type": "textarea", "id": "card_1_body", "label": "Body", "default": "Updated annually to match the latest NMJL card. Otto cards reflect the current year's official hands." },
+    { "type": "header", "content": "Feature 2" },
+    { "type": "text", "id": "card_2_title", "label": "Title", "default": "Double-Sided Design" },
+    { "type": "textarea", "id": "card_2_body", "label": "Body", "default": "All hands organized across two sides, grouped by suit and joker usage. Designed for readability at the table." },
+    { "type": "header", "content": "Feature 3" },
+    { "type": "text", "id": "card_3_title", "label": "Title", "default": "Laminated for Play" },
+    { "type": "textarea", "id": "card_3_body", "label": "Body", "default": "A durable matte laminate makes each card spill-resistant and long-lasting — built for seasons of play." },
+    { "type": "header", "content": "Call to Action" },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Add to Cart" },
+    { "type": "url", "id": "cta_url", "label": "Button URL" }
+  ]
+}
+{% endschema %}

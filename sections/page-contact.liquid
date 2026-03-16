@@ -1,0 +1,152 @@
+<div class="contact-section" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="contact-section__grid">
+
+      <!-- Left: Info -->
+      <div class="contact-section__info reveal">
+        <p class="contact-section__eyebrow">{{ section.settings.eyebrow | default: 'Get in Touch' }}</p>
+        <h1 class="contact-section__heading">{{ section.settings.heading | default: 'We&rsquo;d love to hear from you.' }}</h1>
+        <p class="contact-section__body">{{ section.settings.body | default: 'Questions about your order, wholesale inquiries, press, or just want to talk mahjong — reach out anytime.' }}</p>
+
+        <div class="contact-section__meta">
+          {%- if section.settings.email != blank -%}
+            <div>
+              <p class="contact-meta__label">Email</p>
+              <p class="contact-meta__value">
+                <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a>
+              </p>
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.response_time != blank -%}
+            <div>
+              <p class="contact-meta__label">Response Time</p>
+              <p class="contact-meta__value">{{ section.settings.response_time }}</p>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="contact-section__form-wrap reveal">
+        {%- form 'contact', id: 'contact-form-{{ section.id }}' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="form-success" role="status" style="padding: 1.5rem; background: #f0fdf4; border-radius: 4px; color: #166534; margin-bottom: 1.5rem;">
+              Thanks for reaching out! We&rsquo;ll get back to you within {{ section.settings.response_time | default: '1–2 business days' }}.
+            </div>
+          {%- endif -%}
+
+          {%- if form.errors -%}
+            <div class="form-errors" role="alert" style="padding: 1rem; background: #fef2f2; border-radius: 4px; color: #991b1b; margin-bottom: 1.5rem;">
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+
+          <div class="contact-form">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-field">
+                <label class="form-field__label" for="contact-name-{{ section.id }}">Name</label>
+                <input
+                  class="form-field__input"
+                  type="text"
+                  id="contact-name-{{ section.id }}"
+                  name="contact[name]"
+                  value="{{ form.name }}"
+                  autocomplete="name"
+                  required
+                >
+              </div>
+
+              <div class="form-field">
+                <label class="form-field__label" for="contact-email-{{ section.id }}">Email <span aria-hidden="true">*</span></label>
+                <input
+                  class="form-field__input"
+                  type="email"
+                  id="contact-email-{{ section.id }}"
+                  name="contact[email]"
+                  value="{{ form.email }}"
+                  autocomplete="email"
+                  required
+                >
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label" for="contact-subject-{{ section.id }}">Subject</label>
+              <select class="form-field__select" id="contact-subject-{{ section.id }}" name="contact[subject]">
+                <option value="">— Select a topic —</option>
+                <option value="Order">Order question</option>
+                <option value="Wholesale">Wholesale inquiry</option>
+                <option value="Press">Press &amp; media</option>
+                <option value="Feedback">Product feedback</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label" for="contact-message-{{ section.id }}">Message <span aria-hidden="true">*</span></label>
+              <textarea
+                class="form-field__textarea"
+                id="contact-message-{{ section.id }}"
+                name="contact[body]"
+                rows="6"
+                required
+              >{{ form.body }}</textarea>
+            </div>
+
+            <button type="submit" class="btn btn--primary">
+              {{ section.settings.button_label | default: 'Send Message' }}
+            </button>
+          </div>
+        {%- endform -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page — Contact",
+  "tag": "section",
+  "class": "section-page-contact",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Get in Touch"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "We'd love to hear from you."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Intro paragraph",
+      "default": "Questions about your order, wholesale inquiries, press, or just want to talk mahjong — reach out anytime."
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Contact email",
+      "default": "hello@ottomahjong.com"
+    },
+    {
+      "type": "text",
+      "id": "response_time",
+      "label": "Response time",
+      "default": "1–2 business days"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Submit button label",
+      "default": "Send Message"
+    }
+  ]
+}
+{% endschema %}
