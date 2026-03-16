@@ -1,37 +1,54 @@
 <section
   class="founder section-padding"
   data-section-id="{{ section.id }}"
-  style="background-color: {{ section.settings.bg_color | default: 'var(--night)' }}; color: {{ section.settings.text_color | default: 'var(--warm-white)' }};"
+  style="background-color: {{ section.settings.bg_color }};"
 >
   <div class="container">
-    <div class="founder__inner reveal">
+    <div class="founder__layout reveal">
 
-      {%- if section.settings.quote != blank -%}
-        <blockquote class="founder__quote">
-          <p>
-            <em>{{ section.settings.quote }}</em>
+      <div class="founder__content">
+
+        {%- if section.settings.section_label != blank -%}
+          <p class="section-label founder__eyebrow" style="color: var(--walnut-on-dark);">
+            {{- section.settings.section_label -}}
           </p>
-        </blockquote>
-      {%- endif -%}
+        {%- endif -%}
 
-      <div class="founder__body">
-        {%- if section.settings.body_1 != blank -%}
-          <p>{{ section.settings.body_1 }}</p>
+        {%- if section.settings.quote != blank -%}
+          <blockquote class="founder__quote">
+            <p><em>{{ section.settings.quote }}</em></p>
+          </blockquote>
         {%- endif -%}
-        {%- if section.settings.body_2 != blank -%}
-          <p>{{ section.settings.body_2 }}</p>
+
+        <div class="founder__body">
+          {%- if section.settings.body_1 != blank -%}
+            <p>{{ section.settings.body_1 }}</p>
+          {%- endif -%}
+          {%- if section.settings.body_2 != blank -%}
+            <p>{{ section.settings.body_2 }}</p>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.attribution != blank -%}
+          <footer class="founder__attribution">
+            <p class="founder__attribution-text">{{ section.settings.attribution }}</p>
+          </footer>
         {%- endif -%}
+
       </div>
 
-      {%- if section.settings.attribution_name != blank or section.settings.attribution_title != blank -%}
-        <footer class="founder__attribution">
-          {%- if section.settings.attribution_name != blank -%}
-            <strong class="founder__attribution-name">{{ section.settings.attribution_name }}</strong>
-          {%- endif -%}
-          {%- if section.settings.attribution_title != blank -%}
-            <span class="founder__attribution-title">{{ section.settings.attribution_title }}</span>
-          {%- endif -%}
-        </footer>
+      {%- if section.settings.founder_image != blank -%}
+        <div class="founder__image-wrap">
+          <img
+            src="{{ section.settings.founder_image | image_url: width: 600 }}"
+            alt="{{ section.settings.founder_image.alt | default: section.settings.attribution }}"
+            width="300"
+            loading="lazy"
+            class="founder__image"
+          >
+        </div>
+      {%- else -%}
+        <div class="founder__image-wrap founder__image-wrap--placeholder" aria-hidden="true"></div>
       {%- endif -%}
 
     </div>
@@ -46,13 +63,23 @@
   "settings": [
     {
       "type": "header",
+      "content": "Eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "section_label",
+      "label": "Section label (eyebrow)",
+      "default": "Why Otto Exists"
+    },
+    {
+      "type": "header",
       "content": "Quote"
     },
     {
       "type": "textarea",
       "id": "quote",
-      "label": "Pull quote",
-      "default": "I wanted something I wasn't embarrassed to leave on the coffee table. Something that said something about me without trying to say something about me."
+      "label": "Pull quote (italic)",
+      "default": "Mahjong does what almost nothing else does — it blocks the outside world. Not by demanding you ignore it, but by requiring so much of you that there's simply no room left for it."
     },
     {
       "type": "header",
@@ -62,13 +89,13 @@
       "type": "textarea",
       "id": "body_1",
       "label": "Body paragraph 1",
-      "default": "Mahjong is the most social game I know. It requires four people, a table, and patience. It rewards attention and punishes distraction. There's no app version that gets at the same thing."
+      "default": "I came to Mahjong late. My sister taught me, sitting across a table that had been in her house for years. Within twenty minutes I understood why. The game is cognitively demanding in the best way — pattern recognition, flexible strategy, constrained creativity. It mirrors how I think when I'm designing."
     },
     {
       "type": "textarea",
       "id": "body_2",
       "label": "Body paragraph 2",
-      "default": "Otto started because I couldn't find a set worthy of the game. Two years and a lot of prototypes later, I think we've got it right."
+      "default": "What I couldn't find was a set that matched that feeling. Or the room. Or the people in it. The sets that existed were beautiful, but they weren't built for my home, my partner, or the way I actually wanted to use them. Otto is the set I wanted to buy and couldn't: every component designed together, as one object. Calm. Considered. Built to stay on the table."
     },
     {
       "type": "header",
@@ -76,15 +103,18 @@
     },
     {
       "type": "text",
-      "id": "attribution_name",
-      "label": "Attribution name",
-      "default": "— Otto Founder"
+      "id": "attribution",
+      "label": "Attribution line",
+      "default": "Kelly Phillips · Founder, Otto Mahjong"
     },
     {
-      "type": "text",
-      "id": "attribution_title",
-      "label": "Attribution title",
-      "default": "Founder & Creative Director"
+      "type": "header",
+      "content": "Founder Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "founder_image",
+      "label": "Founder photo (optional, circular crop)"
     },
     {
       "type": "header",
@@ -95,12 +125,6 @@
       "id": "bg_color",
       "label": "Background color",
       "default": "#1A2137"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text color",
-      "default": "#E8EEF2"
     }
   ],
   "presets": [
