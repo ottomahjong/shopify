@@ -1,5 +1,5 @@
 <section
-  class="faq-accordion section-padding"
+  class="faq-accordion"
   data-section-id="{{ section.id }}"
   {%- if section.settings.heading != blank %}
     aria-labelledby="faq-heading-{{ section.id }}"
@@ -12,10 +12,17 @@
 >
   <div class="container">
 
-    {%- if section.settings.heading != blank -%}
-      <h2 id="faq-heading-{{ section.id }}" class="faq-accordion__heading reveal">
-        {{- section.settings.heading -}}
-      </h2>
+    {%- if section.settings.section_label != blank or section.settings.heading != blank -%}
+      <div class="faq-accordion__left">
+        {%- if section.settings.section_label != blank -%}
+          <p class="section-label">{{ section.settings.section_label }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 id="faq-heading-{{ section.id }}" class="faq-accordion__heading">
+            {{- section.settings.heading -}}
+          </h2>
+        {%- endif -%}
+      </div>
     {%- endif -%}
 
     <dl class="faq-accordion__list" data-faq-list>
@@ -34,9 +41,7 @@
                 <span class="faq-item__question-text">
                   {{- block.settings.question | default: 'Question goes here' -}}
                 </span>
-                <span class="faq-item__icon" aria-hidden="true">
-                  {% render 'icon-sprite', icon: 'chevron-down' %}
-                </span>
+                <span class="faq-item__icon" aria-hidden="true">+</span>
               </button>
             </dt>
             <dd
@@ -65,6 +70,12 @@
   "settings": [
     {
       "type": "text",
+      "id": "section_label",
+      "label": "Section label (eyebrow)",
+      "default": "Questions"
+    },
+    {
+      "type": "text",
       "id": "heading",
       "label": "Section heading",
       "default": "What people ask before they join."
@@ -77,7 +88,7 @@
       "type": "color",
       "id": "bg_color",
       "label": "Background color",
-      "info": "Leave blank to use the theme default (warm white)."
+      "info": "Leave blank to use the theme default (cream)."
     }
   ],
   "blocks": [
@@ -108,7 +119,7 @@
         {
           "type": "faq_item",
           "settings": {
-            "question": "When will Otto be available?",
+            "question": "When will OTTO be available?",
             "answer": "<p>Otto is in development now. Presale opens to the waitlist first — you'll receive timing and pricing before anyone else.</p>"
           }
         },
@@ -131,6 +142,13 @@
           "settings": {
             "question": "What is Little Table?",
             "answer": "<p>A children's tile game designed as a stepping stone toward Mahjong. Four suits, three levels, ages 4–12. Not simplified Mahjong — its own complete game, designed by Otto.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do I need to know how to play Mahjong to buy Otto?",
+            "answer": "<p>Not at all. Otto includes everything you need to learn and play. Reference cards, guides, and a design that makes the game approachable from your first draw.</p>"
           }
         },
         {
