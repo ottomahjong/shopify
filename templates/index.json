@@ -12,15 +12,29 @@
     "announcement": {
       "type": "announcement-bar",
       "settings": {
+        "enabled": true,
         "text": "Otto is currently in development — join the waitlist for early access and presale pricing.",
-        "link_text": "Join the waitlist →",
-        "link_url": "/#waitlist"
+        "link_text": "",
+        "link_url": "/#waitlist",
+        "link_new_tab": false,
+        "bg_color": "#8b6f47",
+        "text_color": "#faf8f4"
       }
     },
     "hero": {
       "type": "hero-split",
       "settings": {
-        "eyebrow": "American Mahjong · A Considered Set"
+        "eyebrow": "American Mahjong · A Considered Set",
+        "heading_line_1": "Four people.",
+        "heading_line_2": "One table.",
+        "heading_line_3": "Nothing else.",
+        "subheading": "Otto is a design-forward American Mahjong set built for people who care about what sits on their shelves — and everyone at their table. Every component designed together, as one system.",
+        "brand_line": "Otto — One Table. Three Others.",
+        "waitlist_prompt": "Be first to the table.",
+        "email_placeholder": "your@email.com",
+        "button_label": "Join Waitlist",
+        "left_bg": "#2a2520",
+        "right_bg": "#e8e0d0"
       }
     },
     "brand-story": {
@@ -28,17 +42,22 @@
       "settings": {
         "section_label": "The Story",
         "heading": "Some games pass time.",
+        "heading_italic": "Mahjong commands it.",
         "body_1": "The first time you sit at a Mahjong table, something shifts. The tiles demand your attention. The strategy requires your focus. The clack of the draw, the rhythm of the discard — it creates a container for presence that almost nothing else does.",
         "body_2": "Otto was built from that moment. Not to reinvent Mahjong — a game with deep Chinese roots and a century of American life doesn't need correcting — but to create objects worthy of how the game actually feels.",
-        "body_3": "A set that belongs in your home. One that everyone at the table wants to be near. Not just the person who bought it."
+        "body_3": "A set that belongs in your home. One that everyone at the table wants to be near. Not just the person who bought it.",
+        "bg_color": ""
       }
     },
     "founder": {
       "type": "founder",
       "settings": {
+        "section_label": "Why Otto Exists",
         "quote": "Mahjong does what almost nothing else does — it blocks the outside world. Not by demanding you ignore it, but by requiring so much of you that there's simply no room left for it.",
         "body_1": "I came to Mahjong late. My sister taught me, sitting across a table that had been in her house for years. Within twenty minutes I understood why. The game is cognitively demanding in the best way — pattern recognition, flexible strategy, constrained creativity. It mirrors how I think when I'm designing.",
-        "body_2": "What I couldn't find was a set that matched that feeling. Or the room. Or the people in it. The sets that existed were beautiful, but they weren't built for my home, my partner, or the way I actually wanted to use them. Otto is the set I wanted to buy and couldn't: every component designed together, as one object. Calm. Considered. Built to stay on the table."
+        "body_2": "What I couldn't find was a set that matched that feeling. Or the room. Or the people in it. The sets that existed were beautiful, but they weren't built for my home, my partner, or the way I actually wanted to use them. Otto is the set I wanted to buy and couldn't: every component designed together, as one object. Calm. Considered. Built to stay on the table.",
+        "attribution": "Kelly Phillips · Founder, Otto Mahjong",
+        "bg_color": "#e8e0d0"
       }
     },
     "products": {
@@ -46,12 +65,24 @@
       "settings": {
         "section_label": "The Collection",
         "heading": "Everything at the table.",
-        "intro": "Every Otto component is designed as part of a single system. The tile palette matches the mat. The racks complement the tiles. The whole set speaks one visual language — because it was designed in one conversation, not assembled from separate sources."
+        "heading_italic": "Nothing out of place.",
+        "intro": "Every Otto component is designed as part of a single system. The tile palette matches the mat. The racks complement the tiles. The whole set speaks one visual language — because it was designed in one conversation, not assembled from separate sources.",
+        "bg_color": "#faf8f4"
       }
     },
     "waitlist": {
       "type": "presale-banner",
-      "settings": {}
+      "settings": {
+        "section_label": "Reserve Your Place",
+        "heading": "Be first",
+        "heading_italic": "to the table.",
+        "body": "Otto is currently in development. Join the waitlist for early access, presale pricing, and updates as the collection takes shape.",
+        "button_label": "Join Waitlist",
+        "email_placeholder": "your@email.com",
+        "success_message": "You're on the list. We'll be in touch first.",
+        "note": "No spam. No noise. Just Otto updates when they matter.",
+        "bg_color": "#2a2520"
+      }
     },
     "faq": {
       "type": "faq-accordion",
@@ -108,7 +139,9 @@
         "faq_6"
       ],
       "settings": {
-        "heading": "What people ask before they join."
+        "section_label": "Questions",
+        "heading": "What people ask before they join.",
+        "bg_color": ""
       }
     }
   },
