@@ -558,6 +558,12 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+@media (min-width: 1024px) {
+  .site-footer__inner {
+    padding-inline: 96px;
+  }
+}
+
 .site-footer__wordmark {
   font-family: var(--font-mono);
   font-size: 1rem;
@@ -1356,6 +1362,14 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--ink);
   margin-bottom: 0.4rem;
   transition: color var(--duration) var(--ease);
+}
+
+.product-card__title-note {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.9rem;
+  color: var(--stone-on-dark);
 }
 
 .product-card:hover .product-card__title {
