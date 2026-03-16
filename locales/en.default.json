@@ -1,0 +1,110 @@
+{
+  "general": {
+    "skip_to_content": "Skip to content",
+    "close": "Close",
+    "open": "Open",
+    "loading": "Loading",
+    "search": "Search",
+    "clear": "Clear",
+    "submit": "Submit"
+  },
+  "navigation": {
+    "menu": "Menu",
+    "open_menu": "Open menu",
+    "close_menu": "Close menu"
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty — for now.",
+    "continue_shopping": "Continue Shopping",
+    "subtotal": "Subtotal",
+    "checkout": "Proceed to Checkout",
+    "add": "Add to Cart",
+    "adding": "Adding…",
+    "added": "Added to Cart",
+    "remove": "Remove",
+    "quantity": "Quantity",
+    "item_count": {
+      "one": "{{ count }} item",
+      "other": "{{ count }} items"
+    },
+    "note": "Order notes",
+    "note_placeholder": "Special instructions, gift messages, etc."
+  },
+  "product": {
+    "sold_out": "Sold Out",
+    "coming_soon": "Coming Soon",
+    "available": "Available",
+    "price": "Price",
+    "regular_price": "Regular price",
+    "sale_price": "Sale price",
+    "unit_price": "Unit price",
+    "per": "per",
+    "vendor": "Vendor",
+    "sku": "SKU",
+    "quantity": "Quantity",
+    "add_to_cart": "Add to Cart",
+    "choose_options": "Choose Options",
+    "unavailable": "Unavailable",
+    "view_details": "View Details",
+    "explore": "Explore",
+    "pricing_tbd": "Pricing TBD"
+  },
+  "collection": {
+    "title": "Collection",
+    "sort_by": "Sort by",
+    "filter": "Filter",
+    "clear_filters": "Clear all filters",
+    "products_found": {
+      "one": "{{ count }} product",
+      "other": "{{ count }} products"
+    },
+    "price": "Price",
+    "type": "Type"
+  },
+  "waitlist": {
+    "email_placeholder": "Your email address",
+    "submit": "Join the Waitlist",
+    "success": "You're on the list.",
+    "error": "Something went wrong. Please try again.",
+    "privacy": "No spam. Unsubscribe anytime."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions"
+  },
+  "footer": {
+    "newsletter_title": "Stay in the loop",
+    "newsletter_placeholder": "Email address",
+    "newsletter_submit": "Subscribe",
+    "navigation": "Navigation",
+    "legal": "Legal",
+    "privacy_policy": "Privacy Policy",
+    "terms_of_service": "Terms of Service",
+    "refund_policy": "Refund Policy",
+    "shipping_policy": "Shipping Policy"
+  },
+  "contact": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "submit": "Send Message",
+    "success": "Thank you — we'll be in touch soon.",
+    "error": "Something went wrong. Please try again."
+  },
+  "404": {
+    "title": "Page not found",
+    "body": "The page you were looking for doesn't exist.",
+    "back": "Return Home"
+  },
+  "accessibility": {
+    "expand_section": "Expand section",
+    "collapse_section": "Collapse section",
+    "next_slide": "Next slide",
+    "prev_slide": "Previous slide",
+    "open_lightbox": "Open image in lightbox",
+    "close_lightbox": "Close lightbox",
+    "play_video": "Play video",
+    "pause_video": "Pause video"
+  }
+}

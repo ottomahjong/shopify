@@ -1,0 +1,130 @@
+<section
+  class="faq-accordion section-padding"
+  data-section-id="{{ section.id }}"
+  aria-labelledby="faq-heading-{{ section.id }}"
+>
+  <div class="container">
+
+    {%- if section.settings.heading != blank -%}
+      <h2 id="faq-heading-{{ section.id }}" class="faq-accordion__heading reveal">
+        {{- section.settings.heading -}}
+      </h2>
+    {%- endif -%}
+
+    <dl class="faq-accordion__list" data-faq-list>
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'faq_item' -%}
+          {%- assign item_id = 'faq-answer-' | append: section.id | append: '-' | append: forloop.index -%}
+          <div class="faq-item" {{ block.shopify_attributes }}>
+            <dt class="faq-item__question">
+              <button
+                class="faq-item__button"
+                type="button"
+                aria-expanded="false"
+                aria-controls="{{ item_id }}"
+                data-faq-trigger
+              >
+                <span class="faq-item__question-text">
+                  {{- block.settings.question | default: 'Question goes here' -}}
+                </span>
+                <span class="faq-item__icon" aria-hidden="true">
+                  {% render 'icon-sprite', icon: 'chevron-down' %}
+                </span>
+              </button>
+            </dt>
+            <dd
+              id="{{ item_id }}"
+              class="faq-item__answer"
+              hidden
+              data-faq-answer
+            >
+              <div class="faq-item__answer-inner">
+                {{- block.settings.answer | default: 'Answer goes here.' -}}
+              </div>
+            </dd>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </dl>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ Accordion",
+  "tag": "section",
+  "class": "section-faq-accordion",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "Frequently Asked Questions"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is American Mahjong?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>American Mahjong is a tile-based game derived from Chinese Mahjong, popularized in the United States in the 1920s. It's played with 4 players and uses a standardized card (published annually by the National Mah Jongg League) that defines winning hands for that year.</p>"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "FAQ Accordion",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is American Mahjong?",
+            "answer": "<p>American Mahjong is a tile-based game derived from Chinese Mahjong, popularized in the United States in the 1920s. It's played with 4 players and uses a standardized card (published annually by the National Mah Jongg League) that defines winning hands for that year.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How is Otto different from other Mahjong sets?",
+            "answer": "<p>Otto is designed from the ground up for people who care about how objects look and feel. The tiles are weighted, the engraving is deep and paint-filled, and the case is designed to display on a shelf. It's a set you'll actually leave out — and play with often.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "When does Otto ship?",
+            "answer": "<p>Otto is currently in pre-order. We're targeting Q3 2025 for first delivery. Everyone on the waitlist will receive a personal update before we go live.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is Otto good for beginners?",
+            "answer": "<p>Yes — we include a custom Reference Card that covers all 2025 NMJL hands clearly and concisely. And if you want to start even simpler, Little Table is our introductory version designed specifically for beginners and younger players.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What's included in the set?",
+            "answer": "<p>The full Otto set includes 160 tiles, betting coins, wind markers, dice, tile racks, a custom Reference Card, and a walnut-finish hardshell case. Everything you need, nothing you don't.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

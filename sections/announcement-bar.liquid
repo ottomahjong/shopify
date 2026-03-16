@@ -1,0 +1,66 @@
+<div
+  class="announcement-bar"
+  data-section-id="{{ section.id }}"
+  data-announcement-bar
+  style="background-color: {{ section.settings.bg_color | default: settings.announcement_bg | default: '#163224' }}; color: {{ section.settings.text_color | default: settings.announcement_text_color | default: '#D5A896' }};"
+  role="region"
+  aria-label="Announcement"
+>
+  <div class="announcement-bar__inner container">
+    <p class="announcement-bar__text">
+      {{- section.settings.text | default: settings.announcement_text | default: 'Now taking pre-orders.' -}}
+      {%- assign bar_url = section.settings.link_url | default: settings.announcement_url -%}
+      {%- assign bar_link_text = section.settings.link_text | default: settings.announcement_link_text -%}
+      {%- if bar_url != blank and bar_link_text != blank -%}
+        <a href="{{ bar_url }}" class="announcement-bar__link">{{ bar_link_text }}</a>
+      {%- endif -%}
+    </p>
+    <button
+      type="button"
+      class="announcement-bar__close"
+      aria-label="{{ 'general.close' | t }}"
+      data-announcement-close
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "tag": "div",
+  "class": "announcement-bar-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Announcement text",
+      "default": "Now taking pre-orders — ships Q3 2025."
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link text",
+      "default": "Reserve yours →"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#163224"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#D5A896"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,243 @@
+<header
+  class="site-header{% if section.settings.sticky %} site-header--sticky{% endif %}"
+  data-section-id="{{ section.id }}"
+  style="--header-bg-opacity: {{ section.settings.bg_opacity | divided_by: 100.0 }};"
+>
+  <div class="site-header__inner container">
+    <a
+      href="{{ routes.root_url }}"
+      class="site-header__logo"
+      aria-label="{{ section.settings.logo_alt | default: shop.name }}"
+    >
+      {%- if section.settings.logo != blank -%}
+        <img
+          src="{{ section.settings.logo | image_url: width: section.settings.logo_width | times: 2 }}"
+          alt="{{ section.settings.logo_alt | default: shop.name }}"
+          width="{{ section.settings.logo_width }}"
+          loading="eager"
+          class="site-header__logo-img"
+        >
+      {%- else -%}
+        {% render 'icon-sprite', icon: 'otto-logo' %}
+      {%- endif -%}
+    </a>
+
+    <nav class="site-header__nav" aria-label="Main navigation">
+      <ul class="site-header__nav-list" role="list">
+        {%- for i in (1..5) -%}
+          {%- assign label_key = 'nav_label_' | append: i -%}
+          {%- assign url_key = 'nav_url_' | append: i -%}
+          {%- assign label = section.settings[label_key] -%}
+          {%- assign url = section.settings[url_key] -%}
+          {%- if label != blank -%}
+            <li class="site-header__nav-item">
+              <a
+                href="{{ url | default: '#' }}"
+                class="site-header__nav-link"
+                {% if request.path == url %}aria-current="page"{% endif %}
+              >
+                {{- label -}}
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <a
+        href="{{ section.settings.cta_url | default: '#waitlist' }}"
+        class="site-header__cta btn btn--primary"
+      >
+        {{- section.settings.cta_label | default: 'Join Waitlist' -}}
+      </a>
+
+      <a
+        href="{{ routes.cart_url }}"
+        class="site-header__cart"
+        aria-label="Cart ({{ cart.item_count }} items)"
+      >
+        <span class="site-header__cart-icon" aria-hidden="true">
+          {% render 'icon-sprite', icon: 'cart' %}
+        </span>
+        <span class="site-header__cart-count" data-cart-count>
+          {{- cart.item_count -}}
+        </span>
+      </a>
+
+      <button
+        class="site-header__hamburger"
+        aria-controls="mobile-nav"
+        aria-expanded="false"
+        aria-label="{{ 'navigation.open_menu' | t }}"
+        type="button"
+        data-nav-toggle
+      >
+        <span class="hamburger__bar"></span>
+        <span class="hamburger__bar"></span>
+        <span class="hamburger__bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <nav
+    id="mobile-nav"
+    class="mobile-nav"
+    aria-label="Mobile navigation"
+    hidden
+  >
+    <ul class="mobile-nav__list" role="list">
+      {%- for i in (1..5) -%}
+        {%- assign label_key = 'nav_label_' | append: i -%}
+        {%- assign url_key = 'nav_url_' | append: i -%}
+        {%- assign label = section.settings[label_key] -%}
+        {%- assign url = section.settings[url_key] -%}
+        {%- if label != blank -%}
+          <li class="mobile-nav__item">
+            <a
+              href="{{ url | default: '#' }}"
+              class="mobile-nav__link"
+            >
+              {{- label -}}
+            </a>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+      <li class="mobile-nav__item mobile-nav__item--cta">
+        <a
+          href="{{ section.settings.cta_url | default: '#waitlist' }}"
+          class="btn btn--primary"
+        >
+          {{- section.settings.cta_label | default: 'Join Waitlist' -}}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo width (px)",
+      "min": 60,
+      "max": 300,
+      "step": 10,
+      "default": 120
+    },
+    {
+      "type": "text",
+      "id": "logo_alt",
+      "label": "Logo alt text",
+      "default": "Otto Mahjong"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "text",
+      "id": "nav_label_1",
+      "label": "Nav link 1 — Label",
+      "default": "Our Story"
+    },
+    {
+      "type": "url",
+      "id": "nav_url_1",
+      "label": "Nav link 1 — URL"
+    },
+    {
+      "type": "text",
+      "id": "nav_label_2",
+      "label": "Nav link 2 — Label",
+      "default": "Collection"
+    },
+    {
+      "type": "url",
+      "id": "nav_url_2",
+      "label": "Nav link 2 — URL"
+    },
+    {
+      "type": "text",
+      "id": "nav_label_3",
+      "label": "Nav link 3 — Label",
+      "default": "Little Table"
+    },
+    {
+      "type": "url",
+      "id": "nav_url_3",
+      "label": "Nav link 3 — URL"
+    },
+    {
+      "type": "text",
+      "id": "nav_label_4",
+      "label": "Nav link 4 — Label",
+      "default": "Reference Cards"
+    },
+    {
+      "type": "url",
+      "id": "nav_url_4",
+      "label": "Nav link 4 — URL"
+    },
+    {
+      "type": "text",
+      "id": "nav_label_5",
+      "label": "Nav link 5 — Label",
+      "default": "FAQ"
+    },
+    {
+      "type": "url",
+      "id": "nav_url_5",
+      "label": "Nav link 5 — URL"
+    },
+    {
+      "type": "header",
+      "content": "CTA Button"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA button label",
+      "default": "Join Waitlist"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA button URL"
+    },
+    {
+      "type": "header",
+      "content": "Display"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky",
+      "label": "Sticky header",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "bg_opacity",
+      "label": "Background opacity (scrolled)",
+      "min": 70,
+      "max": 100,
+      "step": 5,
+      "default": 95,
+      "unit": "%"
+    }
+  ]
+}
+{% endschema %}

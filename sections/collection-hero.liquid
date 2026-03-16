@@ -1,0 +1,91 @@
+<section
+  class="collection-hero"
+  data-section-id="{{ section.id }}"
+  aria-labelledby="collection-hero-heading-{{ section.id }}"
+  style="background-color: {{ section.settings.bg_color | default: 'var(--night)' }};"
+>
+  {%- if section.settings.image != blank -%}
+    <div class="collection-hero__image-wrap">
+      <img
+        src="{{ section.settings.image | image_url: width: 2000 }}"
+        alt="{{ section.settings.image.alt | default: collection.title }}"
+        width="2000"
+        loading="eager"
+        class="collection-hero__image"
+      >
+      <div class="collection-hero__overlay" style="opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"></div>
+    </div>
+  {%- endif -%}
+
+  <div class="collection-hero__content container">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="section-label collection-hero__eyebrow" style="color: var(--walnut-on-dark);">
+        {{- section.settings.eyebrow -}}
+      </p>
+    {%- endif -%}
+
+    <h1 id="collection-hero-heading-{{ section.id }}" class="collection-hero__heading">
+      {{- section.settings.heading | default: collection.title | default: 'Collection' -}}
+    </h1>
+
+    {%- if section.settings.subhead != blank -%}
+      <p class="collection-hero__subhead">{{ section.settings.subhead }}</p>
+    {%- elsif collection.description != blank -%}
+      <p class="collection-hero__subhead">{{ collection.description }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Hero",
+  "tag": "section",
+  "class": "section-collection-hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Image overlay opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "default": 40,
+      "unit": "%"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color (no image)",
+      "default": "#1A2137"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "Shop All"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading (leave blank to use collection title)",
+      "default": ""
+    },
+    {
+      "type": "textarea",
+      "id": "subhead",
+      "label": "Subheading (leave blank to use collection description)",
+      "default": ""
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Hero"
+    }
+  ]
+}
+{% endschema %}

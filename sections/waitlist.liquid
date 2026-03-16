@@ -1,0 +1,106 @@
+<section
+  id="waitlist"
+  class="waitlist section-padding"
+  data-section-id="{{ section.id }}"
+  aria-labelledby="waitlist-heading-{{ section.id }}"
+  style="background-color: {{ section.settings.bg_color | default: 'var(--forest)' }};"
+>
+  <div class="container">
+    <div class="waitlist__inner reveal">
+
+      {%- if section.settings.section_label != blank -%}
+        <p class="section-label waitlist__label" style="color: var(--walnut-on-dark);">
+          {{- section.settings.section_label -}}
+        </p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 id="waitlist-heading-{{ section.id }}" class="waitlist__heading">
+          {{- section.settings.heading -}}
+          {%- if section.settings.heading_em != blank -%}
+            <em>{{ section.settings.heading_em }}</em>
+          {%- endif -%}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <p class="waitlist__body">{{ section.settings.body }}</p>
+      {%- endif -%}
+
+      {% render 'waitlist-form',
+        section_id: section.id,
+        placeholder: section.settings.form_placeholder,
+        button_label: section.settings.button_label,
+        dark: true
+      %}
+
+      {%- if section.settings.note != blank -%}
+        <p class="waitlist__note">{{ section.settings.note }}</p>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Waitlist",
+  "tag": "section",
+  "class": "section-waitlist",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_label",
+      "label": "Section label",
+      "default": "Join the Waitlist"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Be first to the table."
+    },
+    {
+      "type": "text",
+      "id": "heading_em",
+      "label": "Heading italic emphasis (appended)",
+      "default": ""
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body paragraph",
+      "default": "Otto is a pre-order. Drop your email and we'll reach out the moment it's ready to ship — with a note on what to expect, and when."
+    },
+    {
+      "type": "text",
+      "id": "form_placeholder",
+      "label": "Email placeholder",
+      "default": "Your email address"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Join the Waitlist"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Note text below form",
+      "default": "No spam. Unsubscribe anytime."
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#163224"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Waitlist"
+    }
+  ]
+}
+{% endschema %}

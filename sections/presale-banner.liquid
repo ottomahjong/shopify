@@ -1,0 +1,93 @@
+<div
+  class="presale-banner"
+  data-section-id="{{ section.id }}"
+  data-presale-banner
+  style="background-color: {{ section.settings.bg_color | default: '#AF6B4F' }}; color: {{ section.settings.text_color | default: '#E8EEF2' }};"
+  role="banner"
+  aria-label="Pre-sale announcement"
+>
+  <div class="presale-banner__inner container">
+    <div class="presale-banner__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="presale-banner__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <p class="presale-banner__text">{{ section.settings.text }}</p>
+      {%- endif -%}
+      {%- if section.settings.cta_label != blank -%}
+        <a
+          href="{{ section.settings.cta_url | default: '#waitlist' }}"
+          class="presale-banner__cta btn btn--light"
+        >
+          {{- section.settings.cta_label -}}
+        </a>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.dismissible -%}
+      <button
+        type="button"
+        class="presale-banner__close"
+        aria-label="{{ 'general.close' | t }}"
+        data-presale-close
+      >
+        <span aria-hidden="true">×</span>
+      </button>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pre-sale Banner",
+  "tag": "div",
+  "class": "presale-banner-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "Pre-Order Now Open"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Banner text",
+      "default": "Join the waitlist to secure your Otto set at the pre-order price."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "Join Waitlist"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "dismissible",
+      "label": "Allow banner to be dismissed",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#AF6B4F"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#E8EEF2"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pre-sale Banner"
+    }
+  ]
+}
+{% endschema %}

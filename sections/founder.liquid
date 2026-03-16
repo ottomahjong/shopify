@@ -1,0 +1,112 @@
+<section
+  class="founder section-padding"
+  data-section-id="{{ section.id }}"
+  style="background-color: {{ section.settings.bg_color | default: 'var(--night)' }}; color: {{ section.settings.text_color | default: 'var(--warm-white)' }};"
+>
+  <div class="container">
+    <div class="founder__inner reveal">
+
+      {%- if section.settings.quote != blank -%}
+        <blockquote class="founder__quote">
+          <p>
+            <em>{{ section.settings.quote }}</em>
+          </p>
+        </blockquote>
+      {%- endif -%}
+
+      <div class="founder__body">
+        {%- if section.settings.body_1 != blank -%}
+          <p>{{ section.settings.body_1 }}</p>
+        {%- endif -%}
+        {%- if section.settings.body_2 != blank -%}
+          <p>{{ section.settings.body_2 }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.attribution_name != blank or section.settings.attribution_title != blank -%}
+        <footer class="founder__attribution">
+          {%- if section.settings.attribution_name != blank -%}
+            <strong class="founder__attribution-name">{{ section.settings.attribution_name }}</strong>
+          {%- endif -%}
+          {%- if section.settings.attribution_title != blank -%}
+            <span class="founder__attribution-title">{{ section.settings.attribution_title }}</span>
+          {%- endif -%}
+        </footer>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Founder Quote",
+  "tag": "section",
+  "class": "section-founder",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Quote"
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Pull quote",
+      "default": "I wanted something I wasn't embarrassed to leave on the coffee table. Something that said something about me without trying to say something about me."
+    },
+    {
+      "type": "header",
+      "content": "Body"
+    },
+    {
+      "type": "textarea",
+      "id": "body_1",
+      "label": "Body paragraph 1",
+      "default": "Mahjong is the most social game I know. It requires four people, a table, and patience. It rewards attention and punishes distraction. There's no app version that gets at the same thing."
+    },
+    {
+      "type": "textarea",
+      "id": "body_2",
+      "label": "Body paragraph 2",
+      "default": "Otto started because I couldn't find a set worthy of the game. Two years and a lot of prototypes later, I think we've got it right."
+    },
+    {
+      "type": "header",
+      "content": "Attribution"
+    },
+    {
+      "type": "text",
+      "id": "attribution_name",
+      "label": "Attribution name",
+      "default": "— Otto Founder"
+    },
+    {
+      "type": "text",
+      "id": "attribution_title",
+      "label": "Attribution title",
+      "default": "Founder & Creative Director"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#1A2137"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#E8EEF2"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Founder Quote"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,165 @@
+<section
+  class="hero-split"
+  data-section-id="{{ section.id }}"
+  aria-labelledby="hero-heading-{{ section.id }}"
+>
+  <div class="hero-split__grid">
+
+    <div class="hero-split__left" style="background-color: {{ section.settings.left_bg | default: 'var(--night)' }};">
+      <div class="hero-split__left-inner">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="section-label hero-split__eyebrow" style="color: var(--walnut-on-dark);">
+            {{- section.settings.eyebrow -}}
+          </p>
+        {%- endif -%}
+
+        <h1 id="hero-heading-{{ section.id }}" class="hero-split__heading display-heading">
+          {{- section.settings.heading | default: 'Four people. One table. Nothing else.' -}}
+        </h1>
+
+        {%- if section.settings.subhead != blank -%}
+          <p class="hero-split__subhead">
+            {{- section.settings.subhead -}}
+          </p>
+        {%- endif -%}
+
+        {% render 'waitlist-form',
+          section_id: section.id,
+          placeholder: section.settings.form_placeholder,
+          button_label: section.settings.form_button_label,
+          dark: true
+        %}
+      </div>
+    </div>
+
+    <div
+      class="hero-split__right"
+      style="background-color: {{ section.settings.right_bg | default: 'var(--warm-white)' }};"
+    >
+      <div class="hero-split__tile-grid">
+        {%- for i in (1..8) -%}
+          {%- assign tile_key = 'tile_image_' | append: i -%}
+          {%- assign tile_image = section.settings[tile_key] -%}
+          <div class="hero-split__tile">
+            {%- if tile_image != blank -%}
+              <img
+                src="{{ tile_image | image_url: width: 400 }}"
+                alt="{{ tile_image.alt | default: 'Otto Mahjong tile' }}"
+                width="400"
+                loading="{% if i <= 2 %}eager{% else %}lazy{% endif %}"
+                class="hero-split__tile-img"
+              >
+            {%- else -%}
+              <div class="hero-split__tile-placeholder" aria-hidden="true"></div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero — Split",
+  "tag": "section",
+  "class": "section-hero-split",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Left Panel — Copy"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "American Mahjong, Redesigned"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading (H1)",
+      "default": "Four people. One table. Nothing else."
+    },
+    {
+      "type": "textarea",
+      "id": "subhead",
+      "label": "Subheading paragraph",
+      "default": "Otto is a design-forward American Mahjong set built for people who care about what sits on their shelves — and everyone at their table."
+    },
+    {
+      "type": "text",
+      "id": "form_placeholder",
+      "label": "Email input placeholder",
+      "default": "Your email address"
+    },
+    {
+      "type": "text",
+      "id": "form_button_label",
+      "label": "Form button label",
+      "default": "Join the Waitlist"
+    },
+    {
+      "type": "color",
+      "id": "left_bg",
+      "label": "Left panel background",
+      "default": "#1A2137"
+    },
+    {
+      "type": "header",
+      "content": "Right Panel — Tile Grid"
+    },
+    {
+      "type": "color",
+      "id": "right_bg",
+      "label": "Right panel background",
+      "default": "#E8EEF2"
+    },
+    {
+      "type": "image_picker",
+      "id": "tile_image_1",
+      "label": "Tile image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "tile_image_2",
+      "label": "Tile image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "tile_image_3",
+      "label": "Tile image 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "tile_image_4",
+      "label": "Tile image 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "tile_image_5",
+      "label": "Tile image 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "tile_image_6",
+      "label": "Tile image 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "tile_image_7",
+      "label": "Tile image 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "tile_image_8",
+      "label": "Tile image 8"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero — Split"
+    }
+  ]
+}
+{% endschema %}

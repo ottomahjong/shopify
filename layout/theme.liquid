@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_night }}">
+
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  <title>
+    {{ page_title }}{% unless page_title contains shop.name %} — {{ shop.name }}{% endunless %}
+  </title>
+
+  {%- if settings.font_display != blank -%}
+    {{ settings.font_display | font_face: font_display: 'swap' }}
+  {%- endif -%}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
+
+  {{ content_for_header }}
+
+  {%- assign base_font_size = settings.font_base_size | default: 16 -%}
+
+  <style>
+    :root {
+      --ink: {{ settings.color_ink | default: '#1A1A1C' }};
+      --bone: {{ settings.color_bone | default: '#E7E7E7' }};
+      --warm-white: {{ settings.color_warm_white | default: '#E8EEF2' }};
+      --walnut: {{ settings.color_walnut | default: '#AF6B4F' }};
+      --walnut-light: {{ settings.color_walnut_light | default: '#C9937D' }};
+      --walnut-on-light: {{ settings.color_walnut_on_light | default: '#694131' }};
+      --walnut-on-dark: {{ settings.color_walnut_on_dark | default: '#D5A896' }};
+      --stone: {{ settings.color_stone | default: '#5e574f' }};
+      --stone-on-dark: {{ settings.color_stone_on_dark | default: '#AAB1C2' }};
+      --label-ink: {{ settings.color_label_ink | default: '#6b4e2a' }};
+      --night: {{ settings.color_night | default: '#1A2137' }};
+      --forest: {{ settings.color_forest | default: '#163224' }};
+      --accent: {{ settings.color_accent | default: '#8B5640' }};
+      --linen: {{ settings.color_linen | default: '#6F7893' }};
+      --font-size-base: {{ base_font_size }}px;
+    }
+    {%- if settings.font_display != blank -%}
+      :root {
+        --font-display: {{ settings.font_display.family | json }}, 'Futura', 'Jost', 'Century Gothic', 'Trebuchet MS', sans-serif;
+      }
+    {%- endif -%}
+  </style>
+
+  {{ 'style.css' | asset_url | stylesheet_tag }}
+
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32 }}">
+  {%- endif -%}
+</head>
+
+<body class="{% if customer %}customer-logged-in{% endif %} template-{{ template.name | handle }}">
+
+  <a class="skip-to-content" href="#main-content">
+    {{- 'general.skip_to_content' | t -}}
+  </a>
+
+  {%- if settings.announcement_enable -%}
+    {% section 'announcement-bar' %}
+  {%- endif -%}
+
+  {% section 'header' %}
+
+  <main id="main-content" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'footer' %}
+
+  <div id="cart-notification" class="cart-notification" aria-live="polite" aria-atomic="true" hidden>
+    <p class="cart-notification__message"></p>
+  </div>
+
+  {{ 'script.js' | asset_url | script_tag }}
+
+</body>
+</html>

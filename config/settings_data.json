@@ -1,0 +1,33 @@
+{
+  "current": {
+    "color_ink": "#1A1A1C",
+    "color_bone": "#E7E7E7",
+    "color_warm_white": "#E8EEF2",
+    "color_walnut": "#AF6B4F",
+    "color_walnut_light": "#C9937D",
+    "color_walnut_on_light": "#694131",
+    "color_walnut_on_dark": "#D5A896",
+    "color_stone": "#5e574f",
+    "color_stone_on_dark": "#AAB1C2",
+    "color_label_ink": "#6b4e2a",
+    "color_night": "#1A2137",
+    "color_forest": "#163224",
+    "color_accent": "#8B5640",
+    "color_linen": "#6F7893",
+    "font_base_size": 16,
+    "logo_width": 120,
+    "logo_alt": "Otto Mahjong",
+    "cart_show_vendor": false,
+    "cart_empty_message": "Your cart is empty — for now.",
+    "cart_continue_label": "Continue Shopping",
+    "announcement_enable": true,
+    "announcement_text": "Now taking pre-orders — ships Q3 2025.",
+    "announcement_link_text": "Reserve yours →",
+    "announcement_bg": "#163224",
+    "announcement_text_color": "#D5A896",
+    "footer_tagline": "<p>Four people. One table. Nothing else.</p>",
+    "footer_copyright": "© 2025 Otto Mahjong. All rights reserved.",
+    "social_instagram": "https://instagram.com/ottomahjong"
+  },
+  "presets": {}
+}

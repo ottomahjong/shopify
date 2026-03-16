@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" fill="currentColor" aria-label="OTTO" role="img">
+  <title>OTTO</title>
+  <!--
+    Geometric sans-serif wordmark inspired by Futura/Bauhaus.
+    Each letter is constructed from circles and rectangles at a 1px grid.
+    Fill: currentColor — works on any background.
+    Viewbox: 240 × 60
+  -->
+
+  <!-- O (first) — geometric circle ring -->
+  <path d="
+    M30 6
+    C16.745 6 6 16.745 6 30
+    C6 43.255 16.745 54 30 54
+    C43.255 54 54 43.255 54 30
+    C54 16.745 43.255 6 30 6Z
+    M30 14
+    C38.837 14 46 21.163 46 30
+    C46 38.837 38.837 46 30 46
+    C21.163 46 14 38.837 14 30
+    C14 21.163 21.163 14 30 14Z
+  " fill-rule="evenodd"/>
+
+  <!-- T (first) — horizontal bar + vertical stem -->
+  <rect x="64"  y="6"  width="52" height="8"/>
+  <rect x="86"  y="14" width="8"  height="40"/>
+
+  <!-- T (second) -->
+  <rect x="124" y="6"  width="52" height="8"/>
+  <rect x="146" y="14" width="8"  height="40"/>
+
+  <!-- O (last) — geometric circle ring -->
+  <path d="
+    M210 6
+    C196.745 6 186 16.745 186 30
+    C186 43.255 196.745 54 210 54
+    C223.255 54 234 43.255 234 30
+    C234 16.745 223.255 6 210 6Z
+    M210 14
+    C218.837 14 226 21.163 226 30
+    C226 38.837 218.837 46 210 46
+    C201.163 46 194 38.837 194 30
+    C194 21.163 201.163 14 210 14Z
+  " fill-rule="evenodd"/>
+</svg>

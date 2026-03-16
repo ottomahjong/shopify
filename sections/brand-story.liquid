@@ -1,0 +1,205 @@
+<section
+  class="brand-story section-padding"
+  data-section-id="{{ section.id }}"
+  aria-labelledby="brand-story-heading-{{ section.id }}"
+>
+  <div class="container">
+
+    <div class="brand-story__intro reveal">
+      {%- if section.settings.section_label != blank -%}
+        <p class="section-label">{{ section.settings.section_label }}</p>
+      {%- endif -%}
+
+      <h2 id="brand-story-heading-{{ section.id }}" class="brand-story__heading">
+        {{- section.settings.heading | default: 'Built to last. Designed to display.' -}}
+        {%- if section.settings.heading_em != blank -%}
+          <em>{{ section.settings.heading_em }}</em>
+        {%- endif -%}
+      </h2>
+
+      <div class="brand-story__body-text">
+        {%- if section.settings.body_1 != blank -%}
+          <p>{{ section.settings.body_1 }}</p>
+        {%- endif -%}
+        {%- if section.settings.body_2 != blank -%}
+          <p>{{ section.settings.body_2 }}</p>
+        {%- endif -%}
+        {%- if section.settings.body_3 != blank -%}
+          <p>{{ section.settings.body_3 }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="brand-story__pillars reveal-stagger">
+      {%- for i in (1..4) -%}
+        {%- assign pillar_label_key = 'pillar_' | append: i | append: '_label' -%}
+        {%- assign pillar_desc_key = 'pillar_' | append: i | append: '_desc' -%}
+        {%- assign pillar_label = section.settings[pillar_label_key] -%}
+        {%- assign pillar_desc = section.settings[pillar_desc_key] -%}
+        {%- if pillar_label != blank -%}
+          <div class="brand-story__pillar">
+            <p class="brand-story__pillar-label section-label">{{ pillar_label }}</p>
+            {%- if pillar_desc != blank -%}
+              <p class="brand-story__pillar-desc">{{ pillar_desc }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="brand-story__numbers">
+      {%- for i in (1..2) -%}
+        {%- assign story_num_key = 'story_' | append: i | append: '_number' -%}
+        {%- assign story_text_key = 'story_' | append: i | append: '_text' -%}
+        {%- assign story_num = section.settings[story_num_key] -%}
+        {%- assign story_text = section.settings[story_text_key] -%}
+        {%- if story_text != blank -%}
+          <div class="brand-story__number-block reveal">
+            {%- if story_num != blank -%}
+              <span class="brand-story__num-label" aria-hidden="true">{{ story_num }}</span>
+            {%- endif -%}
+            <blockquote class="brand-story__pull-text">
+              <p>{{ story_text }}</p>
+            </blockquote>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand Story",
+  "tag": "section",
+  "class": "section-brand-story",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Intro"
+    },
+    {
+      "type": "text",
+      "id": "section_label",
+      "label": "Section label (eyebrow)",
+      "default": "The Set"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Built to last."
+    },
+    {
+      "type": "text",
+      "id": "heading_em",
+      "label": "Heading italic emphasis (appended)",
+      "default": "Designed to display."
+    },
+    {
+      "type": "textarea",
+      "id": "body_1",
+      "label": "Body paragraph 1",
+      "default": "Otto began with a simple frustration: every Mahjong set we could find was either purely functional or purely decorative. None of them were both. So we made one."
+    },
+    {
+      "type": "textarea",
+      "id": "body_2",
+      "label": "Body paragraph 2",
+      "default": "We spent two years prototyping tiles — testing materials, finishes, weight, and feel — until we found the combination that satisfied us on every level. The result is a set that plays as well as it looks."
+    },
+    {
+      "type": "textarea",
+      "id": "body_3",
+      "label": "Body paragraph 3",
+      "default": "Every detail has been considered: the heft of the tile, the depth of the engraving, the warmth of the copper base. Otto is not a prop. It is a set you play with, often."
+    },
+    {
+      "type": "header",
+      "content": "Pillar Cards"
+    },
+    {
+      "type": "text",
+      "id": "pillar_1_label",
+      "label": "Pillar 1 label",
+      "default": "Material"
+    },
+    {
+      "type": "textarea",
+      "id": "pillar_1_desc",
+      "label": "Pillar 1 description",
+      "default": "Resin-core tiles with recessed engraving and paint infill. Bone face, indigo suit marks, copper base."
+    },
+    {
+      "type": "text",
+      "id": "pillar_2_label",
+      "label": "Pillar 2 label",
+      "default": "Weight"
+    },
+    {
+      "type": "textarea",
+      "id": "pillar_2_desc",
+      "label": "Pillar 2 description",
+      "default": "Each tile is weighted for a satisfying shuffle. The sound of the wash is part of the ritual."
+    },
+    {
+      "type": "text",
+      "id": "pillar_3_label",
+      "label": "Pillar 3 label",
+      "default": "Completeness"
+    },
+    {
+      "type": "textarea",
+      "id": "pillar_3_desc",
+      "label": "Pillar 3 description",
+      "default": "160 tiles. Betting coins. Wind markers. Dice. Racks. Everything you need, nothing you don't."
+    },
+    {
+      "type": "text",
+      "id": "pillar_4_label",
+      "label": "Pillar 4 label",
+      "default": "Case"
+    },
+    {
+      "type": "textarea",
+      "id": "pillar_4_desc",
+      "label": "Pillar 4 description",
+      "default": "A walnut-finish hardshell case designed to display on a shelf. It's part of the set."
+    },
+    {
+      "type": "header",
+      "content": "Numbered Story Blocks"
+    },
+    {
+      "type": "text",
+      "id": "story_1_number",
+      "label": "Story block 1 — number",
+      "default": "01"
+    },
+    {
+      "type": "textarea",
+      "id": "story_1_text",
+      "label": "Story block 1 — pull text",
+      "default": "We obsessed over the sound. The shuffle, the wall-build, the click of a winning tile. Sound is part of what makes Mahjong Mahjong."
+    },
+    {
+      "type": "text",
+      "id": "story_2_number",
+      "label": "Story block 2 — number",
+      "default": "02"
+    },
+    {
+      "type": "textarea",
+      "id": "story_2_text",
+      "label": "Story block 2 — pull text",
+      "default": "American Mahjong has 166 card variations. Otto ships with a custom Reference Card that makes the game learnable in an afternoon."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Story"
+    }
+  ]
+}
+{% endschema %}
