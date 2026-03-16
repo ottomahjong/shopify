@@ -7,28 +7,28 @@
     <a
       href="{{ routes.root_url }}"
       class="site-header__logo"
-      aria-label="{{ section.settings.logo_alt | default: shop.name }}"
+      aria-label="{{ section.settings.logo_alt | default: 'Otto Mahjong' }}"
     >
-      {%- if section.settings.logo != blank -%}
+      {%- if section.settings.logo_image != blank -%}
         <img
-          src="{{ section.settings.logo | image_url: width: section.settings.logo_width | times: 2 }}"
-          alt="{{ section.settings.logo_alt | default: shop.name }}"
+          src="{{ section.settings.logo_image | image_url: width: section.settings.logo_width | times: 2 }}"
+          alt="{{ section.settings.logo_alt | default: 'Otto Mahjong' }}"
           width="{{ section.settings.logo_width }}"
           loading="eager"
           class="site-header__logo-img"
         >
       {%- else -%}
-        {% render 'icon-sprite', icon: 'otto-logo' %}
+        <span class="header-logo-text">OTTO</span>
       {%- endif -%}
     </a>
 
     <nav class="site-header__nav" aria-label="Main navigation">
       <ul class="site-header__nav-list" role="list">
-        {%- for i in (1..5) -%}
+        {%- for i in (1..6) -%}
           {%- assign label_key = 'nav_label_' | append: i -%}
-          {%- assign url_key = 'nav_url_' | append: i -%}
+          {%- assign url_key   = 'nav_url_'   | append: i -%}
           {%- assign label = section.settings[label_key] -%}
-          {%- assign url = section.settings[url_key] -%}
+          {%- assign url   = section.settings[url_key] -%}
           {%- if label != blank -%}
             <li class="site-header__nav-item">
               <a
@@ -87,11 +87,11 @@
     hidden
   >
     <ul class="mobile-nav__list" role="list">
-      {%- for i in (1..5) -%}
+      {%- for i in (1..6) -%}
         {%- assign label_key = 'nav_label_' | append: i -%}
-        {%- assign url_key = 'nav_url_' | append: i -%}
+        {%- assign url_key   = 'nav_url_'   | append: i -%}
         {%- assign label = section.settings[label_key] -%}
-        {%- assign url = section.settings[url_key] -%}
+        {%- assign url   = section.settings[url_key] -%}
         {%- if label != blank -%}
           <li class="mobile-nav__item">
             <a
@@ -126,13 +126,13 @@
     },
     {
       "type": "image_picker",
-      "id": "logo",
-      "label": "Logo image"
+      "id": "logo_image",
+      "label": "Logo image (optional — leave blank to use text wordmark)"
     },
     {
       "type": "range",
       "id": "logo_width",
-      "label": "Logo width (px)",
+      "label": "Logo image width (px)",
       "min": 60,
       "max": 300,
       "step": 10,
@@ -202,6 +202,17 @@
       "type": "url",
       "id": "nav_url_5",
       "label": "Nav link 5 — URL"
+    },
+    {
+      "type": "text",
+      "id": "nav_label_6",
+      "label": "Nav link 6 — Label",
+      "default": "Contact"
+    },
+    {
+      "type": "url",
+      "id": "nav_url_6",
+      "label": "Nav link 6 — URL"
     },
     {
       "type": "header",
