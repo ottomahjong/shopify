@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "color_ink": "#1A1A1C",
@@ -27,7 +36,73 @@
     "announcement_text_color": "#D5A896",
     "footer_tagline": "<p>Four people. One table. Nothing else.</p>",
     "footer_copyright": "© 2025 Otto Mahjong. All rights reserved.",
-    "social_instagram": "https://instagram.com/ottomahjong"
+    "social_instagram": "https://instagram.com/ottomahjong",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "text": "Now taking pre-orders — ships Q3 2025.",
+          "link_url": "",
+          "link_text": "Reserve yours →",
+          "bg_color": "#163224",
+          "text_color": "#d5a896"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo": "shopify://shop_images/Otto_Mahjong_Logo_4x_2dfe3f94-7224-465d-bb49-9db700b3b562.png",
+          "logo_width": 120,
+          "logo_alt": "Otto Mahjong",
+          "nav_label_1": "Our Story",
+          "nav_url_1": "",
+          "nav_label_2": "Collection",
+          "nav_url_2": "",
+          "nav_label_3": "Little Table",
+          "nav_url_3": "",
+          "nav_label_4": "Reference Cards",
+          "nav_url_4": "",
+          "nav_label_5": "FAQ",
+          "nav_url_5": "",
+          "cta_label": "Join Waitlist",
+          "cta_url": "",
+          "sticky": true,
+          "bg_opacity": 95
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "newsletter_title": "Stay in the loop",
+          "newsletter_placeholder": "Email address",
+          "newsletter_submit": "Subscribe",
+          "col_1_title": "Explore",
+          "col_1_link_1_label": "Our Story",
+          "col_1_link_1_url": "",
+          "col_1_link_2_label": "Collection",
+          "col_1_link_2_url": "",
+          "col_1_link_3_label": "Little Table",
+          "col_1_link_3_url": "",
+          "col_1_link_4_label": "Reference Cards",
+          "col_1_link_4_url": "",
+          "col_1_link_5_label": "FAQ",
+          "col_1_link_5_url": "",
+          "col_2_title": "Support",
+          "col_2_link_1_label": "Contact Us",
+          "col_2_link_1_url": "",
+          "col_2_link_2_label": "Shipping & Returns",
+          "col_2_link_2_url": "",
+          "col_2_link_3_label": "Care Instructions",
+          "col_2_link_3_url": "",
+          "col_3_title": "Brand",
+          "col_3_link_1_label": "Press",
+          "col_3_link_1_url": "",
+          "col_3_link_2_label": "Wholesale",
+          "col_3_link_2_url": ""
+        }
+      }
+    },
+    "content_for_index": []
   },
   "presets": {}
 }
