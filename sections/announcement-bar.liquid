@@ -2,17 +2,15 @@
   class="announcement-bar"
   data-section-id="{{ section.id }}"
   data-announcement-bar
-  style="background-color: {{ section.settings.bg_color | default: settings.announcement_bg | default: '#163224' }}; color: {{ section.settings.text_color | default: settings.announcement_text_color | default: '#D5A896' }};"
+  style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};"
   role="region"
   aria-label="Announcement"
 >
   <div class="announcement-bar__inner container">
     <p class="announcement-bar__text">
-      {{- section.settings.text | default: settings.announcement_text | default: 'Now taking pre-orders.' -}}
-      {%- assign bar_url = section.settings.link_url | default: settings.announcement_url -%}
-      {%- assign bar_link_text = section.settings.link_text | default: settings.announcement_link_text -%}
-      {%- if bar_url != blank and bar_link_text != blank -%}
-        <a href="{{ bar_url }}" class="announcement-bar__link">{{ bar_link_text }}</a>
+      {{- section.settings.text -}}
+      {%- if section.settings.link_url != blank and section.settings.link_text != blank -%}
+        <a href="{{ section.settings.link_url }}" class="announcement-bar__link">{{ section.settings.link_text }}</a>
       {%- endif -%}
     </p>
     <button
@@ -36,7 +34,7 @@
       "type": "text",
       "id": "text",
       "label": "Announcement text",
-      "default": "Now taking pre-orders — ships Q3 2025."
+      "default": "Otto is currently in development — join the waitlist for early access and presale pricing."
     },
     {
       "type": "url",
@@ -47,7 +45,7 @@
       "type": "text",
       "id": "link_text",
       "label": "Link text",
-      "default": "Reserve yours →"
+      "default": "Join the waitlist →"
     },
     {
       "type": "color",
