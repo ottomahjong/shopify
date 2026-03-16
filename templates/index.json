@@ -1,36 +1,13 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-  "sections": {
-    "presale_banner": {
-      "type": "presale-banner",
-      "settings": {}
-    },
-    "hero": {
-      "type": "hero-split",
-      "settings": {}
-    },
-    "brand_story": {
-      "type": "brand-story",
-      "settings": {}
-    },
-    "product_grid": {
-      "type": "product-grid",
-      "settings": {}
-    },
-    "founder": {
-      "type": "founder",
-      "settings": {}
-    },
-    "waitlist": {
-      "type": "waitlist",
-      "settings": {}
-    }
-  },
-  "order": [
-    "presale_banner",
-    "hero",
-    "brand_story",
-    "product_grid",
-    "founder",
-    "waitlist"
-  ]
+  "sections": {},
+  "order": []
 }
