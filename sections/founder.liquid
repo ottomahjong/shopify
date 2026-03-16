@@ -1,7 +1,10 @@
 <section
   class="founder section-padding"
   data-section-id="{{ section.id }}"
-  style="background-color: {{ section.settings.bg_color }};"
+  aria-label="{{ section.settings.section_label | default: 'Founder' }}"
+  {%- if section.settings.bg_color != blank %}
+    style="background-color: {{ section.settings.bg_color }};"
+  {%- endif %}
 >
   <div class="container">
     <div class="founder__layout reveal">
@@ -9,7 +12,7 @@
       <div class="founder__content">
 
         {%- if section.settings.section_label != blank -%}
-          <p class="section-label founder__eyebrow" style="color: var(--walnut-on-dark);">
+          <p class="section-label founder__eyebrow">
             {{- section.settings.section_label -}}
           </p>
         {%- endif -%}
@@ -39,13 +42,15 @@
 
       {%- if section.settings.founder_image != blank -%}
         <div class="founder__image-wrap">
-          <img
-            src="{{ section.settings.founder_image | image_url: width: 600 }}"
-            alt="{{ section.settings.founder_image.alt | default: section.settings.attribution }}"
-            width="300"
-            loading="lazy"
-            class="founder__image"
-          >
+          {{- section.settings.founder_image
+            | image_url: width: 600
+            | image_tag:
+              loading: 'lazy',
+              class: 'founder__image',
+              widths: '300, 600',
+              sizes: '300px',
+              alt: section.settings.founder_image.alt | default: section.settings.attribution | default: ''
+          -}}
         </div>
       {%- else -%}
         <div class="founder__image-wrap founder__image-wrap--placeholder" aria-hidden="true"></div>
