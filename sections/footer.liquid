@@ -1,4 +1,10 @@
-<footer class="site-footer" data-section-id="{{ section.id }}" style="background-color: var(--night);">
+<footer
+  class="site-footer"
+  data-section-id="{{ section.id }}"
+  {%- if section.settings.bg_color != blank %}
+    style="background-color: {{ section.settings.bg_color }};"
+  {%- endif %}
+>
   <div class="site-footer__inner container">
 
     <div class="site-footer__top">
@@ -11,13 +17,14 @@
 
         <div class="site-footer__emblem" aria-hidden="true">
           {%- if section.settings.logo_image != blank -%}
-            <img
-              src="{{ section.settings.logo_image | image_url: width: 80 }}"
-              alt=""
-              width="40"
-              loading="lazy"
-              class="site-footer__emblem-img"
-            >
+            {{- section.settings.logo_image
+              | image_url: width: 80
+              | image_tag:
+                loading: 'lazy',
+                class: 'site-footer__emblem-img',
+                width: 40,
+                alt: ''
+            -}}
           {%- else -%}
             {% render 'icon-sprite', icon: 'otto-logo' %}
           {%- endif -%}
@@ -78,41 +85,43 @@
       {%- comment -%} NAV COLUMNS {%- endcomment -%}
       <nav class="site-footer__nav" aria-label="Footer navigation">
         {%- for col in (1..3) -%}
+          {%- assign col_menu_key = 'col_' | append: col | append: '_menu' -%}
           {%- assign col_title_key = 'col_' | append: col | append: '_title' -%}
-          {%- assign col_title = section.settings[col_title_key] -%}
-          {%- if col_title != blank -%}
-            <div class="site-footer__nav-col">
-              <h3 class="site-footer__nav-title">{{ col_title }}</h3>
-              <ul class="site-footer__nav-list" role="list">
-                {%- for i in (1..6) -%}
-                  {%- assign link_label_key = 'col_' | append: col | append: '_link_' | append: i | append: '_label' -%}
-                  {%- assign link_url_key   = 'col_' | append: col | append: '_link_' | append: i | append: '_url' -%}
-                  {%- assign link_label = section.settings[link_label_key] -%}
-                  {%- assign link_url   = section.settings[link_url_key] -%}
-                  {%- if link_label != blank -%}
+          {%- assign col_menu_handle = section.settings[col_menu_key] -%}
+          {%- if col_menu_handle != blank -%}
+            {%- assign col_linklist = linklists[col_menu_handle] -%}
+            {%- if col_linklist.links.size > 0 -%}
+              <div class="site-footer__nav-col">
+                <h3 class="site-footer__nav-title">
+                  {{- section.settings[col_title_key] | default: col_linklist.title -}}
+                </h3>
+                <ul class="site-footer__nav-list" role="list">
+                  {%- for link in col_linklist.links -%}
                     <li>
-                      <a href="{{ link_url | default: '#' }}" class="site-footer__nav-link">
-                        {{- link_label -}}
+                      <a href="{{ link.url }}" class="site-footer__nav-link">
+                        {{- link.title -}}
                       </a>
                     </li>
-                  {%- endif -%}
-                {%- endfor -%}
-              </ul>
-            </div>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- endif -%}
           {%- endif -%}
         {%- endfor -%}
       </nav>
 
       {%- comment -%} NEWSLETTER {%- endcomment -%}
       <div class="site-footer__newsletter">
-        <p class="site-footer__newsletter-title">
-          {{- section.settings.newsletter_title -}}
-        </p>
+        {%- if section.settings.newsletter_title != blank -%}
+          <p class="site-footer__newsletter-title">
+            {{- section.settings.newsletter_title -}}
+          </p>
+        {%- endif -%}
         {%- form 'customer', id: 'footer-newsletter-form' -%}
           <input type="hidden" name="contact[tags]" value="newsletter">
           <div class="site-footer__newsletter-form">
             <label for="footer-email" class="sr-only">
-              Email address
+              {{ 'general.email' | t: default: 'Email address' }}
             </label>
             <input
               type="email"
@@ -129,7 +138,7 @@
           </div>
           {%- if form.posted_successfully? -%}
             <p class="site-footer__newsletter-success" role="status">
-              You're on the list.
+              {{- section.settings.newsletter_success -}}
             </p>
           {%- endif -%}
         {%- endform -%}
@@ -138,9 +147,11 @@
     </div>
 
     <div class="site-footer__bottom">
-      <p class="site-footer__copyright">
-        {{- section.settings.copyright_text -}}
-      </p>
+      {%- if section.settings.copyright_text != blank -%}
+        <p class="site-footer__copyright">
+          {{- section.settings.copyright_text -}}
+        </p>
+      {%- endif -%}
       <nav class="site-footer__legal" aria-label="Legal navigation">
         {%- if shop.privacy_policy != blank -%}
           <a href="{{ shop.privacy_policy.url }}" class="site-footer__legal-link">
@@ -190,6 +201,44 @@
     },
     {
       "type": "header",
+      "content": "Navigation Columns"
+    },
+    {
+      "type": "link_list",
+      "id": "col_1_menu",
+      "label": "Column 1 menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "col_1_title",
+      "label": "Column 1 title override",
+      "info": "Leave blank to use the menu name."
+    },
+    {
+      "type": "link_list",
+      "id": "col_2_menu",
+      "label": "Column 2 menu (optional)"
+    },
+    {
+      "type": "text",
+      "id": "col_2_title",
+      "label": "Column 2 title override",
+      "info": "Leave blank to use the menu name."
+    },
+    {
+      "type": "link_list",
+      "id": "col_3_menu",
+      "label": "Column 3 menu (optional)"
+    },
+    {
+      "type": "text",
+      "id": "col_3_title",
+      "label": "Column 3 title override",
+      "info": "Leave blank to use the menu name."
+    },
+    {
+      "type": "header",
       "content": "Newsletter"
     },
     {
@@ -211,148 +260,10 @@
       "default": "Subscribe"
     },
     {
-      "type": "header",
-      "content": "Navigation Column 1"
-    },
-    {
       "type": "text",
-      "id": "col_1_title",
-      "label": "Column 1 title",
-      "default": "Explore"
-    },
-    {
-      "type": "text",
-      "id": "col_1_link_1_label",
-      "label": "Column 1, Link 1 — Label",
-      "default": "Our Story"
-    },
-    {
-      "type": "url",
-      "id": "col_1_link_1_url",
-      "label": "Column 1, Link 1 — URL"
-    },
-    {
-      "type": "text",
-      "id": "col_1_link_2_label",
-      "label": "Column 1, Link 2 — Label",
-      "default": "Collection"
-    },
-    {
-      "type": "url",
-      "id": "col_1_link_2_url",
-      "label": "Column 1, Link 2 — URL"
-    },
-    {
-      "type": "text",
-      "id": "col_1_link_3_label",
-      "label": "Column 1, Link 3 — Label",
-      "default": "Little Table"
-    },
-    {
-      "type": "url",
-      "id": "col_1_link_3_url",
-      "label": "Column 1, Link 3 — URL"
-    },
-    {
-      "type": "text",
-      "id": "col_1_link_4_label",
-      "label": "Column 1, Link 4 — Label",
-      "default": "Reference Cards"
-    },
-    {
-      "type": "url",
-      "id": "col_1_link_4_url",
-      "label": "Column 1, Link 4 — URL"
-    },
-    {
-      "type": "text",
-      "id": "col_1_link_5_label",
-      "label": "Column 1, Link 5 — Label",
-      "default": "FAQ"
-    },
-    {
-      "type": "url",
-      "id": "col_1_link_5_url",
-      "label": "Column 1, Link 5 — URL"
-    },
-    {
-      "type": "text",
-      "id": "col_1_link_6_label",
-      "label": "Column 1, Link 6 — Label",
-      "default": "Contact"
-    },
-    {
-      "type": "url",
-      "id": "col_1_link_6_url",
-      "label": "Column 1, Link 6 — URL"
-    },
-    {
-      "type": "header",
-      "content": "Navigation Column 2 (optional)"
-    },
-    {
-      "type": "text",
-      "id": "col_2_title",
-      "label": "Column 2 title"
-    },
-    {
-      "type": "text",
-      "id": "col_2_link_1_label",
-      "label": "Column 2, Link 1 — Label"
-    },
-    {
-      "type": "url",
-      "id": "col_2_link_1_url",
-      "label": "Column 2, Link 1 — URL"
-    },
-    {
-      "type": "text",
-      "id": "col_2_link_2_label",
-      "label": "Column 2, Link 2 — Label"
-    },
-    {
-      "type": "url",
-      "id": "col_2_link_2_url",
-      "label": "Column 2, Link 2 — URL"
-    },
-    {
-      "type": "text",
-      "id": "col_2_link_3_label",
-      "label": "Column 2, Link 3 — Label"
-    },
-    {
-      "type": "url",
-      "id": "col_2_link_3_url",
-      "label": "Column 2, Link 3 — URL"
-    },
-    {
-      "type": "header",
-      "content": "Navigation Column 3 (optional)"
-    },
-    {
-      "type": "text",
-      "id": "col_3_title",
-      "label": "Column 3 title"
-    },
-    {
-      "type": "text",
-      "id": "col_3_link_1_label",
-      "label": "Column 3, Link 1 — Label"
-    },
-    {
-      "type": "url",
-      "id": "col_3_link_1_url",
-      "label": "Column 3, Link 1 — URL"
-    },
-    {
-      "type": "text",
-      "id": "col_3_link_2_label",
-      "label": "Column 3, Link 2 — Label"
-    },
-    {
-      "type": "url",
-      "id": "col_3_link_2_url",
-      "label": "Column 3, Link 2 — URL"
+      "id": "newsletter_success",
+      "label": "Success message",
+      "default": "You're on the list."
     },
     {
       "type": "header",
@@ -363,6 +274,16 @@
       "id": "copyright_text",
       "label": "Copyright text",
       "default": "© 2026 Otto Mahjong. All rights reserved."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#1A2137"
     }
   ]
 }
