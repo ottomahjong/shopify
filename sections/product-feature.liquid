@@ -1,7 +1,11 @@
 <section
   class="product-feature section-padding{% if section.settings.layout == 'reverse' %} product-feature--reverse{% endif %}"
   data-section-id="{{ section.id }}"
-  aria-labelledby="pf-heading-{{ section.id }}"
+  {%- if section.settings.heading != blank %}
+    aria-labelledby="pf-heading-{{ section.id }}"
+  {%- else %}
+    aria-label="Product feature"
+  {%- endif %}
   style="background-color: {{ section.settings.bg_color | default: 'var(--warm-white)' }};"
 >
   <div class="container">
@@ -10,13 +14,15 @@
       <div class="product-feature__images reveal">
         <div class="product-feature__main-image">
           {%- if section.settings.main_image != blank -%}
-            <img
-              src="{{ section.settings.main_image | image_url: width: 900 }}"
-              alt="{{ section.settings.main_image.alt | default: section.settings.heading }}"
-              width="900"
-              loading="lazy"
-              class="product-feature__img"
-            >
+            {{- section.settings.main_image
+              | image_url: width: 1200
+              | image_tag:
+                loading: 'lazy',
+                class: 'product-feature__img',
+                widths: '600, 900, 1200',
+                sizes: '(min-width: 1024px) 50vw, 100vw',
+                alt: section.settings.main_image.alt | default: section.settings.heading | default: ''
+            -}}
           {%- else -%}
             <div class="product-feature__img-placeholder" aria-hidden="true"></div>
           {%- endif -%}
@@ -26,21 +32,30 @@
         </div>
 
         <div class="product-feature__thumbnails">
-          {%- for i in (1..3) -%}
-            {%- assign thumb_key = 'thumb_image_' | append: i -%}
-            {%- assign thumb = section.settings[thumb_key] -%}
-            <button class="product-feature__thumb{% if forloop.first %} product-feature__thumb--active{% endif %}" type="button" aria-label="View image {{ i }}">
-              {%- if thumb != blank -%}
-                <img
-                  src="{{ thumb | image_url: width: 200 }}"
-                  alt="{{ thumb.alt | default: section.settings.heading | append: ' — view ' | append: i }}"
-                  width="200"
-                  loading="lazy"
-                >
-              {%- else -%}
-                <div class="product-feature__thumb-placeholder" aria-hidden="true"></div>
-              {%- endif -%}
-            </button>
+          {%- assign thumb_index = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'thumbnail' -%}
+              {%- assign thumb_index = thumb_index | plus: 1 -%}
+              <button
+                class="product-feature__thumb{% if thumb_index == 1 %} product-feature__thumb--active{% endif %}"
+                type="button"
+                aria-label="{{ 'product.view_image' | t: default: 'View image' }} {{ thumb_index }}"
+                {{ block.shopify_attributes }}
+              >
+                {%- if block.settings.image != blank -%}
+                  {{- block.settings.image
+                    | image_url: width: 300
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '100, 200, 300',
+                      sizes: '100px',
+                      alt: block.settings.image.alt | default: ''
+                  -}}
+                {%- else -%}
+                  <div class="product-feature__thumb-placeholder" aria-hidden="true"></div>
+                {%- endif -%}
+              </button>
+            {%- endif -%}
           {%- endfor -%}
         </div>
       </div>
@@ -63,25 +78,14 @@
           <p class="product-feature__body">{{ section.settings.body_2 }}</p>
         {%- endif -%}
 
-        {%- assign has_specs = false -%}
-        {%- for i in (1..4) -%}
-          {%- assign spec_key_key = 'spec_' | append: i | append: '_key' -%}
-          {%- if section.settings[spec_key_key] != blank -%}
-            {%- assign has_specs = true -%}
-          {%- endif -%}
-        {%- endfor -%}
-
-        {%- if has_specs -%}
+        {%- assign spec_blocks = section.blocks | where: 'type', 'spec' -%}
+        {%- if spec_blocks.size > 0 -%}
           <dl class="product-feature__specs">
-            {%- for i in (1..4) -%}
-              {%- assign spec_key_key = 'spec_' | append: i | append: '_key' -%}
-              {%- assign spec_val_key = 'spec_' | append: i | append: '_value' -%}
-              {%- assign spec_key = section.settings[spec_key_key] -%}
-              {%- assign spec_val = section.settings[spec_val_key] -%}
-              {%- if spec_key != blank -%}
-                <div class="product-feature__spec-row">
-                  <dt class="product-feature__spec-key">{{ spec_key }}</dt>
-                  <dd class="product-feature__spec-val">{{ spec_val }}</dd>
+            {%- for block in spec_blocks -%}
+              {%- if block.settings.key != blank -%}
+                <div class="product-feature__spec-row" {{ block.shopify_attributes }}>
+                  <dt class="product-feature__spec-key">{{ block.settings.key }}</dt>
+                  <dd class="product-feature__spec-val">{{ block.settings.value }}</dd>
                 </div>
               {%- endif -%}
             {%- endfor -%}
@@ -124,27 +128,12 @@
   "settings": [
     {
       "type": "header",
-      "content": "Images"
+      "content": "Main Image"
     },
     {
       "type": "image_picker",
       "id": "main_image",
       "label": "Main product image"
-    },
-    {
-      "type": "image_picker",
-      "id": "thumb_image_1",
-      "label": "Thumbnail 1"
-    },
-    {
-      "type": "image_picker",
-      "id": "thumb_image_2",
-      "label": "Thumbnail 2"
-    },
-    {
-      "type": "image_picker",
-      "id": "thumb_image_3",
-      "label": "Thumbnail 3"
     },
     {
       "type": "text",
@@ -179,58 +168,6 @@
       "id": "body_2",
       "label": "Body paragraph 2",
       "default": "Comes with a walnut-finish hardshell case, tile racks, betting coins, wind markers, and dice. Everything you need. Nothing you don't."
-    },
-    {
-      "type": "header",
-      "content": "Specifications"
-    },
-    {
-      "type": "text",
-      "id": "spec_1_key",
-      "label": "Spec 1 — Label",
-      "default": "Tile count"
-    },
-    {
-      "type": "text",
-      "id": "spec_1_value",
-      "label": "Spec 1 — Value",
-      "default": "160 tiles"
-    },
-    {
-      "type": "text",
-      "id": "spec_2_key",
-      "label": "Spec 2 — Label",
-      "default": "Material"
-    },
-    {
-      "type": "text",
-      "id": "spec_2_value",
-      "label": "Spec 2 — Value",
-      "default": "Weighted resin, paint infill"
-    },
-    {
-      "type": "text",
-      "id": "spec_3_key",
-      "label": "Spec 3 — Label",
-      "default": "Case"
-    },
-    {
-      "type": "text",
-      "id": "spec_3_value",
-      "label": "Spec 3 — Value",
-      "default": "Walnut-finish hardshell"
-    },
-    {
-      "type": "text",
-      "id": "spec_4_key",
-      "label": "Spec 4 — Label",
-      "default": "Ships"
-    },
-    {
-      "type": "text",
-      "id": "spec_4_value",
-      "label": "Spec 4 — Value",
-      "default": "Q3 2025"
     },
     {
       "type": "header",
@@ -279,15 +216,69 @@
       "default": "normal"
     },
     {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
       "type": "color",
       "id": "bg_color",
       "label": "Background color",
       "default": "#E8EEF2"
     }
   ],
+  "blocks": [
+    {
+      "type": "thumbnail",
+      "name": "Thumbnail",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "spec",
+      "name": "Specification",
+      "settings": [
+        {
+          "type": "text",
+          "id": "key",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Product Feature"
+      "name": "Product Feature",
+      "blocks": [
+        { "type": "thumbnail" },
+        { "type": "thumbnail" },
+        { "type": "thumbnail" },
+        {
+          "type": "spec",
+          "settings": { "key": "Tile count", "value": "160 tiles" }
+        },
+        {
+          "type": "spec",
+          "settings": { "key": "Material", "value": "Weighted resin, paint infill" }
+        },
+        {
+          "type": "spec",
+          "settings": { "key": "Case", "value": "Walnut-finish hardshell" }
+        },
+        {
+          "type": "spec",
+          "settings": { "key": "Ships", "value": "Q3 2025" }
+        }
+      ]
     }
   ]
 }
