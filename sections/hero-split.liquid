@@ -5,8 +5,13 @@
 >
   <div class="hero-split__grid">
 
-    {%- comment -%} LEFT PANEL — dark navy {%- endcomment -%}
-    <div class="hero-split__left" style="background-color: {{ section.settings.left_bg }};">
+    {%- comment -%} LEFT PANEL {%- endcomment -%}
+    <div
+      class="hero-split__left"
+      {%- if section.settings.left_bg != blank %}
+        style="background-color: {{ section.settings.left_bg }};"
+      {%- endif %}
+    >
       <div class="hero-split__left-inner">
 
         {%- if section.settings.eyebrow != blank -%}
@@ -17,13 +22,19 @@
 
         <h1 id="hero-heading-{{ section.id }}" class="hero-split__heading">
           {%- if section.settings.heading_line_1 != blank -%}
-            <span class="hero-split__heading-line">{{ section.settings.heading_line_1 }}</span>
+            <span class="hero-split__heading-line">
+              {{- section.settings.heading_line_1 -}}
+            </span>
           {%- endif -%}
           {%- if section.settings.heading_line_2 != blank -%}
-            <span class="hero-split__heading-line">{{ section.settings.heading_line_2 }}</span>
+            <span class="hero-split__heading-line">
+              {{- section.settings.heading_line_2 -}}
+            </span>
           {%- endif -%}
           {%- if section.settings.heading_line_3 != blank -%}
-            <em class="hero-split__heading-line hero-split__heading-line--serif">{{ section.settings.heading_line_3 }}</em>
+            <em class="hero-split__heading-line hero-split__heading-line--serif">
+              {{- section.settings.heading_line_3 -}}
+            </em>
           {%- endif -%}
         </h1>
 
@@ -55,35 +66,43 @@
       </div>
     </div>
 
-    {%- comment -%} RIGHT PANEL — warm white with tile grid {%- endcomment -%}
+    {%- comment -%} RIGHT PANEL — tile grid {%- endcomment -%}
     <div
       class="hero-split__right"
-      style="background-color: {{ section.settings.right_bg }};"
+      {%- if section.settings.right_bg != blank %}
+        style="background-color: {{ section.settings.right_bg }};"
+      {%- endif %}
     >
       <div class="hero-split__tile-grid">
-        {%- for i in (1..8) -%}
-          {%- assign tile_key = 'tile_image_' | append: i -%}
-          {%- assign tile_image = section.settings[tile_key] -%}
-          <div class="hero-split__tile">
-            {%- if tile_image != blank -%}
-              <img
-                src="{{ tile_image | image_url: width: 400 }}"
-                alt="{{ tile_image.alt | default: 'Otto Mahjong tile' }}"
-                width="400"
-                loading="{% if i <= 2 %}eager{% else %}lazy{% endif %}"
-                class="hero-split__tile-img"
-              >
-            {%- else -%}
-              <div class="hero-split__tile-placeholder" aria-hidden="true"></div>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'tile' -%}
+            {%- assign tile_loading = 'lazy' -%}
+            {%- if forloop.index <= 2 -%}
+              {%- assign tile_loading = 'eager' -%}
             {%- endif -%}
-          </div>
+            <div class="hero-split__tile" {{ block.shopify_attributes }}>
+              {%- if block.settings.image != blank -%}
+                {{- block.settings.image
+                  | image_url: width: 600
+                  | image_tag:
+                    loading: tile_loading,
+                    class: 'hero-split__tile-img',
+                    widths: '200, 400, 600',
+                    width: 300,
+                    alt: block.settings.alt | default: block.settings.image.alt | default: ''
+                -}}
+              {%- else -%}
+                <div class="hero-split__tile-placeholder" aria-hidden="true"></div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
         {%- endfor -%}
       </div>
 
       <div class="hero-split__right-form">
         {%- if section.settings.waitlist_prompt != blank -%}
           <p class="hero-split__right-form-label">
-            {{- section.settings.waitlist_prompt | upcase -}}
+            {{- section.settings.waitlist_prompt -}}
           </p>
         {%- endif -%}
         {% render 'waitlist-form',
@@ -135,32 +154,40 @@
     {
       "type": "textarea",
       "id": "subheading",
-      "label": "Subheading paragraph",
+      "label": "Subheading",
       "default": "Otto is a design-forward American Mahjong set built for people who care about what sits on their shelves — and everyone at their table. Every component designed together, as one system."
     },
     {
       "type": "text",
       "id": "brand_line",
-      "label": "Brand meaning line",
+      "label": "Brand line",
       "default": "Otto — One Table. Three Others."
+    },
+    {
+      "type": "header",
+      "content": "Waitlist Form"
     },
     {
       "type": "text",
       "id": "waitlist_prompt",
-      "label": "Waitlist prompt",
+      "label": "Prompt above form",
       "default": "Be first to the table."
     },
     {
       "type": "text",
       "id": "email_placeholder",
-      "label": "Email input placeholder",
+      "label": "Email placeholder",
       "default": "your@email.com"
     },
     {
       "type": "text",
       "id": "button_label",
-      "label": "Form button label",
+      "label": "Submit button label",
       "default": "Join Waitlist"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
     },
     {
       "type": "color",
@@ -169,59 +196,45 @@
       "default": "#1A2137"
     },
     {
-      "type": "header",
-      "content": "Right Panel — Tile Grid"
-    },
-    {
       "type": "color",
       "id": "right_bg",
       "label": "Right panel background",
       "default": "#E8EEF2"
-    },
-    {
-      "type": "image_picker",
-      "id": "tile_image_1",
-      "label": "Tile image 1"
-    },
-    {
-      "type": "image_picker",
-      "id": "tile_image_2",
-      "label": "Tile image 2"
-    },
-    {
-      "type": "image_picker",
-      "id": "tile_image_3",
-      "label": "Tile image 3"
-    },
-    {
-      "type": "image_picker",
-      "id": "tile_image_4",
-      "label": "Tile image 4"
-    },
-    {
-      "type": "image_picker",
-      "id": "tile_image_5",
-      "label": "Tile image 5"
-    },
-    {
-      "type": "image_picker",
-      "id": "tile_image_6",
-      "label": "Tile image 6"
-    },
-    {
-      "type": "image_picker",
-      "id": "tile_image_7",
-      "label": "Tile image 7"
-    },
-    {
-      "type": "image_picker",
-      "id": "tile_image_8",
-      "label": "Tile image 8"
     }
   ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Alt text",
+          "info": "Describes the image for screen readers. Leave blank to use the image's built-in alt text."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
   "presets": [
     {
-      "name": "Hero — Split"
+      "name": "Hero — Split",
+      "blocks": [
+        { "type": "tile" },
+        { "type": "tile" },
+        { "type": "tile" },
+        { "type": "tile" },
+        { "type": "tile" },
+        { "type": "tile" },
+        { "type": "tile" },
+        { "type": "tile" }
+      ]
     }
   ]
 }
