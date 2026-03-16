@@ -23,15 +23,24 @@
       {%- endif -%}
     </div>
 
+    {%- comment -%} FLAGSHIP COLLECTION {%- endcomment -%}
+    {%- if section.settings.flagship_label != blank -%}
+      <div class="product-grid__sub-header reveal">
+        <p class="product-grid__sub-label">{{ section.settings.flagship_label }}</p>
+      </div>
+    {%- endif -%}
+
     <div class="product-grid__grid reveal-stagger">
       {%- for block in section.blocks -%}
-        {%- if block.settings.name != blank -%}
+        {%- if block.type == 'card' and block.settings.collection != 'little-table' and block.settings.name != blank -%}
           <article
             class="product-card"
             aria-label="{{ block.settings.name }}"
             {{ block.shopify_attributes }}
           >
-            <div class="product-card__image-wrap">
+            <div class="product-card__image-wrap"
+              {%- if block.settings.image_bg != blank %} style="background-color: {{ block.settings.image_bg }};"{% endif -%}
+            >
               {%- if block.settings.image != blank -%}
                 {{- block.settings.image
                   | image_url: width: 800
@@ -52,31 +61,127 @@
             </div>
 
             <div class="product-card__body">
-              <h3 class="product-card__title">{{ block.settings.name }}</h3>
+              <h3 class="product-card__title">
+                {{- block.settings.name -}}
+                {%- if block.settings.name_note != blank -%}
+                  <em class="product-card__title-note"> {{ block.settings.name_note }}</em>
+                {%- endif -%}
+              </h3>
               {%- if block.settings.desc != blank -%}
                 <p class="product-card__desc">{{ block.settings.desc }}</p>
               {%- endif -%}
               {%- if block.settings.price != blank -%}
                 <p class="product-card__price">{{ block.settings.price }}</p>
               {%- else -%}
-                <p class="product-card__price product-card__price--tbd">
-                  {{- 'product.pricing_tbd' | t -}}
-                </p>
+                <p class="product-card__price product-card__price--tbd">Pricing TBD · Waitlist Only</p>
               {%- endif -%}
             </div>
-
-            {%- if block.settings.cta_label != blank -%}
-              <a
-                href="{{ block.settings.cta_url | default: '/#waitlist' }}"
-                class="product-card__cta btn btn--outline"
-              >
-                {{- block.settings.cta_label -}}
-              </a>
-            {%- endif -%}
           </article>
         {%- endif -%}
       {%- endfor -%}
     </div>
+
+    {%- comment -%} LITTLE TABLE FEATURE BANNER {%- endcomment -%}
+    {%- if section.settings.lt_enable -%}
+      <div class="product-grid__lt-feature">
+        <div class="product-grid__lt-inner">
+          <div class="product-grid__lt-text">
+            {%- if section.settings.lt_eyebrow != blank -%}
+              <p class="product-grid__lt-eyebrow">{{ section.settings.lt_eyebrow }}</p>
+            {%- endif -%}
+            {%- if section.settings.lt_heading != blank -%}
+              <h3 class="product-grid__lt-heading">
+                {{- section.settings.lt_heading -}}
+                {%- if section.settings.lt_heading_italic != blank -%}
+                  <em> {{ section.settings.lt_heading_italic }}</em>
+                {%- endif -%}
+              </h3>
+            {%- endif -%}
+            {%- if section.settings.lt_body_1 != blank -%}
+              <div class="product-grid__lt-body">
+                <p>{{ section.settings.lt_body_1 }}</p>
+                {%- if section.settings.lt_body_2 != blank -%}
+                  <p>{{ section.settings.lt_body_2 }}</p>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+
+          <div class="product-grid__lt-levels">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'level' -%}
+                <div class="product-grid__lt-level" {{ block.shopify_attributes }}>
+                  {%- if block.settings.num != blank -%}
+                    <span class="product-grid__lt-level-num">{{ block.settings.num }}</span>
+                  {%- endif -%}
+                  <div class="product-grid__lt-level-content">
+                    {%- if block.settings.title != blank -%}
+                      <p class="product-grid__lt-level-title">{{ block.settings.title }}</p>
+                    {%- endif -%}
+                    {%- if block.settings.desc != blank -%}
+                      <p class="product-grid__lt-level-desc">{{ block.settings.desc }}</p>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+
+      {%- comment -%} LITTLE TABLE COLLECTION {%- endcomment -%}
+      {%- if section.settings.lt_collection_label != blank -%}
+        <div class="product-grid__sub-header reveal">
+          <p class="product-grid__sub-label">{{ section.settings.lt_collection_label }}</p>
+        </div>
+      {%- endif -%}
+
+      <div class="product-grid__grid reveal-stagger">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'card' and block.settings.collection == 'little-table' and block.settings.name != blank -%}
+            <article
+              class="product-card"
+              aria-label="{{ block.settings.name }}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="product-card__image-wrap"
+                {%- if block.settings.image_bg != blank %} style="background-color: {{ block.settings.image_bg }};"{% endif -%}
+              >
+                {%- if block.settings.image != blank -%}
+                  {{- block.settings.image
+                    | image_url: width: 800
+                    | image_tag:
+                      loading: 'lazy',
+                      class: 'product-card__image',
+                      widths: '400, 600, 800',
+                      sizes: '(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw',
+                      alt: block.settings.image.alt | default: block.settings.name | default: ''
+                  -}}
+                {%- else -%}
+                  <div class="product-card__image-placeholder" aria-hidden="true"></div>
+                {%- endif -%}
+
+                {%- if block.settings.badge != blank -%}
+                  <span class="product-card__badge">{{ block.settings.badge }}</span>
+                {%- endif -%}
+              </div>
+
+              <div class="product-card__body">
+                <h3 class="product-card__title">{{ block.settings.name }}</h3>
+                {%- if block.settings.desc != blank -%}
+                  <p class="product-card__desc">{{ block.settings.desc }}</p>
+                {%- endif -%}
+                {%- if block.settings.price != blank -%}
+                  <p class="product-card__price">{{ block.settings.price }}</p>
+                {%- else -%}
+                  <p class="product-card__price product-card__price--tbd">Pricing TBD · Waitlist Only</p>
+                {%- endif -%}
+              </div>
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
 
   </div>
 </section>
@@ -117,6 +222,62 @@
     },
     {
       "type": "header",
+      "content": "Flagship Collection"
+    },
+    {
+      "type": "text",
+      "id": "flagship_label",
+      "label": "Flagship sub-header label",
+      "default": "Otto Mahjong — Flagship Collection"
+    },
+    {
+      "type": "header",
+      "content": "Little Table Feature"
+    },
+    {
+      "type": "checkbox",
+      "id": "lt_enable",
+      "label": "Show Little Table section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "lt_eyebrow",
+      "label": "Little Table eyebrow",
+      "default": "Little Table by Otto"
+    },
+    {
+      "type": "text",
+      "id": "lt_heading",
+      "label": "Little Table heading",
+      "default": "The table starts"
+    },
+    {
+      "type": "text",
+      "id": "lt_heading_italic",
+      "label": "Little Table heading italic",
+      "default": "young."
+    },
+    {
+      "type": "textarea",
+      "id": "lt_body_1",
+      "label": "Little Table body paragraph 1",
+      "default": "Little Table is not a simplified version of Mahjong. It's a stepping-stone game that teaches pattern recognition, matching, and strategic thinking through tile play — so that by the time a child sits down at the full OTTO set, the game already feels natural."
+    },
+    {
+      "type": "textarea",
+      "id": "lt_body_2",
+      "label": "Little Table body paragraph 2",
+      "default": "Three levels. Same tiles. Grows with your child from age four through twelve."
+    },
+    {
+      "type": "text",
+      "id": "lt_collection_label",
+      "label": "Little Table collection sub-header",
+      "default": "Little Table — Children's Collection"
+    },
+    {
+      "type": "header",
       "content": "Colors"
     },
     {
@@ -142,6 +303,11 @@
           "label": "Product name"
         },
         {
+          "type": "text",
+          "id": "name_note",
+          "label": "Name note (italic, e.g. '(Name TBD)')"
+        },
+        {
           "type": "textarea",
           "id": "desc",
           "label": "Description"
@@ -149,7 +315,7 @@
         {
           "type": "text",
           "id": "price",
-          "label": "Price (leave blank for 'Pricing TBD')"
+          "label": "Price (leave blank for 'Pricing TBD · Waitlist Only')"
         },
         {
           "type": "text",
@@ -158,19 +324,47 @@
           "default": "Coming Soon"
         },
         {
-          "type": "text",
-          "id": "cta_label",
-          "label": "CTA label",
-          "default": "Join Waitlist"
+          "type": "color",
+          "id": "image_bg",
+          "label": "Image placeholder background color"
         },
         {
-          "type": "url",
-          "id": "cta_url",
-          "label": "CTA URL"
+          "type": "select",
+          "id": "collection",
+          "label": "Collection group",
+          "options": [
+            { "value": "flagship", "label": "Flagship (Otto)" },
+            { "value": "little-table", "label": "Little Table" }
+          ],
+          "default": "flagship"
+        }
+      ]
+    },
+    {
+      "type": "level",
+      "name": "Little Table Level",
+      "settings": [
+        {
+          "type": "text",
+          "id": "num",
+          "label": "Level number",
+          "default": "Level 01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Level title",
+          "default": "The Matcher · Ages 4–6"
+        },
+        {
+          "type": "textarea",
+          "id": "desc",
+          "label": "Level description"
         }
       ]
     }
   ],
+  "max_blocks": 16,
   "presets": [
     {
       "name": "Product Grid",
@@ -178,39 +372,108 @@
         {
           "type": "card",
           "settings": {
-            "name": "Vignette",
-            "desc": "Bone and indigo bodies. Copper base. Recessed engraving with paint infill — not flat UV printing. Designed to be picked up dozens of times per game. Built to feel like it.",
-            "price": "$300 – $400",
+            "name": "The Tile Set",
+            "name_note": "(Name TBD)",
+            "desc": "160-piece American Mahjong set. Recessed engraving with paint infill. Solid backs stamped with the OTTO mark. Designed to age well.",
+            "price": "$300 – $400 · Waitlist Only",
             "badge": "Coming Soon",
-            "cta_label": "Join Waitlist"
+            "image_bg": "#2a2520",
+            "collection": "flagship"
           }
         },
         {
           "type": "card",
           "settings": {
             "name": "The Mat",
-            "desc": "Cushioned, non-slip, sized for four. Designed in the same palette as the tile set — not sourced to match, but designed alongside. Rolled and stored in a mat sleeve.",
-            "price": "$60 – $70",
+            "desc": "Premium play surface. Sized for four players. Designed to anchor the table, not decorate it.",
+            "price": "$60 – $70 · Waitlist Only",
             "badge": "Coming Soon",
-            "cta_label": "Join Waitlist"
+            "image_bg": "#c8c0b4",
+            "collection": "flagship"
           }
         },
         {
           "type": "card",
           "settings": {
             "name": "The Racks",
-            "desc": "Designed as furniture, not accessories. Solid walnut, satin oil finish. The rack is the object you touch every single turn. It should feel like it belongs in the room.",
+            "desc": "Set of four. Solid walnut with satin oil finish. Designed as furniture, not accessories — and sized to match the visual weight of the tile set.",
             "badge": "Coming Soon",
-            "cta_label": "Join Waitlist"
+            "image_bg": "#d4b896",
+            "collection": "flagship"
           }
         },
         {
           "type": "card",
           "settings": {
-            "name": "Reference Cards",
-            "desc": "One per player. Double-sided: in-game rules on one side, NMJL card decoder on the other. Designed to answer the question mid-game — not after it.",
+            "name": "The Reference Cards",
+            "desc": "Quick-reference guides for experienced players. In-game rules, hand reading, NMJL card decoder. One per player.",
             "badge": "Coming Soon",
-            "cta_label": "Join Waitlist"
+            "image_bg": "#e8e0d0",
+            "collection": "flagship"
+          }
+        },
+        {
+          "type": "level",
+          "settings": {
+            "num": "Level 01",
+            "title": "The Matcher · Ages 4–6",
+            "desc": "Pure matching. Draw, discard, recognize. No calling, no strategy — just the satisfying click of tiles coming together."
+          }
+        },
+        {
+          "type": "level",
+          "settings": {
+            "num": "Level 02",
+            "title": "The Builder · Ages 7–9",
+            "desc": "14-tile hands. Simple sets and sequences. The Charleston introduced as an option. Real strategy, manageable complexity."
+          }
+        },
+        {
+          "type": "level",
+          "settings": {
+            "num": "Level 03",
+            "title": "The Strategist · Ages 10–12",
+            "desc": "Full hand selection, calling rules, and wildcard tiles that map directly to Joker logic. One step from the adult game."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "name": "Little Table Tile Set",
+            "desc": "80 tiles across four suits — Animals, Shapes, Nature, and Numbers. Bold, geometric, built for small hands. No pastels. No cartoon overload.",
+            "badge": "Coming Soon",
+            "image_bg": "#d4c5b0",
+            "collection": "little-table"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "name": "Little Table Mat",
+            "desc": "Scaled play surface designed for four young players. Soft, durable, and calm enough to live in the same space as the grown-up set.",
+            "badge": "Coming Soon",
+            "image_bg": "#c8d4c0",
+            "collection": "little-table"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "name": "Little Table Racks",
+            "desc": "Set of four. Wider and shorter than the adult racks — designed for small hands and big concentration. Same material language as Otto.",
+            "badge": "Coming Soon",
+            "image_bg": "#d4b896",
+            "collection": "little-table"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "name": "Little Table Reference Cards",
+            "desc": "Three level-specific cards plus a parent guide. Icon-forward design for younger players. Grows alongside the child through each level.",
+            "badge": "Coming Soon",
+            "image_bg": "#e0d8cc",
+            "collection": "little-table"
           }
         }
       ]
