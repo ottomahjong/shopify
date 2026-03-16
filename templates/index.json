@@ -8,6 +8,43 @@
  * ------------------------------------------------------------
  */
 {
-  "sections": {},
-  "order": []
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {}
+    },
+    "hero": {
+      "type": "hero-split",
+      "settings": {}
+    },
+    "brand-story": {
+      "type": "brand-story",
+      "settings": {}
+    },
+    "founder": {
+      "type": "founder",
+      "settings": {}
+    },
+    "products": {
+      "type": "product-grid",
+      "settings": {}
+    },
+    "presale-banner": {
+      "type": "presale-banner",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq-accordion",
+      "settings": {}
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "hero",
+    "brand-story",
+    "founder",
+    "products",
+    "presale-banner",
+    "faq"
+  ]
 }
