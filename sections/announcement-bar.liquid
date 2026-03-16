@@ -1,18 +1,27 @@
+{%- if section.settings.enabled -%}
 <div
   class="announcement-bar"
   data-section-id="{{ section.id }}"
   data-announcement-bar
-  style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};"
+  style="
+    {%- if section.settings.bg_color != blank -%}background-color: {{ section.settings.bg_color }};{%- endif -%}
+    {%- if section.settings.text_color != blank -%}color: {{ section.settings.text_color }};{%- endif -%}
+  "
   role="region"
   aria-label="Announcement"
+  aria-live="polite"
 >
   <div class="announcement-bar__inner container">
-    <p class="announcement-bar__text">
-      {{- section.settings.text -}}
-      {%- if section.settings.link_url != blank and section.settings.link_text != blank -%}
-        <a href="{{ section.settings.link_url }}" class="announcement-bar__link">{{ section.settings.link_text }}</a>
-      {%- endif -%}
-    </p>
+    {%- if section.settings.text != blank -%}
+      <p class="announcement-bar__text">
+        {{- section.settings.text -}}
+        {%- if section.settings.link_url != blank and section.settings.link_text != blank -%}
+          <a href="{{ section.settings.link_url }}" class="announcement-bar__link">
+            {{- section.settings.link_text -}}
+          </a>
+        {%- endif -%}
+      </p>
+    {%- endif -%}
     <button
       type="button"
       class="announcement-bar__close"
@@ -23,13 +32,25 @@
     </button>
   </div>
 </div>
+{%- endif -%}
 
 {% schema %}
 {
   "name": "Announcement Bar",
   "tag": "div",
   "class": "announcement-bar-wrapper",
+  "limit": 1,
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Show announcement bar",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
     {
       "type": "text",
       "id": "text",
@@ -37,26 +58,31 @@
       "default": "Otto is currently in development — join the waitlist for early access and presale pricing."
     },
     {
-      "type": "url",
-      "id": "link_url",
-      "label": "Link URL"
-    },
-    {
       "type": "text",
       "id": "link_text",
-      "label": "Link text",
+      "label": "Link label",
       "default": "Join the waitlist →"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL",
+      "info": "Tip: use /#waitlist to scroll to the waitlist section on the homepage."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
     },
     {
       "type": "color",
       "id": "bg_color",
-      "label": "Background color",
+      "label": "Background",
       "default": "#163224"
     },
     {
       "type": "color",
       "id": "text_color",
-      "label": "Text color",
+      "label": "Text",
       "default": "#D5A896"
     }
   ]
