@@ -10,27 +10,27 @@
    1. CUSTOM PROPERTIES
    ============================================================ */
 :root {
-  /* Brand colours — matched to Figma */
-  --ink:             #1a1814;
+  /* Brand colours — Otto brand palette */
+  --ink:             #1A1A1C;
   --ink-text:        #1a1a1c;
   --cream:           #faf8f4;
-  --bone:            #e8e0d0;
-  --warm-white:      #faf8f4;
+  --bone:            #E7E7E7;
+  --warm-white:      #E8EEF2;
   --dark-brown:      #2a2520;
-  --gold:            #8b6f47;
-  --gold-light:      #c4a882;
-  --walnut:          #8b6f47;
-  --walnut-light:    #c4a882;
-  --walnut-on-light: #8b6f47;
-  --walnut-on-dark:  #d5a896;
-  --stone:           #4a4540;
-  --stone-on-dark:   #9e9589;
-  --label-ink:       #8b6f47;
-  --night:           #2a2520;
-  --forest:          #2a2520;
-  --accent:          #8b6f47;
-  --linen:           #6f7893;
-  --muted-on-dark:   #9e9589;
+  --gold:            #AF6B4F;
+  --gold-light:      #C9937D;
+  --walnut:          #AF6B4F;
+  --walnut-light:    #C9937D;
+  --walnut-on-light: #694131;
+  --walnut-on-dark:  #D5A896;
+  --stone:           #5e574f;
+  --stone-on-dark:   #AAB1C2;
+  --label-ink:       #6b4e2a;
+  --night:           #1A2137;
+  --forest:          #163224;
+  --accent:          #8B5640;
+  --linen:           #6F7893;
+  --muted-on-dark:   #b0a99f;
   --footer-text:     #9e9589;
   --navy:            #1a2137;
   --nav-inactive:    #434d6b;
@@ -201,6 +201,11 @@ input:focus-visible {
   border-width: 0;
 }
 
+.section-padding {
+  padding-top: var(--section-pad);
+  padding-bottom: var(--section-pad);
+}
+
 .text-center { text-align: center; }
 .text-left   { text-align: left; }
 .text-right  { text-align: right; }
@@ -283,7 +288,7 @@ input:focus-visible {
   right: var(--space-4);
   top: 50%;
   transform: translateY(-50%);
-  color: #fff;
+  color: var(--walnut-on-dark);
   font-size: var(--text-lg);
   line-height: 1;
   opacity: 0.7;
@@ -914,7 +919,7 @@ input:focus-visible {
    ============================================================ */
 /* --- FOUNDER --- */
 .founder {
-  background-color: var(--bone);
+  background-color: var(--night);
   padding: var(--space-12) 0;
 }
 
@@ -2829,6 +2834,10 @@ input:focus-visible {
 /* ============================================================
    33. BRAND STORY — TWO-COLUMN LAYOUT
    ============================================================ */
+.brand-story {
+  background-color: var(--warm-white);
+}
+
 .brand-story__layout {
   display: grid;
   grid-template-columns: 1fr;
