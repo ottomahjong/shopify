@@ -81,9 +81,7 @@
     {{ content_for_layout }}
   </main>
 
-  <footer role="contentinfo">
-    {% section 'footer' %}
-  </footer>
+  {% section 'footer' %}
 
   <div id="cart-notification" class="cart-notification" aria-live="polite" aria-atomic="true" hidden>
     <p class="cart-notification__message"></p>
