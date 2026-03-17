@@ -79,28 +79,27 @@
      MOBILE NAV HAMBURGER
      ============================================================ */
   function initMobileNav() {
-    const hamburger = qs('.site-header__hamburger');
-    const menu = qs('.mobile-menu');
+    var hamburger = qs('[data-nav-toggle]');
+    var menu = qs('#mobile-nav');
     if (!hamburger || !menu) return;
 
     function openMenu() {
       hamburger.setAttribute('aria-expanded', 'true');
-      menu.classList.add('is-open');
+      menu.removeAttribute('hidden');
       document.body.style.overflow = 'hidden';
-      // Focus first focusable element in menu
-      const firstLink = qs('a, button', menu);
+      var firstLink = qs('a, button', menu);
       if (firstLink) firstLink.focus();
     }
 
     function closeMenu() {
       hamburger.setAttribute('aria-expanded', 'false');
-      menu.classList.remove('is-open');
+      menu.setAttribute('hidden', '');
       document.body.style.overflow = '';
       hamburger.focus();
     }
 
     function toggleMenu() {
-      const isOpen = hamburger.getAttribute('aria-expanded') === 'true';
+      var isOpen = hamburger.getAttribute('aria-expanded') === 'true';
       if (isOpen) {
         closeMenu();
       } else {
@@ -110,15 +109,13 @@
 
     on(hamburger, 'click', toggleMenu);
 
-    // Close on Escape
     on(document, 'keydown', function (e) {
-      if (e.key === 'Escape' && menu.classList.contains('is-open')) {
+      if (e.key === 'Escape' && !menu.hasAttribute('hidden')) {
         closeMenu();
       }
     });
 
-    // Close when nav links are clicked
-    qsa('.mobile-menu__link, .mobile-menu__sub-link', menu).forEach(function (link) {
+    qsa('.mobile-nav__link', menu).forEach(function (link) {
       on(link, 'click', closeMenu);
     });
   }
@@ -153,43 +150,38 @@
      FAQ ACCORDION
      ============================================================ */
   function initFaqAccordion() {
-    const items = qsa('.faq__item');
+    const items = qsa('.faq-item');
     if (!items.length) return;
 
     function openItem(item) {
-      const trigger = qs('.faq__trigger', item);
-      const panel = qs('.faq__panel', item);
-      if (!trigger || !panel) return;
+      var trigger = qs('[data-faq-trigger]', item);
+      var answer = qs('[data-faq-answer]', item);
+      if (!trigger || !answer) return;
       trigger.setAttribute('aria-expanded', 'true');
-      panel.classList.add('is-open');
+      answer.removeAttribute('hidden');
     }
 
     function closeItem(item) {
-      const trigger = qs('.faq__trigger', item);
-      const panel = qs('.faq__panel', item);
-      if (!trigger || !panel) return;
+      var trigger = qs('[data-faq-trigger]', item);
+      var answer = qs('[data-faq-answer]', item);
+      if (!trigger || !answer) return;
       trigger.setAttribute('aria-expanded', 'false');
-      panel.classList.remove('is-open');
+      answer.setAttribute('hidden', '');
     }
 
     function isOpen(item) {
-      const trigger = qs('.faq__trigger', item);
+      var trigger = qs('[data-faq-trigger]', item);
       return trigger && trigger.getAttribute('aria-expanded') === 'true';
     }
 
     items.forEach(function (item, index) {
-      const trigger = qs('.faq__trigger', item);
+      var trigger = qs('[data-faq-trigger]', item);
       if (!trigger) return;
-
-      // Initialize aria attributes
-      trigger.setAttribute('aria-expanded', 'false');
-      trigger.setAttribute('aria-controls', trigger.dataset.controls || 'faq-panel-' + index);
 
       on(trigger, 'click', function () {
         if (isOpen(item)) {
           closeItem(item);
         } else {
-          // Optionally close others (accordion mode)
           items.forEach(function (other) {
             if (other !== item) closeItem(other);
           });
@@ -197,25 +189,24 @@
         }
       });
 
-      // Keyboard: arrow keys navigate between triggers
       on(trigger, 'keydown', function (e) {
         if (e.key === 'ArrowDown') {
           e.preventDefault();
-          const next = items[index + 1];
-          if (next) qs('.faq__trigger', next).focus();
+          var next = items[index + 1];
+          if (next) qs('[data-faq-trigger]', next).focus();
         }
         if (e.key === 'ArrowUp') {
           e.preventDefault();
-          const prev = items[index - 1];
-          if (prev) qs('.faq__trigger', prev).focus();
+          var prev = items[index - 1];
+          if (prev) qs('[data-faq-trigger]', prev).focus();
         }
         if (e.key === 'Home') {
           e.preventDefault();
-          qs('.faq__trigger', items[0]).focus();
+          qs('[data-faq-trigger]', items[0]).focus();
         }
         if (e.key === 'End') {
           e.preventDefault();
-          qs('.faq__trigger', items[items.length - 1]).focus();
+          qs('[data-faq-trigger]', items[items.length - 1]).focus();
         }
       });
     });
