@@ -40,6 +40,22 @@
 
       </div>
 
+      <div class="founder__image-wrap">
+        {%- if section.settings.founder_image != blank -%}
+          {{- section.settings.founder_image
+            | image_url: width: 640
+            | image_tag:
+              loading: 'lazy',
+              class: 'founder__image',
+              widths: '320, 640',
+              sizes: '320px',
+              alt: section.settings.founder_image.alt | default: section.settings.attribution | default: ''
+          -}}
+        {%- else -%}
+          <div class="founder__image-wrap--placeholder" aria-hidden="true"></div>
+        {%- endif -%}
+      </div>
+
     </div>
   </div>
 </section>
@@ -98,13 +114,22 @@
     },
     {
       "type": "header",
+      "content": "Founder Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "founder_image",
+      "label": "Founder photo (optional, circular crop)"
+    },
+    {
+      "type": "header",
       "content": "Colors"
     },
     {
       "type": "color",
       "id": "bg_color",
       "label": "Background color",
-      "default": "#e8e0d0"
+      "default": "#1A2137"
     }
   ],
   "presets": [
