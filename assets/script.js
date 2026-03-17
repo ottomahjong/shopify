@@ -39,10 +39,9 @@
     const bar = qs('.announcement-bar');
     if (!bar) return;
 
-    const key = 'otto-announcement-dismissed';
-    const msg = bar.dataset.message || 'default';
+    const key = 'ann-dismissed';
 
-    if (localStorage.getItem(key) === msg) {
+    if (sessionStorage.getItem(key)) {
       bar.classList.add('is-hidden');
       return;
     }
@@ -50,7 +49,7 @@
     const closeBtn = qs('.announcement-bar__close', bar);
     on(closeBtn, 'click', function () {
       bar.classList.add('is-hidden');
-      localStorage.setItem(key, msg);
+      sessionStorage.setItem(key, '1');
     });
   }
 
