@@ -1522,7 +1522,7 @@ input:focus-visible {
    ============================================================ */
 /* --- FAQ ACCORDION --- */
 .faq-accordion {
-  background-color: var(--cream);
+  background-color: var(--warm-white);
   padding: var(--space-12) 0;
 }
 
@@ -2681,11 +2681,19 @@ input:focus-visible {
   display: grid;
   grid-template-columns: 1fr;
   min-height: calc(100svh - var(--header-h));
+  align-items: stretch;
 }
 
 @media (min-width: 1024px) {
   .hero-split__grid {
     grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-split__grid {
+    min-height: auto;
   }
 }
 
@@ -3389,5 +3397,382 @@ input:focus-visible {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  .faq-answer { transition: none !important; }
+  .faq-icon   { transition: none !important; }
+}
+
+/* ============================================================
+   51. DEPTH LAYER SYSTEM — Epic Design
+   ============================================================ */
+[data-depth] { position: relative; }
+.depth-0 { z-index: 0; }
+.depth-1 { z-index: 1; }
+.depth-2 { z-index: 2; }
+.depth-3 { z-index: 3; }
+.depth-4 { z-index: 4; }
+.depth-5 { z-index: 5; }
+
+/* ============================================================
+   52. IMAGE PLACEHOLDER SYSTEM — Epic Design
+   ============================================================ */
+.img-placeholder {
+  background: rgba(26, 33, 55, 0.04);
+  border: 1.5px dashed var(--linen);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.img-placeholder::after {
+  content: attr(data-label);
+  font-family: var(--font-futura);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--linen);
+  text-align: center;
+  padding: 1rem;
+  pointer-events: none;
+}
+
+.img-placeholder--dark {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.img-placeholder--dark::after {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.img-placeholder--tile {
+  aspect-ratio: 1 / 1;
+}
+
+.img-placeholder--product {
+  aspect-ratio: 3 / 4;
+}
+
+.img-placeholder--portrait {
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+}
+
+/* ============================================================
+   53. HERO TILE GRID
+   ============================================================ */
+.hero-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  width: 100%;
+}
+
+.hero-tile {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--night);
+}
+
+.hero-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-tile--walnut       { background: var(--walnut); }
+.hero-tile--walnut-light { background: var(--walnut-light); }
+
+.hero-tile--warm {
+  background: var(--warm-white);
+  border: 1px solid rgba(26, 33, 55, 0.1);
+}
+
+/* ============================================================
+   54. BRAND STORY — TWO-COLUMN + PILLARS + STORY BLOCKS
+   ============================================================ */
+.brand-story-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: start;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 4vw, 4rem);
+}
+
+@media (min-width: 1024px) {
+  .brand-story-inner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.brand-story-pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 500px) {
+  .brand-story-pillars {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pillar-card {
+  padding: 1.25rem;
+  border: 1px solid rgba(26, 33, 55, 0.1);
+  background: rgba(26, 33, 55, 0.02);
+}
+
+.pillar-label {
+  font-family: var(--font-futura);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--label-ink);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.pillar-desc {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--stone);
+  margin: 0;
+}
+
+.brand-story-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .brand-story-right {
+    position: sticky;
+    top: 5rem;
+  }
+}
+
+.story-block {
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.story-block--walnut { background: var(--accent); }
+.story-block--night  { background: var(--night); }
+
+.story-block p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--bone);
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.story-block-num {
+  position: absolute;
+  bottom: -0.5rem;
+  right: 1rem;
+  font-family: var(--font-futura);
+  font-size: 5rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.06);
+  line-height: 1;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ============================================================
+   55. PRODUCT GRID — CARDS WRAPPER
+   ============================================================ */
+.product-grid-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+@media (max-width: 1200px) {
+  .product-grid-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .product-grid-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .product-grid-cards {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.product-card-body {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.product-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(26, 33, 55, 0.08);
+}
+
+.product-card-name {
+  font-family: var(--font-futura);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: var(--space-2);
+}
+
+.product-card-desc {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--stone);
+  flex: 1;
+}
+
+.product-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.product-badge {
+  font-family: var(--font-futura);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--walnut-on-light);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+.product-price {
+  font-family: var(--font-futura);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.product-price--tbd {
+  color: var(--stone);
+  font-weight: 400;
+}
+
+/* ============================================================
+   56. FAQ ACCORDION — ACCESSIBLE BUTTON PATTERN
+   ============================================================ */
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(26, 33, 55, 0.1);
+  padding: 1.25rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-futura);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+  transition: color var(--duration) var(--ease);
+}
+
+.faq-question:hover {
+  color: var(--walnut-on-light);
+}
+
+.faq-icon {
+  font-family: var(--font-futura);
+  font-size: 1.2rem;
+  color: var(--walnut);
+  flex-shrink: 0;
+  margin-left: 1rem;
+  transition: transform 0.2s;
+  line-height: 1;
+}
+
+.faq-item.is-open .faq-icon {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  overflow: hidden;
+}
+
+.faq-item.is-open .faq-answer {
+  /* JS removes hidden attr; CSS handles visibility via hidden attr */
+}
+
+.faq-answer[hidden] {
+  display: none;
+}
+
+.faq-answer p {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--stone);
+  padding: 1rem 0 1.5rem;
+  margin: 0;
+}
+
+/* ============================================================
+   57. RESPONSIVE OVERFLOW PREVENTION — WCAG 1.4.10
+   ============================================================ */
+html {
+  max-width: 100%;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+h1, h2, h3, p, span, a {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+@media (max-width: 360px) {
+  h1 {
+    font-size: clamp(2rem, 9vw, 3rem) !important;
   }
 }
