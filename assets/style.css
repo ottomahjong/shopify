@@ -904,15 +904,8 @@ input:focus-visible {
 
 /* --- HERO SPLIT --- */
 .hero-split {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 1024px) {
-  .hero-split {
-    grid-template-columns: 1fr 1fr;
-    min-height: 900px;
-  }
+  display: block;
+  position: relative;
 }
 
 /* ============================================================
@@ -2770,14 +2763,23 @@ input:focus-visible {
   display: none;
 }
 
+/* On mobile: hide right panel, show left-panel form + prompt */
 @media (max-width: 1023px) {
   .hero-split__right {
     display: none;
   }
 
   .hero-split__waitlist-prompt,
-  .hero-split__left .waitlist-form {
+  .hero-split__left-form {
     display: block;
+  }
+}
+
+/* On desktop: hide left-panel form + prompt (right panel has them) */
+@media (min-width: 1024px) {
+  .hero-split__waitlist-prompt,
+  .hero-split__left-form {
+    display: none;
   }
 }
 
@@ -4049,14 +4051,5 @@ h1, h2, h3, p, span, a {
   }
 }
 
-/* Hero: on mobile show tile grid stacked above text (brief version) */
-@media (max-width: 1023px) {
-  .hero-split__grid {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .hero-split__left {
-    order: 1;
-  }
-}
+/* Hero grid: single column on mobile (right panel hidden), two columns on desktop */
+/* Handled by .hero-split__grid media query at line ~2687 */

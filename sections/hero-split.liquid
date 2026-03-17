@@ -5,17 +5,11 @@
   aria-labelledby="hero-heading-{{ section.id }}"
 >
 
-  {%- comment -%} DEPTH 0: Background atmosphere (aria-hidden) {%- endcomment -%}
-  <div class="layer depth-0" data-depth="0" aria-hidden="true">
-    <div class="hero-bg-glow"></div>
-  </div>
-
   <div class="hero-split__grid">
 
-    {%- comment -%} LEFT PANEL: depth-4 text, depth-3 form {%- endcomment -%}
+    {%- comment -%} LEFT PANEL {%- endcomment -%}
     <div
       class="hero-split__left"
-      data-depth="4"
       {%- if section.settings.left_bg != blank %}
         style="background-color: {{ section.settings.left_bg }};"
       {%- endif %}
@@ -58,13 +52,14 @@
           </p>
         {%- endif -%}
 
+        {%- comment -%} Mobile-only waitlist prompt + form {%- endcomment -%}
         {%- if section.settings.waitlist_prompt != blank -%}
           <p class="hero-split__waitlist-prompt">
             {{- section.settings.waitlist_prompt -}}
           </p>
         {%- endif -%}
 
-        <div data-depth="3">
+        <div class="hero-split__left-form">
           {% render 'waitlist-form',
             section_id: section.id,
             placeholder: section.settings.email_placeholder,
@@ -76,10 +71,9 @@
       </div>
     </div>
 
-    {%- comment -%} RIGHT PANEL: depth-3 tile grid (aria-hidden — decorative) {%- endcomment -%}
+    {%- comment -%} RIGHT PANEL: tile grid + waitlist form (desktop only) {%- endcomment -%}
     <div
       class="hero-split__right"
-      data-depth="3"
       aria-hidden="true"
       {%- if section.settings.right_bg != blank %}
         style="background-color: {{ section.settings.right_bg }};"
