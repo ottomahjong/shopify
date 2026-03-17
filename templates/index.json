@@ -14,7 +14,7 @@
       "settings": {
         "enabled": true,
         "text": "Otto is currently in development — join the waitlist for early access and presale pricing.",
-        "link_text": "",
+        "link_text": "Join the waitlist →",
         "link_url": "/#waitlist",
         "link_new_tab": false,
         "bg_color": "#8b6f47",
