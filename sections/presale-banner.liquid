@@ -2,6 +2,7 @@
   class="presale-banner section-padding"
   id="waitlist"
   data-section-id="{{ section.id }}"
+  data-depth="4"
   {%- if section.settings.heading != blank or section.settings.heading_italic != blank %}
     aria-labelledby="presale-heading-{{ section.id }}"
   {%- else %}
@@ -42,7 +43,7 @@
           <input type="hidden" name="contact[tags]" value="newsletter,waitlist">
 
           {%- if form.posted_successfully? -%}
-            <p class="presale-banner__success" role="status">
+            <p class="presale-banner__success" role="status" aria-live="polite">
               {{- section.settings.success_message -}}
             </p>
           {%- else -%}
@@ -69,7 +70,7 @@
             </div>
 
             {%- if form.errors -%}
-              <p id="{{ error_id }}" class="presale-banner__error" role="alert">
+              <p id="{{ error_id }}" class="presale-banner__error" role="alert" aria-live="assertive">
                 {{ 'general.email_invalid' | t: default: 'Please enter a valid email address.' }}
               </p>
             {%- endif -%}
