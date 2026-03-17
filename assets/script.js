@@ -39,7 +39,7 @@
     const bar = qs('.announcement-bar');
     if (!bar) return;
 
-    const key = 'ann-dismissed';
+    const key = 'otto-ann-dismissed';
 
     if (sessionStorage.getItem(key)) {
       bar.classList.add('is-hidden');
@@ -133,6 +133,10 @@
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-visible');
+            // Epic Design: remove will-change after animation to free GPU memory
+            entry.target.addEventListener('transitionend', function () {
+              entry.target.style.willChange = 'auto';
+            }, { once: true });
             observer.unobserve(entry.target);
           }
         });
@@ -146,35 +150,48 @@
   }
 
   /* ============================================================
-     FAQ ACCORDION
+     FAQ ACCORDION — WCAG 2.1.1 accessible button pattern
      ============================================================ */
   function initFaqAccordion() {
     const items = qsa('.faq-item');
     if (!items.length) return;
 
+    // Support both .faq-question (new) and [data-faq-trigger] (legacy)
+    function getTrigger(item) {
+      return qs('.faq-question', item) || qs('[data-faq-trigger]', item);
+    }
+
+    function getAnswer(item, trigger) {
+      var ariaControls = trigger && trigger.getAttribute('aria-controls');
+      if (ariaControls) return document.getElementById(ariaControls);
+      return qs('[data-faq-answer]', item);
+    }
+
     function openItem(item) {
-      var trigger = qs('[data-faq-trigger]', item);
-      var answer = qs('[data-faq-answer]', item);
+      var trigger = getTrigger(item);
+      var answer = getAnswer(item, trigger);
       if (!trigger || !answer) return;
       trigger.setAttribute('aria-expanded', 'true');
+      item.classList.add('is-open');
       answer.removeAttribute('hidden');
     }
 
     function closeItem(item) {
-      var trigger = qs('[data-faq-trigger]', item);
-      var answer = qs('[data-faq-answer]', item);
+      var trigger = getTrigger(item);
+      var answer = getAnswer(item, trigger);
       if (!trigger || !answer) return;
       trigger.setAttribute('aria-expanded', 'false');
+      item.classList.remove('is-open');
       answer.setAttribute('hidden', '');
     }
 
     function isOpen(item) {
-      var trigger = qs('[data-faq-trigger]', item);
+      var trigger = getTrigger(item);
       return trigger && trigger.getAttribute('aria-expanded') === 'true';
     }
 
     items.forEach(function (item, index) {
-      var trigger = qs('[data-faq-trigger]', item);
+      var trigger = getTrigger(item);
       if (!trigger) return;
 
       on(trigger, 'click', function () {
@@ -188,24 +205,25 @@
         }
       });
 
+      // WCAG 2.1.1 — Arrow key navigation between items
       on(trigger, 'keydown', function (e) {
         if (e.key === 'ArrowDown') {
           e.preventDefault();
           var next = items[index + 1];
-          if (next) qs('[data-faq-trigger]', next).focus();
+          if (next) { var t = getTrigger(next); if (t) t.focus(); }
         }
         if (e.key === 'ArrowUp') {
           e.preventDefault();
           var prev = items[index - 1];
-          if (prev) qs('[data-faq-trigger]', prev).focus();
+          if (prev) { var t = getTrigger(prev); if (t) t.focus(); }
         }
         if (e.key === 'Home') {
           e.preventDefault();
-          qs('[data-faq-trigger]', items[0]).focus();
+          var t = getTrigger(items[0]); if (t) t.focus();
         }
         if (e.key === 'End') {
           e.preventDefault();
-          qs('[data-faq-trigger]', items[items.length - 1]).focus();
+          var t = getTrigger(items[items.length - 1]); if (t) t.focus();
         }
       });
     });
@@ -553,9 +571,19 @@
   }
 
   /* ============================================================
+     TOUCH DEVICE DETECTION — Epic Design: reduce effects on coarse pointer
+     ============================================================ */
+  function initTouchDetection() {
+    if (window.matchMedia('(pointer: coarse)').matches) {
+      document.documentElement.classList.add('is-touch');
+    }
+  }
+
+  /* ============================================================
      INIT
      ============================================================ */
   function init() {
+    initTouchDetection();
     initAnnouncementBar();
     initStickyHeader();
     initMobileNav();
