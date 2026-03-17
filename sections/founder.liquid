@@ -9,7 +9,7 @@
   <div class="container">
     <div class="founder__layout reveal">
 
-      <div class="founder__content">
+      <div class="founder__content" data-depth="4">
 
         {%- if section.settings.section_label != blank -%}
           <p class="section-label founder__eyebrow">
@@ -40,7 +40,7 @@
 
       </div>
 
-      <div class="founder__image-wrap">
+      <div class="founder__image-wrap" data-depth="3">
         {%- if section.settings.founder_image != blank -%}
           {{- section.settings.founder_image
             | image_url: width: 640
@@ -52,7 +52,11 @@
               alt: section.settings.founder_image.alt | default: section.settings.attribution | default: ''
           -}}
         {%- else -%}
-          <div class="founder__image-wrap--placeholder" aria-hidden="true"></div>
+          <div
+            class="img-placeholder img-placeholder--portrait img-placeholder--dark"
+            data-label="Upload founder photo in Shopify › Customize › Founder Quote"
+            aria-hidden="true">
+          </div>
         {%- endif -%}
       </div>
 
