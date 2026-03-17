@@ -62,11 +62,141 @@
     },
     "products": {
       "type": "product-grid",
+      "blocks": {
+        "flagship_1": {
+          "type": "card",
+          "settings": {
+            "name": "The Tile Set",
+            "name_note": "(Name TBD)",
+            "desc": "160-piece American Mahjong set. Recessed engraving with paint infill. Solid backs stamped with the OTTO mark. Designed to age well.",
+            "price": "$300 – $400 · Waitlist Only",
+            "badge": "Coming Soon",
+            "image_bg": "#2a2520",
+            "collection": "flagship"
+          }
+        },
+        "flagship_2": {
+          "type": "card",
+          "settings": {
+            "name": "The Mat",
+            "desc": "Premium play surface. Sized for four players. Designed to anchor the table, not decorate it.",
+            "price": "$60 – $70 · Waitlist Only",
+            "badge": "Coming Soon",
+            "image_bg": "#c8c0b4",
+            "collection": "flagship"
+          }
+        },
+        "flagship_3": {
+          "type": "card",
+          "settings": {
+            "name": "The Racks",
+            "desc": "Set of four. Solid walnut with satin oil finish. Designed as furniture, not accessories — and sized to match the visual weight of the tile set.",
+            "badge": "Coming Soon",
+            "image_bg": "#d4b896",
+            "collection": "flagship"
+          }
+        },
+        "flagship_4": {
+          "type": "card",
+          "settings": {
+            "name": "The Reference Cards",
+            "desc": "Quick-reference guides for experienced players. In-game rules, hand reading, NMJL card decoder. One per player.",
+            "badge": "Coming Soon",
+            "image_bg": "#e8e0d0",
+            "collection": "flagship"
+          }
+        },
+        "level_1": {
+          "type": "level",
+          "settings": {
+            "num": "Level 01",
+            "title": "The Matcher · Ages 4–6",
+            "desc": "Pure matching. Draw, discard, recognize. No calling, no strategy — just the satisfying click of tiles coming together."
+          }
+        },
+        "level_2": {
+          "type": "level",
+          "settings": {
+            "num": "Level 02",
+            "title": "The Builder · Ages 7–9",
+            "desc": "14-tile hands. Simple sets and sequences. The Charleston introduced as an option. Real strategy, manageable complexity."
+          }
+        },
+        "level_3": {
+          "type": "level",
+          "settings": {
+            "num": "Level 03",
+            "title": "The Strategist · Ages 10–12",
+            "desc": "Full hand selection, calling rules, and wildcard tiles that map directly to Joker logic. One step from the adult game."
+          }
+        },
+        "lt_1": {
+          "type": "card",
+          "settings": {
+            "name": "Little Table Tile Set",
+            "desc": "80 tiles across four suits — Animals, Shapes, Nature, and Numbers. Bold, geometric, built for small hands. No pastels. No cartoon overload.",
+            "badge": "Coming Soon",
+            "image_bg": "#d4c5b0",
+            "collection": "little-table"
+          }
+        },
+        "lt_2": {
+          "type": "card",
+          "settings": {
+            "name": "Little Table Mat",
+            "desc": "Scaled play surface designed for four young players. Soft, durable, and calm enough to live in the same space as the grown-up set.",
+            "badge": "Coming Soon",
+            "image_bg": "#c8d4c0",
+            "collection": "little-table"
+          }
+        },
+        "lt_3": {
+          "type": "card",
+          "settings": {
+            "name": "Little Table Racks",
+            "desc": "Set of four. Wider and shorter than the adult racks — designed for small hands and big concentration. Same material language as Otto.",
+            "badge": "Coming Soon",
+            "image_bg": "#d4b896",
+            "collection": "little-table"
+          }
+        },
+        "lt_4": {
+          "type": "card",
+          "settings": {
+            "name": "Little Table Reference Cards",
+            "desc": "Three level-specific cards plus a parent guide. Icon-forward design for younger players. Grows alongside the child through each level.",
+            "badge": "Coming Soon",
+            "image_bg": "#e0d8cc",
+            "collection": "little-table"
+          }
+        }
+      },
+      "block_order": [
+        "flagship_1",
+        "flagship_2",
+        "flagship_3",
+        "flagship_4",
+        "level_1",
+        "level_2",
+        "level_3",
+        "lt_1",
+        "lt_2",
+        "lt_3",
+        "lt_4"
+      ],
       "settings": {
         "section_label": "The Collection",
         "heading": "Everything at the table.",
         "heading_italic": "Nothing out of place.",
         "intro": "Every Otto component is designed as part of a single system. The tile palette matches the mat. The racks complement the tiles. The whole set speaks one visual language — because it was designed in one conversation, not assembled from separate sources.",
+        "flagship_label": "Otto Mahjong — Flagship Collection",
+        "lt_enable": true,
+        "lt_eyebrow": "Little Table by Otto",
+        "lt_heading": "The table starts",
+        "lt_heading_italic": "young.",
+        "lt_body_1": "Little Table is not a simplified version of Mahjong. It's a stepping-stone game that teaches pattern recognition, matching, and strategic thinking through tile play — so that by the time a child sits down at the full OTTO set, the game already feels natural.",
+        "lt_body_2": "Three levels. Same tiles. Grows with your child from age four through twelve.",
+        "lt_collection_label": "Little Table — Children's Collection",
         "bg_color": "#faf8f4"
       }
     },
