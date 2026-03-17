@@ -1,6 +1,8 @@
 <section
   class="product-grid section-padding"
+  id="products"
   data-section-id="{{ section.id }}"
+  data-depth="4"
   aria-labelledby="product-grid-heading-{{ section.id }}"
   style="background-color: {{ section.settings.bg_color | default: 'var(--warm-white)' }};"
 >
@@ -30,7 +32,7 @@
       </div>
     {%- endif -%}
 
-    <div class="product-grid__grid reveal-stagger">
+    <div class="product-grid-cards reveal-stagger" data-depth="3">
       {%- for block in section.blocks -%}
         {%- if block.type == 'card' and block.settings.collection != 'little-table' and block.settings.name != blank -%}
           <article
@@ -52,7 +54,11 @@
                     alt: block.settings.image.alt | default: block.settings.name | default: ''
                 -}}
               {%- else -%}
-                <div class="product-card__image-placeholder" aria-hidden="true"></div>
+                <div
+                  class="img-placeholder img-placeholder--product"
+                  data-label="Upload: {{ block.settings.name | default: 'product image' }}"
+                  aria-hidden="true">
+                </div>
               {%- endif -%}
 
               {%- if block.settings.badge != blank -%}
@@ -136,7 +142,7 @@
         </div>
       {%- endif -%}
 
-      <div class="product-grid__grid reveal-stagger">
+      <div class="product-grid-cards reveal-stagger" data-depth="3">
         {%- for block in section.blocks -%}
           {%- if block.type == 'card' and block.settings.collection == 'little-table' and block.settings.name != blank -%}
             <article
@@ -158,7 +164,11 @@
                       alt: block.settings.image.alt | default: block.settings.name | default: ''
                   -}}
                 {%- else -%}
-                  <div class="product-card__image-placeholder" aria-hidden="true"></div>
+                  <div
+                  class="img-placeholder img-placeholder--product"
+                  data-label="Upload: {{ block.settings.name | default: 'product image' }}"
+                  aria-hidden="true">
+                </div>
                 {%- endif -%}
 
                 {%- if block.settings.badge != blank -%}
