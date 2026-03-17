@@ -1,6 +1,8 @@
 <section
   class="faq-accordion"
+  id="faq"
   data-section-id="{{ section.id }}"
+  data-depth="4"
   {%- if section.settings.heading != blank %}
     aria-labelledby="faq-heading-{{ section.id }}"
   {%- else %}
@@ -32,7 +34,7 @@
           <div class="faq-item" {{ block.shopify_attributes }}>
             <dt class="faq-item__question">
               <button
-                class="faq-item__button"
+                class="faq-item__button faq-question"
                 type="button"
                 aria-expanded="false"
                 aria-controls="{{ item_id }}"
@@ -41,12 +43,12 @@
                 <span class="faq-item__question-text">
                   {{- block.settings.question | default: 'Question goes here' -}}
                 </span>
-                <span class="faq-item__icon" aria-hidden="true">+</span>
+                <span class="faq-item__icon faq-icon" aria-hidden="true">+</span>
               </button>
             </dt>
             <dd
               id="{{ item_id }}"
-              class="faq-item__answer"
+              class="faq-item__answer faq-answer"
               hidden
               data-faq-answer
             >
