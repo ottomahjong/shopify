@@ -3776,3 +3776,287 @@ h1, h2, h3, p, span, a {
     font-size: clamp(2rem, 9vw, 3rem) !important;
   }
 }
+
+/* ============================================================
+   58. DARK HEADER — matches Figma nav
+   ============================================================ */
+.site-header {
+  background-color: var(--dark-brown);
+  backdrop-filter: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.site-header.is-scrolled {
+  background-color: rgba(42, 37, 32, 0.97);
+  backdrop-filter: blur(12px);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.header-logo-text {
+  color: var(--ivory);
+}
+
+.site-header__logo svg,
+.site-header__logo img {
+  /* SVG logo on dark: invert if it's a black mark */
+  filter: brightness(0) invert(1);
+}
+
+.site-header__nav-link {
+  color: rgba(245, 240, 232, 0.6);
+}
+
+.site-header__nav-link:hover,
+.site-header__nav-link[aria-current="page"] {
+  color: var(--ivory);
+}
+
+.site-header__cta {
+  background-color: var(--walnut);
+  color: var(--ivory);
+  border: 1px solid var(--walnut);
+}
+
+.site-header__cta:hover {
+  background-color: var(--walnut-on-light);
+  border-color: var(--walnut-on-light);
+}
+
+.site-header__hamburger span {
+  background-color: var(--ivory);
+}
+
+.site-header__cart {
+  color: var(--ivory);
+}
+
+/* ============================================================
+   59. RESPONSIVE NAV — hide desktop nav on mobile
+   ============================================================ */
+.site-header__nav {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .site-header__nav {
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* ============================================================
+   60. MOBILE NAV — dark full-screen overlay
+   ============================================================ */
+.mobile-nav {
+  background-color: var(--dark-brown);
+  padding: var(--space-10) var(--space-6);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.mobile-nav__link {
+  font-family: var(--font-sans);
+  font-size: var(--text-2xl);
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: var(--ivory);
+  text-transform: uppercase;
+  display: block;
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: color var(--duration) var(--ease);
+}
+
+.mobile-nav__link:hover {
+  color: var(--walnut-on-dark);
+}
+
+.mobile-nav__item--cta {
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: none;
+}
+
+.mobile-nav__item--cta a {
+  display: inline-flex;
+  background-color: var(--walnut);
+  color: var(--ivory);
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: var(--space-3) var(--space-6);
+  border: 1px solid var(--walnut);
+  transition: background-color var(--duration) var(--ease);
+}
+
+.mobile-nav__item--cta a:hover {
+  background-color: var(--walnut-on-light);
+  border-color: var(--walnut-on-light);
+}
+
+.site-header__hamburger[aria-expanded="true"] ~ * + .mobile-nav,
+.mobile-nav:not([hidden]) {
+  display: block;
+}
+
+/* ============================================================
+   61. HERO RIGHT PANEL — space-between layout + portrait tiles
+   ============================================================ */
+.hero-split__right {
+  justify-content: space-between;
+  align-items: stretch;
+  padding-top: 0;
+}
+
+.hero-tile-grid {
+  flex: 1;
+  align-content: start;
+  padding-top: var(--space-6);
+}
+
+.hero-tile {
+  aspect-ratio: 3 / 4;
+}
+
+@media (min-width: 1024px) {
+  .hero-tile-grid {
+    padding-top: var(--space-10);
+  }
+}
+
+/* ============================================================
+   62. FOUNDER SECTION — light background text overrides
+   ============================================================ */
+.founder {
+  background-color: var(--cream);
+}
+
+.founder__quote {
+  color: var(--ink);
+}
+
+.founder__body p {
+  color: var(--stone);
+}
+
+.founder__eyebrow {
+  color: var(--walnut-on-light);
+}
+
+/* ============================================================
+   63. PRODUCT GRID — section bg alignment
+   ============================================================ */
+.product-grid {
+  background-color: var(--cream);
+}
+
+/* ============================================================
+   64. GLOBAL RESPONSIVENESS — site-wide mobile improvements
+   ============================================================ */
+
+/* Fluid font scaling on small screens */
+@media (max-width: 768px) {
+  .hero-split__heading {
+    font-size: clamp(2rem, 8vw, 3.5rem);
+  }
+
+  .brand-story__heading {
+    font-size: clamp(1.6rem, 6vw, 2rem);
+  }
+
+  .product-grid__heading {
+    font-size: clamp(1.6rem, 6vw, 2rem);
+  }
+
+  .presale-banner__heading {
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
+  }
+
+  .faq-accordion__heading {
+    font-size: clamp(1.6rem, 6vw, 2rem);
+  }
+
+  .product-grid-cards {
+    gap: 1rem;
+  }
+
+  .brand-story-pillars {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+/* Prevent content from touching screen edges at all sizes */
+@media (max-width: 480px) {
+  .hero-split__left {
+    padding: var(--space-10) var(--space-6);
+  }
+
+  .brand-story-inner {
+    padding: 0 var(--space-5);
+  }
+
+  .presale-banner {
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+  }
+
+  .faq-accordion > .container {
+    gap: var(--space-6);
+  }
+
+  .product-grid-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .brand-story-pillars {
+    grid-template-columns: 1fr;
+  }
+
+  .founder__body {
+    flex-direction: column;
+  }
+}
+
+/* Touch-friendly tap targets */
+@media (pointer: coarse) {
+  .site-header__hamburger {
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .mobile-nav__link {
+    padding: var(--space-4) 0;
+    font-size: var(--text-xl);
+  }
+
+  .faq-question {
+    padding: var(--space-5) 0;
+    min-height: 44px;
+  }
+}
+
+/* Large screen: cap product grid at 4 columns */
+@media (min-width: 1280px) {
+  .product-grid-cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Hero: on mobile show tile grid stacked above text (brief version) */
+@media (max-width: 1023px) {
+  .hero-split__grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-split__left {
+    order: 1;
+  }
+}

@@ -23,6 +23,20 @@
     },
     "hero": {
       "type": "hero-split",
+      "blocks": {
+        "tile_1": { "type": "tile", "settings": {} },
+        "tile_2": { "type": "tile", "settings": {} },
+        "tile_3": { "type": "tile", "settings": {} },
+        "tile_4": { "type": "tile", "settings": {} },
+        "tile_5": { "type": "tile", "settings": {} },
+        "tile_6": { "type": "tile", "settings": {} },
+        "tile_7": { "type": "tile", "settings": {} },
+        "tile_8": { "type": "tile", "settings": {} }
+      },
+      "block_order": [
+        "tile_1", "tile_2", "tile_3", "tile_4",
+        "tile_5", "tile_6", "tile_7", "tile_8"
+      ],
       "settings": {
         "eyebrow": "American Mahjong · A Considered Set",
         "heading_line_1": "Four people.",
@@ -33,8 +47,8 @@
         "waitlist_prompt": "Be first to the table.",
         "email_placeholder": "your@email.com",
         "button_label": "Join Waitlist",
-        "left_bg": "#1A2137",
-        "right_bg": "#E8EEF2"
+        "left_bg": "#1A1A1C",
+        "right_bg": "#E8DDD0"
       }
     },
     "brand-story": {
@@ -109,7 +123,7 @@
         "body_1": "I came to Mahjong late. My sister taught me, sitting across a table that had been in her house for years. Within twenty minutes I understood why. The game is cognitively demanding in the best way — pattern recognition, flexible strategy, constrained creativity. It mirrors how I think when I'm designing.",
         "body_2": "What I couldn't find was a set that matched the feeling — or the room, or the people in it. The sets that existed were beautiful, but they weren't built for my home, my partner, or the way I wanted to use them. Otto is the set I wanted to buy and couldn't. Every component designed together, as one object. Calm. Considered. Built to stay on the table.",
         "attribution": "Kelly Phillips · Founder, Otto Mahjong",
-        "bg_color": "#1A2137"
+        "bg_color": "#f0e8dc"
       }
     },
     "products": {
@@ -249,7 +263,7 @@
         "lt_body_1": "Little Table is not a simplified version of Mahjong. It's a stepping-stone game that teaches pattern recognition, matching, and strategic thinking through tile play — so that by the time a child sits down at the full OTTO set, the game already feels natural.",
         "lt_body_2": "Three levels. Same tiles. Grows with your child from age four through twelve.",
         "lt_collection_label": "Little Table — Children's Collection",
-        "bg_color": "#E8EEF2"
+        "bg_color": "#faf8f4"
       }
     },
     "waitlist": {
