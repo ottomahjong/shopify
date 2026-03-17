@@ -991,6 +991,10 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
+.hero-split__left .waitlist-form {
+  display: none;
+}
+
 /* Right panel */
 .hero-split__right {
   background-color: var(--bone);
@@ -1049,7 +1053,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.65rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--stone-on-dark);
+  color: var(--dark-brown);
   margin-bottom: var(--space-4);
   line-height: 1.8;
 }
@@ -1171,16 +1175,6 @@ h1, h2, h3, h4, h5, h6 {
   padding: 48px;
   overflow: hidden;
   flex: 1;
-}
-
-.brand-story__number-block--walnut {
-  background: var(--dark-brown);
-  background-image: linear-gradient(135deg, rgba(139,111,71,0.15) 0%, rgba(139,111,71,0) 60%);
-}
-
-.brand-story__number-block--night {
-  background: var(--gold);
-  background-image: linear-gradient(135deg, rgba(139,111,71,0.15) 0%, rgba(139,111,71,0) 60%);
 }
 
 .brand-story__num-label {

@@ -72,14 +72,14 @@
           "type": "story_block",
           "settings": {
             "text": "\"Most sets are beautiful. But the tiles came from one place, the mat from another, the racks from a third. Otto is different: every component was designed in the same conversation, so everything on the table looks like it belongs there.\"",
-            "theme": "walnut"
+            "theme": "night"
           }
         },
         "story_2": {
           "type": "story_block",
           "settings": {
             "text": "\"Mid-century modern isn't just an aesthetic reference. It's a philosophy: functional, democratic, built to last. Otto tiles are objects designed with the same intention as the room they live in — and the people around them.\"",
-            "theme": "night"
+            "theme": "walnut"
           }
         }
       },
