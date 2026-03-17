@@ -1,81 +1,79 @@
 <section
   class="brand-story section-padding"
+  id="story"
   data-section-id="{{ section.id }}"
   aria-labelledby="brand-story-heading-{{ section.id }}"
+  data-depth="4"
   {%- if section.settings.bg_color != blank %}
     style="background-color: {{ section.settings.bg_color }};"
   {%- endif %}
 >
-  <div class="container">
-    <div class="brand-story__layout">
 
-      {%- comment -%} LEFT COLUMN — intro text + pillar cards {%- endcomment -%}
-      <div class="brand-story__left">
+  <div class="brand-story-inner">
 
-        <div class="brand-story__intro reveal">
-          {%- if section.settings.section_label != blank -%}
-            <p class="section-label">{{ section.settings.section_label }}</p>
+    {%- comment -%} LEFT: eyebrow + heading + body + pillar grid (depth-4 text, depth-2 pillars) {%- endcomment -%}
+    <div class="brand-story-left">
+
+      <div class="brand-story__intro reveal" data-depth="4">
+        {%- if section.settings.section_label != blank -%}
+          <p class="section-label">{{ section.settings.section_label }}</p>
+        {%- endif -%}
+
+        <h2 id="brand-story-heading-{{ section.id }}" class="brand-story__heading">
+          {{- section.settings.heading -}}
+          {%- if section.settings.heading_italic != blank -%}
+            <br><em>{{ section.settings.heading_italic }}</em>
           {%- endif -%}
+        </h2>
 
-          <h2 id="brand-story-heading-{{ section.id }}" class="brand-story__heading">
-            {{- section.settings.heading -}}
-            {%- if section.settings.heading_italic != blank -%}
-              <br><em>{{ section.settings.heading_italic }}</em>
-            {%- endif -%}
-          </h2>
-
-          <div class="brand-story__body-text">
-            {%- if section.settings.body_1 != blank -%}
-              <p>{{ section.settings.body_1 }}</p>
-            {%- endif -%}
-            {%- if section.settings.body_2 != blank -%}
-              <p>{{ section.settings.body_2 }}</p>
-            {%- endif -%}
-            {%- if section.settings.body_3 != blank -%}
-              <p>{{ section.settings.body_3 }}</p>
-            {%- endif -%}
-          </div>
+        <div class="brand-story__body-text">
+          {%- if section.settings.body_1 != blank -%}
+            <p>{{ section.settings.body_1 }}</p>
+          {%- endif -%}
+          {%- if section.settings.body_2 != blank -%}
+            <p>{{ section.settings.body_2 }}</p>
+          {%- endif -%}
+          {%- if section.settings.body_3 != blank -%}
+            <p>{{ section.settings.body_3 }}</p>
+          {%- endif -%}
         </div>
-
-        <div class="brand-story__pillars reveal-stagger">
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'pillar' -%}
-              {%- if block.settings.label != blank -%}
-                <div class="brand-story__pillar" {{ block.shopify_attributes }}>
-                  <p class="brand-story__pillar-label section-label">{{ block.settings.label }}</p>
-                  {%- if block.settings.description != blank -%}
-                    <p class="brand-story__pillar-desc">{{ block.settings.description }}</p>
-                  {%- endif -%}
-                </div>
-              {%- endif -%}
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
-
       </div>
 
-      {%- comment -%} RIGHT COLUMN — numbered story blocks {%- endcomment -%}
-      <div class="brand-story__right">
-        {%- assign story_index = 0 -%}
+      {%- comment -%} PILLAR GRID: depth-2 decorative cards {%- endcomment -%}
+      <div class="brand-story-pillars reveal-stagger" data-depth="2">
         {%- for block in section.blocks -%}
-          {%- if block.type == 'story_block' and block.settings.text != blank -%}
-            {%- assign story_index = story_index | plus: 1 -%}
-            <div
-              class="brand-story__number-block brand-story__number-block--{{ block.settings.theme }} reveal"
-              {{ block.shopify_attributes }}
-            >
-              <span class="brand-story__num-label" aria-hidden="true">
-                {%- if story_index < 10 %}0{%- endif %}{{ story_index }}
-              </span>
-              <div class="brand-story__pull-text">
-                <p>{{ block.settings.text }}</p>
-              </div>
+          {%- if block.type == 'pillar' and block.settings.label != blank -%}
+            <div class="pillar-card reveal" {{ block.shopify_attributes }}>
+              <span class="pillar-label">{{ block.settings.label }}</span>
+              {%- if block.settings.description != blank -%}
+                <p class="pillar-desc">{{ block.settings.description }}</p>
+              {%- endif -%}
             </div>
           {%- endif -%}
         {%- endfor -%}
       </div>
 
     </div>
+
+    {%- comment -%} RIGHT: story blocks (depth-3 featured content) {%- endcomment -%}
+    <div class="brand-story-right" data-depth="3">
+      {%- assign story_index = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'story_block' and block.settings.text != blank -%}
+          {%- assign story_index = story_index | plus: 1 -%}
+          <div
+            class="story-block story-block--{{ block.settings.theme }} reveal"
+            {{ block.shopify_attributes }}
+          >
+            <span class="story-block-num" aria-hidden="true">
+              {%- if story_index < 10 %}0{%- endif %}{{ story_index }}
+            </span>
+            <p>{{ block.settings.text }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
   </div>
 </section>
 
@@ -167,7 +165,7 @@
           "id": "theme",
           "label": "Color theme",
           "options": [
-            { "value": "walnut", "label": "Walnut" },
+            { "value": "walnut", "label": "Walnut (dark accent)" },
             { "value": "night",  "label": "Night Navy" }
           ],
           "default": "walnut"
@@ -183,14 +181,14 @@
           "type": "pillar",
           "settings": {
             "label": "One System",
-            "description": "Tiles, mat, racks, and accessories designed together. Not sourced separately and assembled. The visual language is consistent because the design process was unified from the start."
+            "description": "Tiles, mat, racks, and accessories designed together. Not sourced separately and assembled."
           }
         },
         {
           "type": "pillar",
           "settings": {
             "label": "Built to Play",
-            "description": "Not a collector's piece. An object that earns its place through use, not display. Designed to be handled dozens of times per game — and to feel like it."
+            "description": "Not a collector's piece. An object that earns its place through use, not display."
           }
         },
         {
