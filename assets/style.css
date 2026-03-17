@@ -501,6 +501,46 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Mobile nav (used by header.liquid) */
+.mobile-nav {
+  position: fixed;
+  inset: 0;
+  top: var(--header-h);
+  background-color: var(--cream);
+  z-index: 99;
+  overflow-y: auto;
+  padding: var(--space-8) var(--space-6);
+}
+
+.mobile-nav[hidden] {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .mobile-nav {
+    display: none !important;
+  }
+}
+
+.mobile-nav__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.mobile-nav__link {
+  font-family: var(--font-serif);
+  font-size: var(--text-3xl);
+  color: var(--ink);
+  display: block;
+}
+
+.mobile-nav__item--cta {
+  margin-top: var(--space-4);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--bone);
+}
+
 .mobile-menu__nav {
   display: flex;
   flex-direction: column;
