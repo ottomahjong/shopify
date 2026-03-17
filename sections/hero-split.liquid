@@ -1,13 +1,21 @@
 <section
   class="hero-split"
+  id="hero"
   data-section-id="{{ section.id }}"
   aria-labelledby="hero-heading-{{ section.id }}"
 >
+
+  {%- comment -%} DEPTH 0: Background atmosphere (aria-hidden) {%- endcomment -%}
+  <div class="layer depth-0" data-depth="0" aria-hidden="true">
+    <div class="hero-bg-glow"></div>
+  </div>
+
   <div class="hero-split__grid">
 
-    {%- comment -%} LEFT PANEL {%- endcomment -%}
+    {%- comment -%} LEFT PANEL: depth-4 text, depth-3 form {%- endcomment -%}
     <div
       class="hero-split__left"
+      data-depth="4"
       {%- if section.settings.left_bg != blank %}
         style="background-color: {{ section.settings.left_bg }};"
       {%- endif %}
@@ -56,43 +64,55 @@
           </p>
         {%- endif -%}
 
-        {% render 'waitlist-form',
-          section_id: section.id,
-          placeholder: section.settings.email_placeholder,
-          button_label: section.settings.button_label,
-          dark: true
-        %}
+        <div data-depth="3">
+          {% render 'waitlist-form',
+            section_id: section.id,
+            placeholder: section.settings.email_placeholder,
+            button_label: section.settings.button_label,
+            dark: true
+          %}
+        </div>
 
       </div>
     </div>
 
-    {%- comment -%} RIGHT PANEL — tile grid {%- endcomment -%}
+    {%- comment -%} RIGHT PANEL: depth-3 tile grid (aria-hidden — decorative) {%- endcomment -%}
     <div
       class="hero-split__right"
+      data-depth="3"
+      aria-hidden="true"
       {%- if section.settings.right_bg != blank %}
         style="background-color: {{ section.settings.right_bg }};"
       {%- endif %}
     >
-      <div class="hero-split__tile-grid">
+
+      {%- comment -%} TILE GRID: 4×2, 8 image slots {%- endcomment -%}
+      <div class="hero-tile-grid">
         {%- for block in section.blocks -%}
           {%- if block.type == 'tile' -%}
-            {%- assign tile_loading = 'lazy' -%}
-            {%- if forloop.index <= 2 -%}
-              {%- assign tile_loading = 'eager' -%}
-            {%- endif -%}
-            <div class="hero-split__tile" {{ block.shopify_attributes }}>
+            {%- assign tile_index = forloop.index -%}
+            {%- assign tile_class = 'hero-tile' -%}
+            {%- if tile_index == 3 -%}{%- assign tile_class = 'hero-tile hero-tile--walnut' -%}{%- endif -%}
+            {%- if tile_index == 5 -%}{%- assign tile_class = 'hero-tile hero-tile--walnut-light' -%}{%- endif -%}
+            {%- if tile_index == 2 or tile_index == 6 -%}{%- assign tile_class = 'hero-tile hero-tile--warm' -%}{%- endif -%}
+
+            <div class="{{ tile_class }}" {{ block.shopify_attributes }}>
               {%- if block.settings.image != blank -%}
                 {{- block.settings.image
-                  | image_url: width: 600
+                  | image_url: width: 300
                   | image_tag:
-                    loading: tile_loading,
-                    class: 'hero-split__tile-img',
-                    widths: '200, 400, 600',
+                    loading: 'eager',
+                    class: 'hero-tile__img',
                     width: 300,
-                    alt: block.settings.alt | default: block.settings.image.alt | default: ''
+                    height: 300,
+                    alt: ''
                 -}}
               {%- else -%}
-                <div class="hero-split__tile-placeholder" aria-hidden="true"></div>
+                <div
+                  class="img-placeholder img-placeholder--tile img-placeholder--dark"
+                  data-label="Tile {{ tile_index }}"
+                  aria-hidden="true">
+                </div>
               {%- endif -%}
             </div>
           {%- endif -%}
@@ -112,6 +132,7 @@
           dark: false
         %}
       </div>
+
     </div>
 
   </div>
@@ -216,7 +237,7 @@
           "type": "text",
           "id": "alt",
           "label": "Alt text",
-          "info": "Describes the image for screen readers. Leave blank to use the image's built-in alt text."
+          "info": "Describe the image for accessibility. Leave blank if decorative."
         }
       ]
     }
