@@ -307,6 +307,7 @@
         },
         "faq_4": {
           "type": "faq_item",
+          "disabled": true,
           "settings": {
             "question": "What is Little Table?",
             "answer": "<p>A children's tile game designed as a stepping stone toward Mahjong. Four suits, three levels, ages 4–12. Not simplified Mahjong — its own complete game, designed by Otto.</p>"
