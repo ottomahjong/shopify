@@ -11,32 +11,19 @@
   "sections": {
     "announcement": {
       "type": "announcement-bar",
+      "disabled": true,
       "settings": {
         "enabled": true,
         "text": "Otto is currently in development — join the waitlist for early access and presale pricing.",
         "link_text": "Join the waitlist →",
         "link_url": "/#waitlist",
         "link_new_tab": false,
-        "bg_color": "#163224",
-        "text_color": "#D5A896"
+        "bg_color": "#1a2137",
+        "text_color": "#d5a896"
       }
     },
     "hero": {
       "type": "hero-split",
-      "blocks": {
-        "tile_1": { "type": "tile", "settings": {} },
-        "tile_2": { "type": "tile", "settings": {} },
-        "tile_3": { "type": "tile", "settings": {} },
-        "tile_4": { "type": "tile", "settings": {} },
-        "tile_5": { "type": "tile", "settings": {} },
-        "tile_6": { "type": "tile", "settings": {} },
-        "tile_7": { "type": "tile", "settings": {} },
-        "tile_8": { "type": "tile", "settings": {} }
-      },
-      "block_order": [
-        "tile_1", "tile_2", "tile_3", "tile_4",
-        "tile_5", "tile_6", "tile_7", "tile_8"
-      ],
       "settings": {
         "eyebrow": "American Mahjong · A Considered Set",
         "heading_line_1": "Four people.",
@@ -47,8 +34,8 @@
         "waitlist_prompt": "Be first to the table.",
         "email_placeholder": "your@email.com",
         "button_label": "Join Waitlist",
-        "left_bg": "#1A1A1C",
-        "right_bg": "#E8DDD0"
+        "left_bg": "#1a1a1c",
+        "right_bg": "#e8ddd0"
       }
     },
     "brand-story": {
@@ -132,12 +119,13 @@
         "flagship_1": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/Vignette_Angled_Close_Up_3.jpg",
             "name": "The Tile Set",
-            "name_note": "(Name TBD)",
+            "name_note": "Vignette",
             "desc": "160-piece American Mahjong set. Recessed engraving with paint infill. Solid backs stamped with the OTTO mark. Designed to age well.",
             "price": "$300 – $400 · Waitlist Only",
             "badge": "Coming Soon",
-            "image_bg": "#1A2137",
+            "image_bg": "#1a2137",
             "collection": "flagship"
           }
         },
@@ -145,6 +133,7 @@
           "type": "card",
           "settings": {
             "name": "The Mat",
+            "name_note": "",
             "desc": "Premium play surface. Sized for four players. Designed to anchor the table, not decorate it.",
             "price": "$60 – $70 · Waitlist Only",
             "badge": "Coming Soon",
@@ -156,7 +145,9 @@
           "type": "card",
           "settings": {
             "name": "The Racks",
+            "name_note": "",
             "desc": "Set of four. Solid walnut with satin oil finish. Designed as furniture, not accessories — and sized to match the visual weight of the tile set.",
+            "price": "",
             "badge": "Coming Soon",
             "image_bg": "#d4b896",
             "collection": "flagship"
@@ -166,9 +157,11 @@
           "type": "card",
           "settings": {
             "name": "The Reference Cards",
+            "name_note": "",
             "desc": "Quick-reference guides for experienced players. In-game rules, hand reading, NMJL card decoder. One per player.",
+            "price": "",
             "badge": "Coming Soon",
-            "image_bg": "#E8EEF2",
+            "image_bg": "#e8eef2",
             "collection": "flagship"
           }
         },
@@ -200,7 +193,9 @@
           "type": "card",
           "settings": {
             "name": "Little Table Tile Set",
+            "name_note": "",
             "desc": "80 tiles across four suits — Animals, Shapes, Nature, and Numbers. Bold, geometric, built for small hands. No pastels. No cartoon overload.",
+            "price": "",
             "badge": "Coming Soon",
             "image_bg": "#d4c5b0",
             "collection": "little-table"
@@ -210,7 +205,9 @@
           "type": "card",
           "settings": {
             "name": "Little Table Mat",
+            "name_note": "",
             "desc": "Scaled play surface designed for four young players. Soft, durable, and calm enough to live in the same space as the grown-up set.",
+            "price": "",
             "badge": "Coming Soon",
             "image_bg": "#c8d4c0",
             "collection": "little-table"
@@ -220,7 +217,9 @@
           "type": "card",
           "settings": {
             "name": "Little Table Racks",
+            "name_note": "",
             "desc": "Set of four. Wider and shorter than the adult racks — designed for small hands and big concentration. Same material language as Otto.",
+            "price": "",
             "badge": "Coming Soon",
             "image_bg": "#d4b896",
             "collection": "little-table"
@@ -230,7 +229,9 @@
           "type": "card",
           "settings": {
             "name": "Little Table Reference Cards",
+            "name_note": "",
             "desc": "Three level-specific cards plus a parent guide. Icon-forward design for younger players. Grows alongside the child through each level.",
+            "price": "",
             "badge": "Coming Soon",
             "image_bg": "#e0d8cc",
             "collection": "little-table"
