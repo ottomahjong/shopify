@@ -56,7 +56,7 @@
           "logo_image": "shopify://shop_images/Otto_Mahjong_Wordmark.svg",
           "logo_width": 120,
           "logo_alt": "Otto Mahjong",
-          "nav_menu": "main-menu",
+          "nav_menu": "",
           "cta_label": "Join Waitlist",
           "cta_url": "",
           "sticky": true,
@@ -69,6 +69,26 @@
           "brand_name": "OTTO | One Table. Three Others.",
           "tagline": "",
           "copyright_text": "© 2026 Otto Mahjong. All rights reserved."
+        }
+      },
+      "page-about": {
+        "type": "page-about",
+        "settings": {
+          "eyebrow": "Our Story",
+          "heading": "Made for the table you care about.",
+          "lead": "Otto was born at a kitchen table in San Francisco, from a simple question: why does every mahjong set look the same?",
+          "story_eyebrow": "The Making Of",
+          "story_heading": "Quality that earns its place on the shelf.",
+          "story_body": "<p>Every component of Otto is considered. From the weight of each tile to the grain direction on the case — nothing is arbitrary.</p>",
+          "value_1_num": "01",
+          "value_1_title": "Design First",
+          "value_1_body": "We believe beautiful objects change how you interact with them. Otto starts with aesthetics and works backward.",
+          "value_2_num": "02",
+          "value_2_title": "Made to Last",
+          "value_2_body": "We use materials rated for decades of play. Otto is meant to be passed down, not replaced.",
+          "value_3_num": "03",
+          "value_3_title": "Community Rooted",
+          "value_3_body": "Mahjong is communal. Every design decision is made to honor the ritual of gathering around a table."
         }
       }
     },
