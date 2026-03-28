@@ -257,7 +257,7 @@
         "heading_italic": "Nothing out of place.",
         "intro": "Every Otto component is designed as part of a single system. The tile palette matches the mat. The racks complement the tiles. The whole set speaks one visual language — because it was designed in one conversation, not assembled from separate sources.",
         "flagship_label": "Otto Mahjong — Flagship Collection",
-        "lt_enable": true,
+        "lt_enable": false,
         "lt_eyebrow": "Little Table by Otto",
         "lt_heading": "The table starts",
         "lt_heading_italic": "young.",
@@ -278,7 +278,7 @@
         "email_placeholder": "your@email.com",
         "success_message": "You're on the list. We'll be in touch first.",
         "note": "No spam. No noise. Just Otto updates when they matter.",
-        "bg_color": "#163224"
+        "bg_color": "#1a1a1c"
       }
     },
     "faq": {
