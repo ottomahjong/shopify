@@ -131,6 +131,7 @@
         },
         "flagship_2": {
           "type": "card",
+          "disabled": true,
           "settings": {
             "name": "The Mat",
             "name_note": "",
@@ -143,6 +144,7 @@
         },
         "flagship_3": {
           "type": "card",
+          "disabled": true,
           "settings": {
             "name": "The Racks",
             "name_note": "",
