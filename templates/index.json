@@ -99,7 +99,7 @@
         "body_1": "The first time you sit at a Mahjong table, something shifts. The tiles demand your attention. The strategy requires your focus. The clack of the draw, the rhythm of the discard — it creates a container for presence that almost nothing else does.",
         "body_2": "Otto was built from that moment. Not to reinvent Mahjong — a game with deep Chinese roots and a rich American tradition deserves respect, not a rebrand — but to create a set worthy of how the game actually feels.",
         "body_3": "An object that belongs in your home. One that everyone at the table — not just the person who bought it — actually wants to be near.",
-        "bg_color": ""
+        "bg_color": "#faf8f4"
       }
     },
     "founder": {
@@ -339,7 +339,7 @@
       "settings": {
         "section_label": "Questions",
         "heading": "What people ask before they join.",
-        "bg_color": ""
+        "bg_color": "#faf8f4"
       }
     }
   },
