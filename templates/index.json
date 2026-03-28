@@ -25,12 +25,12 @@
     "hero": {
       "type": "hero-split",
       "settings": {
-        "eyebrow": "American Mahjong · A Considered Set",
+        "eyebrow": "A Considered Set",
         "heading_line_1": "Four people.",
         "heading_line_2": "One table.",
         "heading_line_3": "Nothing else.",
         "subheading": "Otto is a design-forward American Mahjong set built for people who care about what sits on their shelves — and everyone at their table. Every component designed together, as one system.",
-        "brand_line": "Otto — One Table. Three Others.",
+        "brand_line": "Otto | One Table. Three Others.",
         "waitlist_prompt": "Be first to the table.",
         "email_placeholder": "your@email.com",
         "button_label": "Join Waitlist",
