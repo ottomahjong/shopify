@@ -153,18 +153,6 @@
             "collection": "flagship"
           }
         },
-        "flagship_4": {
-          "type": "card",
-          "settings": {
-            "name": "The Reference Cards",
-            "name_note": "",
-            "desc": "Quick-reference guides for experienced players. In-game rules, hand reading, NMJL card decoder. One per player.",
-            "price": "",
-            "badge": "Coming Soon",
-            "image_bg": "#e8eef2",
-            "collection": "flagship"
-          }
-        },
         "level_1": {
           "type": "level",
           "settings": {
@@ -242,7 +230,6 @@
         "flagship_1",
         "flagship_2",
         "flagship_3",
-        "flagship_4",
         "level_1",
         "level_2",
         "level_3",
