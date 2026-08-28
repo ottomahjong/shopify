@@ -120,12 +120,7 @@
             {{- section.settings.waitlist_prompt -}}
           </p>
         {%- endif -%}
-        {% render 'waitlist-form',
-          section_id: section.id | append: '-right',
-          placeholder: section.settings.email_placeholder,
-          button_label: section.settings.button_label,
-          dark: false
-        %}
+        {% render 'waitlist-form', section_id: section.id, append: '-right', placeholder: section.settings.email_placeholder, button_label: section.settings.button_label, dark: false %}
       </div>
 
     </div>
@@ -255,3 +250,21 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {% render 'waitlist-form',
+              section_id: section.id | append: '-right',
+              placeholder: section.settings.email_placeholder,
+              button_label: section.settings.button_label,
+              dark: false
+            %}
+  to: "{% render 'waitlist-form', section_id: section.id, append: '-right', placeholder:
+    section.settings.email_placeholder, button_label: section.settings.button_label,
+    dark: false %}"
+  position: 4418..4595
+{% endcomment %}
